@@ -1,0 +1,1 @@
+<tiles:insertAttribute xmlns:tiles="http://tiles.apache.org/tags-tiles"  name="body" />

@@ -1,0 +1,54 @@
+<div xmlns:spring="http://www.springframework.org/tags" xmlns:util="urn:jsptagdir:/WEB-INF/tags/util"
+     xmlns:jsp="http://java.sun.com/JSP/Page" version="2.0" xmlns:form="http://www.springframework.org/tags/form" xmlns:field="urn:jsptagdir:/WEB-INF/tags/form/fields">
+
+    <jsp:directive.page contentType="text/html;charset=UTF-8" />
+    <jsp:output omit-xml-declaration="yes" />
+
+    <spring:url value="/j_spring_security_check" var="loginUrl">
+    </spring:url>
+
+    <spring:message code="label_login_page" var="title" />
+
+    <util:panel id="title" title="${title}">
+
+        <h3 style="text-align: center">
+            <spring:message code="label_login" var="login"/>
+            <spring:message code="message_company_name" />
+        </h3>
+
+
+
+        <form method="post" action="${loginUrl}">
+
+            <div class="center three_fourth_wide">
+
+                <spring:url value="/images/logo.png" var="logo_url" />
+                <img src="${logo_url}" id="logo_main" />
+
+                <table class="halfwide noborder">
+                    <tr>
+                        <!--td rowspan="3" border="0" style="border: none">
+
+                        </td-->
+                        <td><label for="j_username"><spring:message code="label_form_username"/></label></td>
+                        <td><input name="j_username" type="text" /></td>
+                    </tr>
+                    <tr>
+                        <td><label for="j_password"><spring:message code="label_form_password"/></label></td>
+                        <td><input type="password" name="j_password" /></td>
+                    </tr>
+                    <!--tr> TODO запомнить меня
+                        <td><label for="_spring_security_remember_me"><spring:message code="label_form_remember_me"/></label></td>
+                        <td><input type="checkbox" name="_spring_security_remember_me" /></td>
+                    </tr-->
+                    <tr>
+                        <td></td>
+                        <td><input type="submit" value="${login}" /></td>
+                    </tr>
+                </table>
+
+            </div>
+        </form>
+
+    </util:panel>
+</div>

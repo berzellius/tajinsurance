@@ -1,0 +1,521 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<div xmlns:fmt="http://java.sun.com/jsp/jstl/fmt" xmlns:c="http://java.sun.com/jsp/jstl/core"
+     xmlns:field="urn:jsptagdir:/WEB-INF/tags/form/fields" xmlns:form="urn:jsptagdir:/WEB-INF/tags/form"
+     xmlns:jsp="http://java.sun.com/JSP/Page" xmlns:spring="http://www.springframework.org/tags"
+     xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+     xmlns:sec="http://www.springframework.org/security/tags"
+     xmlns:util="urn:jsptagdir:/WEB-INF/tags/util"
+     version="2.0">
+<jsp:directive.page contentType="text/html;charset=UTF-8"/>
+<jsp:output omit-xml-declaration="yes"/>
+
+
+<spring:url value="/" var="prefix"/>
+
+<c:if test="${not empty print_claim}">
+    <script type="text/javascript">
+        <![CDATA[
+            setTimeout(
+                    function () {
+                        window.open(urlPrefix + "persons?print_claim&id="
+                                + $('form#contract input[name=person]').val() + "&cid=" +
+                                $('form#contract input[name=id]').val());
+
+
+                        return;
+                    },
+                    1000
+            );
+        ]]>
+    </script>
+</c:if>
+
+<spring:message code="label_contract_edit_title" var="title"/>
+<form:update title="${title}" id="fc_com_tajinsurance_domain_Contract" modelAttribute="contract" path="/contracts"
+             versionField="Version" render="${empty dependencies}" z="7EEwS+c71NSUcR0jBKiFHFsc/hw=">
+
+
+<label for="c_number"><spring:message code="label_com_tajinsurance_domain_contract_c_number"/>:</label>
+
+<div class="field">
+    <b>${contract.c_number}</b>
+    <c:if test="${empty contract.c_number}"><i><spring:message code="contract_number_after_save"/></i></c:if>
+    <br/>
+</div>
+
+
+<label for="catContract"><spring:message code="label_com_tajinsurance_domain_contract_catcontract"/>:</label>
+
+<div class="field">
+    <b>${contract.catContract.name} - ${contract.catContract.value}</b>
+    <br/>
+</div>
+
+
+<label for="currency"><spring:message code="label_com_tajinsurance_domain_contract_currency"/>:</label>
+
+<div class="field">
+    <input type="hidden" name="currency" value="${contract.currency.id}"/>
+    <b>${contract.currency.name} (${contract.currency.val})</b>
+</div>
+
+
+<label for="partner"><spring:message code="label_com_tajinsurance_domain_contract_partner"/>:</label>
+
+<div class="field">
+    <b>${contract.partner}</b>
+    <br/>
+</div>
+
+<label for="creator"><spring:message code="label_com_tajinsurance_domain_contract_creator"/>:</label>
+
+<div class="field">
+    <c:choose>
+        <c:when test="${not empty sellers}">
+            <select name="creator">
+                <c:forEach var="seller" items="${sellers}">
+                    <c:choose>
+                        <c:when test="${seller eq contract.creator}">
+                            <option value="${seller.id}" selected="selected">${seller.id} - ${seller.fio}</option>
+                        </c:when>
+                        <c:otherwise>
+                            <option value="${seller.id}">${seller.id} - ${seller.fio}</option>
+                        </c:otherwise>
+                    </c:choose>
+                </c:forEach>
+            </select>
+        </c:when>
+        <c:otherwise>
+            <b>${contract.creator.fio}</b>
+            <input type="hidden" value="${contract.creator.id}" name="creator"/>
+        </c:otherwise>
+    </c:choose>
+
+    <br/>
+</div>
+
+<label for="catContractStatus"><spring:message
+        code="label_com_tajinsurance_domain_contract_catcontractstatus"/>:</label>
+
+<div class="field">
+    <b>${contract.catContractStatus}</b>
+    <c:choose>
+        <c:when test="${printable and contract.claimSigned eq 'true'}">
+            <spring:message var="clsg" code="label_com_tajinsurance_domain_contract_claimsigned"/>
+            <c:set var="clsg" value="${fn:toLowerCase(clsg)}"/>
+            <b>, ${clsg}</b>
+        </c:when>
+        <c:otherwise>
+            <spring:message var="clsg" code="label_com_tajinsurance_domain_contract_claimnotsigned"/>
+            <c:set var="clsg" value="${fn:toLowerCase(clsg)}"/>
+            <b>, ${clsg}</b>
+        </c:otherwise>
+    </c:choose>
+    <br/>
+</div>
+
+<hr/>
+
+<label for="paymentWay"><spring:message code="label_com_tajinsurance_domain_contract_payment_way"/>:</label>
+
+<div class="field">
+    <c:choose>
+        <c:when test="${(!contract.claimSigned eq 'true') or managerMode}">
+            <select name="paymentWay">
+                <c:if test="${not empty paymentWays}">
+                    <c:forEach items="${paymentWays}" var="w">
+                        <c:choose>
+                            <c:when test="${contract.paymentWay.id eq w.id}">
+                                <option selected="selected" value="${w.id}">${w.way}</option>
+                            </c:when>
+                            <c:otherwise>
+                                <option value="${w.id}">${w.way}</option>
+                            </c:otherwise>
+                        </c:choose>
+                    </c:forEach>
+                </c:if>
+            </select>
+        </c:when>
+        <c:otherwise>
+            <b>${contract.paymentWay.way}</b>
+            <input type="hidden" name="paymentWay" value="${contract.paymentWay.id}"/>
+            <br/>
+        </c:otherwise>
+    </c:choose>
+</div>
+
+<div class="date">
+
+    <c:choose>
+        <c:when test="${(!claimSigned eq true) || managerMode}">
+            <fmt:formatDate value="${contract.startDate}" pattern="dd.MM.yyyy" var="startDate"/>
+            <field:input id="c_com_tajinsurance_domain_Contract_start_date" field="startDate" classHTML="datepick"/>
+        </c:when>
+        <c:otherwise>
+            <label for="startDate"><spring:message code="label_com_tajinsurance_domain_contract_start_date"/>:</label>
+
+            <div class="field">
+
+                <fmt:formatDate value="${contract.startDate}" pattern="dd.MM.yyyy" var="startDate"/>
+
+                <input type="hidden" name="startDate" value="${startDate}"/>
+                <b>${startDate}</b>
+            </div>
+        </c:otherwise>
+    </c:choose>
+
+    <c:choose>
+        <c:when test="${managerMode}">
+            <field:input id="c_com_tajinsurance_domain_Contract_print_date" field="printDate" classHTML="datepick"/>
+        </c:when>
+        <c:otherwise>
+            <!--field:input id="c_com_tajinsurance_domain_Contract_print_date" field="printDate" />
+            <field:input id="c_com_tajinsurance_domain_Contract_app_date" field="appDate" /-->
+            <label for="field"><spring:message code="label_com_tajinsurance_domain_contract_print_date"/>:</label>
+            <fmt:formatDate value="${contract.printDate}" pattern="dd.MM.yyyy" var="printDate"/>
+
+            <div class="field"><b>${printDate}</b></div>
+            <input type="hidden" name="printDate" value="${printDate}"/>
+        </c:otherwise>
+    </c:choose>
+
+    <c:choose>
+        <c:when test="${managerMode}">
+            <field:input id="c_com_tajinsurance_domain_Contract_app_date" field="appDate" classHTML="datepick"/>
+        </c:when>
+        <c:otherwise>
+            <label for="field"><spring:message code="label_com_tajinsurance_domain_contract_app_date"/>:</label>
+            <fmt:formatDate value="${contract.appDate}" pattern="dd.MM.yyyy" var="appDate"/>
+
+            <div class="field"><b>${appDate}</b></div>
+            <input type="hidden" name="appDate" value="${appDate}"/>
+        </c:otherwise>
+    </c:choose>
+
+    <c:choose>
+        <c:when test="${managerMode}">
+            <field:input id="c_com_tajinsurance_domain_Contract_pay_date" field="payDate" classHTML="datepick"/>
+        </c:when>
+        <c:otherwise>
+            <label for="field"><spring:message code="label_com_tajinsurance_domain_contract_pay_date"/>:</label>
+            <fmt:formatDate value="${contract.payDate}" pattern="dd.MM.yyyy" var="payDate"/>
+
+            <div class="field"><b>${payDate}</b></div>
+            <input type="hidden" name="payDate" value="${payDate}"/>
+        </c:otherwise>
+    </c:choose>
+
+</div>
+
+
+<div class="fields_in_line">
+    <label for="person"><spring:message code="label_com_tajinsurance_domain_person"/>:</label>
+
+    <div class="field">
+        <c:if test="${person_id eq 0 }"><a class="dashed" href="" id="fill_person"
+                                           data-cat-contract="${contract.catContract.id}"><spring:message
+                code="fill_in"/></a></c:if>
+        <c:if test="${ false and (managerMode or (person_id ne 0 and !claimSigned eq 'true')) }"><a href=""
+                                                                                                    style="float:left"
+                                                                                                    id="fill_person">[<spring:message
+                code="change_in"/>]</a><span style="float: left">&#160;</span></c:if>
+        <spring:url value="/persons/edit" var="person_link">
+            <spring:param name="id" value="${person_id}"/>
+            <spring:param name="ajax" value="1"/>
+        </spring:url>
+        <c:choose>
+            <c:when test="${not empty person}">
+                <c:choose>
+                    <c:when test="${not empty person.born}">
+                        <fmt:formatDate value="${person.born}" pattern="dd.MM.yyyy" var="born"/>
+                    </c:when>
+                    <c:otherwise>
+                        <c:set var="born" value=""/>
+                    </c:otherwise>
+                </c:choose>
+                <c:choose>
+                    <c:when test="${claimSigned and !managerMode}">
+                        <p style="font-weight: bold;" id="personValue">
+                            ${person.surname} ${person.name} ${person.middle} ${born}
+                        </p>
+                    </c:when>
+                    <c:otherwise>
+                        <p style="font-weight: bold;" id="personValue"><a data-cat-contract="${contract.catContract.id}"
+                                                                          href="${person_link}">
+                            ${person.surname} ${person.name} ${person.middle} ${born}
+                        </a></p>
+                    </c:otherwise>
+                </c:choose>
+            </c:when>
+            <c:otherwise>
+                <p style="font-weight: bold" id="personValue"></p>
+            </c:otherwise>
+        </c:choose>
+
+        <p><input type="hidden" name="person" value="${person_id}"/></p></div>
+</div>
+
+
+<div class="field">
+
+    <!--label for="franchise"><spring:message code="ccr_franchise_money"/>:</label>
+    <b>${contract.franchise}</b-->
+    <input type="hidden" value="${contract.franchise}" name="franchise"/>
+</div>
+
+
+<div style="display: none">
+    <!--field:input  field="c_number" id="c_com_tajinsurance_domain_Contract_c_number" required="true" z="8kx0GHp5sHvOuEIXF3kQzcm3olk="/-->
+    <!--:input id="c_com_tajinsurance_domain_Contract_CatContract" field="catContract" /-->
+    <input type="hidden" value="${contract.cNumberCounter}" name="cNumberCounter"/>
+
+    <input type="hidden" value="${contract.receiptNumber}" name="receiptNumber"/>
+
+    <input type="hidden" value="${contract.receiptMonth}" name="receiptMonth"/>
+
+
+    <input type="hidden" name="catContract" value="${catContract.id}"/>
+    <field:select id="c_com_tajinsurance_domain_Contract_CatContractStatus" field="catContractStatus"
+                  path="/catcontractstatuses" items="${catContractStatuses}" itemValue="id"/>
+    <!--field:select id="c_com_tajinsurance_domain_Contract_partner" field="partner" path="/partners" items="${partners}" itemValue="id" / -->
+    <input type="hidden" value="${contract.partner.id}" name="partner"/>
+
+    <input type="text" name="length" value="${contract.length}"/>
+</div>
+
+
+
+
+<label for="length"><spring:message code="label_com_tajinsurance_domain_contract_length_days"/>:</label>
+
+<div class="field">
+    <b>${contract.length}</b>
+    <input type="hidden" name="length" value="${contract.length}"/>
+</div>
+
+<label for="field"><spring:message code="label_com_tajinsurance_domain_contract_end_date"/>:</label>
+<fmt:formatDate value="${contract.endDate}" pattern="dd.MM.yyyy" var="endDate"/>
+
+<div class="field"><b>${endDate}</b></div>
+<input type="hidden" name="endDate" value="${endDate}"/>
+
+<div class="field">
+    <b>${contract.sum}</b>
+    <input type="hidden" name="sum" value="${contract.sum}"/>
+</div>
+
+
+<sec:authorize ifAnyGranted="ROLE_ADMIN,ROLE_USER">
+    <label for="insured_sum_adm"><spring:message
+            code="label_com_tajinsurance_domain_contract_insured_sum_adm"/>:</label>
+
+    <div class="field">
+        <input class="digits" name="insuredSumAdm" value="${contract.insuredSumAdm}"/>
+    </div>
+
+    <label for="premium_adm"><spring:message code="label_com_tajinsurance_domain_contract_premium_adm"/>:</label>
+
+    <div class="field">
+        <input class="digits" name="premiumAdm" value="${contract.premiumAdm}"/>
+    </div>
+
+    <c:if test="${contract.catContract.product eq 'MP0'}">
+        <label for="insuranceCostAdm"><spring:message
+                code="label_com_tajinsurance_domain_contract_ins_cost_adm"/></label>
+
+        <div class="field">
+            <input class="digits" name="insuranceCostAdm" value="${contract.insuranceCostAdm}"/>
+        </div>
+    </c:if>
+
+
+</sec:authorize>
+
+<sec:authorize ifNotGranted="ROLE_USER,ROLE_ADMIN">
+    <input type="hidden" name="insuredSumAdm" value="${contract.insuredSumAdm}"/>
+    <input type="hidden" name="premiumAdm" value="${contract.premiumAdm}"/>
+</sec:authorize>
+
+
+<c:choose>
+    <c:when test="${printable}">
+        <c:choose>
+            <c:when test="${contract.claimSigned eq 'true' and !managerMode}">
+                <input type="hidden" value="yes" name="claimSigned"/>
+            </c:when>
+            <c:otherwise>
+                <field:checkbox id="c_com_tajinsurance_domain_Contract_claimSigned" field="claimSigned"/>
+            </c:otherwise>
+        </c:choose>
+    </c:when>
+    <c:otherwise>
+        <div style="display: none">
+            <input name="claimSigned" value="false" type="hidden"/>
+        </div>
+    </c:otherwise>
+</c:choose>
+
+<c:if test="${contract.printDate ne null}">
+    <c:choose>
+        <c:when test="${contract.premiumReceived eq 'true'}">
+            <input type="hidden" value="yes" name="premiumReceived"/>
+        </c:when>
+        <c:otherwise>
+            <field:checkbox id="c_com_tajinsurance_domain_Contract_premiumReceived" field="premiumReceived"/>
+        </c:otherwise>
+    </c:choose>
+</c:if>
+
+
+<hr/>
+
+
+<div id="errorBox">
+    <c:if test="${not empty errorMsg}">
+        <c:choose>
+            <c:when test="${errorMsg eq 'max_age_limit'}">
+                <p style="color: red"><spring:message code="message_age_limit" arguments="${maxAgeMale};${maxAgeFemale}"
+                                                      argumentSeparator=";" htmlEscape="false"/></p>
+            </c:when>
+            <c:when test="${errorMsg eq 'max_length_limit'}">
+                <p style="color: red"><spring:message code="message_max_length_limit" arguments="${maxLength}"
+                                                      argumentSeparator=";" htmlEscape="false"/></p>
+            </c:when>
+            <c:otherwise>
+                <p style="color: red"><spring:message code="message_${errorMsg}"/></p>
+            </c:otherwise>
+        </c:choose>
+
+        <c:choose>
+            <c:when test="${not empty max_sum}">
+                <p style="color:red"><spring:message
+                        code="message_max_sum_is"/>: ${max_sum} ${contract.catContract.currency}</p>
+            </c:when>
+            <c:when test="${not empty min_sum}">
+                <p style="color:red"><spring:message
+                        code="message_min_sum_is"/>: ${min_sum} ${contract.catContract.currency}</p>
+            </c:when>
+            <c:when test="${not empty min_term}">
+                <p style="color:red"><spring:message code="message_min_term_is"/>: ${min_term} <spring:message
+                        code="message_month"/></p>
+            </c:when>
+        </c:choose>
+    </c:if>
+</div>
+
+
+
+
+<c:choose>
+    <c:when test="${not empty allPremium}">
+        <p><b><spring:message code="all_premium"/>: ${allPremium} ${cur}</b></p>
+    </c:when>
+    <c:otherwise>
+        <p id="no_premium"><b><spring:message code="no_premium"/></b></p>
+
+        <c:if test="${false}">
+            <p><a id="calcPremiumsWOSaving" href="${prefix}/contracts/${id}?get_risks_sum"><spring:message
+                    code="get_premium"/></a></p>
+        </c:if>
+
+
+        <div id="calcPremiums" style="display: none">
+            <table style="width: 30%">
+                <tr>
+                    <td><spring:message code="premium_with_curr_somoni"/></td>
+                    <td class="result"></td>
+                </tr>
+            </table>
+        </div>
+    </c:otherwise>
+</c:choose>
+
+
+<c:choose>
+    <c:when test="${not empty insuredSumContract}">
+        <p><b><spring:message code="label_com_tajinsurance_domain_contract_sum_as_in_contract"/>:
+            ${insuredSumContract} ${cur}</b></p>
+    </c:when>
+</c:choose>
+
+
+<c:if test="${not empty no_risks}">
+    <p style="color:red"><spring:message code="no_risks_cond"/></p>
+</c:if>
+
+
+<spring:message code="label_contract_print" var="print"/>
+<spring:message code="label_contract_close" var="close"/>
+<spring:message code="label_contract_null" var="c_cancel"/>
+<spring:message code="label_contract_accept" var="c_accept"/>
+
+
+<div>
+    <ul id="contract_main">
+        <c:choose>
+            <c:when test="${printable}">
+                <spring:message code="label_contract_save" var="save"/>
+                <li><input type="button" id="contractSave" value="${save}"/></li>
+
+                <spring:message code="label_contract_print_claim" var="claim"/>
+                <li><input type="button" disabled="disabled" id="contractClaim" value="${claim}"/></li>
+            </c:when>
+            <c:otherwise>
+                <input type="hidden" id="claim_needed"/>
+                <spring:message code="label_contract_save" var="save"/>
+                <li><input type="button" disabled="disabled" id="contractSave" value="${save}"/></li>
+            </c:otherwise>
+        </c:choose>
+
+
+        <c:if test="${printable and claimSigned and contract.catContractStatus.code ne 'WAIT_BIMA' and (empty risksMustBeAddedToContract or true)}">
+            <li>
+                <div id="contractPrintContainer">
+                    <input type="button" id="contractPrint" value="${print}" style="width:100%"/>
+                </div>
+            </li>
+        </c:if>
+
+        <c:if test="${contract.premiumReceived eq 'true'}">
+            <spring:message code="label_contract_printreceipt" var="print_receipt"/>
+            <li><input type="button" id="printReceipt" value="${print_receipt}"/></li>
+        </c:if>
+
+        <li><input type="button" id="contractClose" value="${close}"/></li>
+
+        <sec:authorize access="hasAnyRole('ROLE_USER','ROLE_ADMIN')">
+            <c:if test="${status_new and (!claimSigned eq 'true')}">
+                <li><input type="button" id="contractCancel" value="${c_cancel}"/></li>
+            </c:if>
+        </sec:authorize>
+
+        <sec:authorize access="hasAnyRole('ROLE_USER','ROLE_ADMIN')">
+            <c:if test="${contract.catContractStatus.code eq 'WAIT_BIMA' and not empty images and images ne null}">
+                <li><input type="button" id="contractAccept" value="${c_accept}"/></li>
+            </c:if>
+        </sec:authorize>
+
+    </ul>
+    <div class="clearboth"></div>
+
+    <c:if test="${contract.catContractStatus.code eq 'WAIT_BIMA' and (empty images or images eq null)}">
+        <span style="color: red"><spring:message code="message_contract_cannot_be_accepted"/></span>
+    </c:if>
+</div>
+
+<style>
+    form#contract input[type=submit]#proceed {
+        display: none;
+    }
+</style>
+
+
+</form:update>
+
+
+
+<form:dependency dependencies="${dependencies}" id="d_com_tajinsurance_domain_Contract"
+                 render="${not empty dependencies}" z="Gge8dkv/L9B+uQ5gDNyTtkSpXIY="/>
+
+
+</div>

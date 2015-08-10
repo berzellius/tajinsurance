@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<div xmlns:spring="http://www.springframework.org/tags" xmlns:c="http://java.sun.com/jsp/jstl/core" version="2.0">
+
+
+    <label for="length"><spring:message code="label_com_tajinsurance_domain_contract_length"/>:</label>
+
+    <div class="field">
+        <input type="text" name="length" class="digits"/>
+    </div>
+
+    <c:if test="${not empty risks}">
+        <label>
+            <spring:message code="label_com_tajinsurance_domain_contract_calc_ins_sum"/>:
+        </label>
+        <table>
+            <thead>
+            <th><spring:message code="label_insurance_areas_object_list_cat"/></th>
+            <th><spring:message code="label_insurance_areas_object_list_sum"/></th>
+            </thead>
+            <tbody>
+            <c:forEach items="${risks}" var="risk">
+                <tr>
+                    <td>${risk}</td>
+                    <td>
+                        <input type="hidden" name="riskid" value="${risk.id}"/>
+                        <input type="text" class="digits" name="risksum"/>
+                    </td>
+                </tr>
+            </c:forEach>
+            </tbody>
+        </table>
+
+        <br/>
+    </c:if>
+
+    <c:if test="${not empty secsystems}">
+        <label for="securitySystems"><spring:message code="label_insurance_areas_security_list"/>:</label>
+
+        <div class="field">
+            <select name="securitySystems" multiple="multiple">
+                <c:forEach items="${secsystems}" var="system">
+                    <option value="${system.id}">${system}</option>
+                </c:forEach>
+            </select>
+        </div>
+
+        <br/>
+    </c:if>
+
+    <label for="franchise"><spring:message code="label_com_tajinsurance_domain_contract_franchise"/>:</label>
+
+    <div class="field">
+        <c:choose>
+            <c:when test="${not empty franchises and franchises ne null}">
+                <select name="franchise">
+                    <c:forEach items="${franchises}" var="fr">
+                        <c:choose>
+                            <c:when test="${contract.franchise eq fr.franchisePercent}">
+                                <option value="${fr.franchisePercent}" selected="selected">${fr.franchisePercent}</option>
+                            </c:when>
+                            <c:otherwise>
+                                <option value="${fr.franchisePercent}">${fr.franchisePercent}</option>
+                            </c:otherwise>
+                        </c:choose>
+                    </c:forEach>
+                </select>
+            </c:when>
+            <c:otherwise>
+                <input type="text" value="${contract.franchise}" name="franchise" class="digits" />
+            </c:otherwise>
+        </c:choose>
+    </div>
+
+    <label for="paymentType"><spring:message code="label_com_tajinsurance_domain_contract_payment_type"/>:</label>
+
+    <div class="field">
+        <select name="paymentType">
+            <option value="PROPORTIONAL"><spring:message
+                    code="label_com_tajinsurance_domain_contract_payment_type_PROPORTIONAL"/></option>
+
+            <c:if test="${not empty paymentChooseAllowed}">
+                <option value="BY_FIRST_RISK"><spring:message
+                        code="label_com_tajinsurance_domain_contract_payment_type_BY_FIRST_RISK"/></option>
+            </c:if>
+        </select>
+    </div>
+
+    <spring:message code="get_premium" var="calc"/>
+
+    <div class="field">
+        <input type="submit" value="${calc}"/>
+    </div>
+
+</div>

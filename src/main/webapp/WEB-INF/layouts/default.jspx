@@ -1,0 +1,76 @@
+<html xmlns:jsp="http://java.sun.com/JSP/Page" xmlns:c="http://java.sun.com/jsp/jstl/core" xmlns:tiles="http://tiles.apache.org/tags-tiles" xmlns:spring="http://www.springframework.org/tags"
+      xmlns:util="urn:jsptagdir:/WEB-INF/tags/util">
+	
+	<jsp:output doctype-root-element="HTML" doctype-system="about:legacy-compat" />
+	
+	<jsp:directive.page contentType="text/html;charset=UTF-8" />  
+	<jsp:directive.page pageEncoding="UTF-8" /> 
+			
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=10" />
+
+        <spring:message code="ajax_smth_happen" var="smth_happen" />
+        <spring:message code="ajax_please_fill_all_fields" var="fill_all" />
+        <spring:message code="ajax_age_less_18" var="age_18" />
+        <spring:message code="message_maximum_sum_failed" var="sum_big" />
+        <spring:message code="message_minimum_sum_failed" var="sum_small" />
+        <spring:message code="no_risks_cond" var="risk_no_param" />
+        <spring:message code="message_minimum_term_failed" var="term_too_small" />
+        <spring:message code="message_min_sum_is" var="msi" />
+        <spring:message code="message_max_sum_is" var="mxsi" />
+        <spring:message code="message_min_term_is" var="mti" />
+        <spring:message code="message_month" var="month" />
+        <spring:message code="label_com_tajinsurance_domain_contract_sum_month_periodic" var="sum_month_periodic" />
+        <spring:message code="label_com_tajinsurance_domain_contract_sum_credit" var="sum_credit" />
+
+        <script>
+            var ajaxMessages = {
+                "SM_HAPPEN" : "${smth_happen}",
+                "FILL_ALL" : "${fill_all}",
+                "AGE_PROBLEM_18" : "${age_18}",
+                "SUM_TOO_BIG" : "${sum_big}",
+                "SUM_TOO_SMALL" : "${sum_small}",
+                "NO_PARAM_TO_RISK" : "${risk_no_param}",
+                "TERM_SMALL" : "${term_too_small}",
+                "MIN_SUM_IS" : "${msi}",
+                "MAX_SUM_IS" : "${mxsi}",
+                "MIN_TERM_IS" : "${mti}",
+                "MONTH" : "${month}"
+            };
+
+            var sumDescriptions = {
+                "CU0" : "${sum_month_periodic}",
+                "BA0" : "${sum_credit}"
+            };
+        </script>
+			
+		<util:load-scripts />
+		
+		<spring:message code="application_name" var="app_name" htmlEscape="false"/>
+		<title>
+            ${app_name}
+            <!--spring:message code="welcome_h3" arguments="${app_name}" /-->
+        </title>
+
+	</head>
+	
+  	<body class="tundra spring">
+    <!--h1>
+        <c:set var="w">
+            <util:numbers numInt="231" />
+        </c:set>
+        <c:set var="w">як ҳазору шашсаду шасту ҳафт як ҳазору шашсаду шасту ҳафт як ҳазору шашсаду шасту ҳафт</c:set>
+       <util:splitWordsIntegrity str="${w}" length="40" />|<util:splitWordsIntegrity str="${w}" start="40" />
+    </h1-->
+   		<div id="wrapper">
+		    <tiles:insertAttribute name="header" ignore="true" />
+		    <div><tiles:insertAttribute name="menu" ignore="true" /></div>
+            <tiles:insertAttribute name="error_msg" ignore="true" />
+		    <div id="main">
+	    		<tiles:insertAttribute name="body"/> 
+		    	<tiles:insertAttribute name="footer" ignore="true"/>
+		    </div>
+		</div>
+	</body>
+</html>

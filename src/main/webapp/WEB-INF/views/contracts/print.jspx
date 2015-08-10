@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<div xmlns:c="http://java.sun.com/jsp/jstl/core" xmlns:field="urn:jsptagdir:/WEB-INF/tags/form/fields"
+     xmlns:jsp="http://java.sun.com/JSP/Page"
+     xmlns:page="urn:jsptagdir:/WEB-INF/tags/form" xmlns:spring="http://www.springframework.org/tags"
+     xmlns:form="http://www.springframework.org/tags/form"
+     version="2.0">
+    <jsp:directive.page contentType="text/html;charset=UTF-8"/>
+    <jsp:output omit-xml-declaration="yes"/>
+
+    <c:if test="${not empty print_version}">
+        <script>
+            window.print();
+        </script>
+    </c:if>
+
+    <spring:message code="label_print_contract" var="pg_title" />
+
+    <page:show title="${pg_title}" id="ps_com_tajinsurance_domain_Contract" object="${contract}" path="/contracts" z="nXAUTfdDn9ddr8lFjJtTa6A1GxE=">
+        <!--field:display field="c_number" id="s_com_tajinsurance_domain_Contract_c_number" object="${contract}" z="1jqkAfxhfKF8OrIC+ere5+yGeBQ="/>
+        <field:display id="s_com_tajinsurance_domain_Contract_cat_contract" object="${contract}" field="catContract" /-->
+
+        <label for="c_number"><spring:message code="label_com_tajinsurance_domain_contract_c_number" />:</label>
+        <div class="field">
+            <b>${contract.c_number}</b>
+            <br />
+        </div>
+
+
+        <label for="catContract"><spring:message code="label_com_tajinsurance_domain_contract_catcontract" />:</label>
+        <div class="field">
+            <b>${contract.catContract} [${cur}]</b>
+            <br />
+        </div>
+
+        <label for="catContractStatus"><spring:message code="label_com_tajinsurance_domain_contract_catcontractstatus" />:</label>
+        <div class="field">
+            <b>${contract.catContractStatus}</b>
+            <br />
+        </div>
+
+        <hr />
+
+        <field:display id="s_com_tajinsurance_domain_Contract_start_date" field="startDate" object="${contract}" />
+        <field:display id="s_com_tajinsurance_domain_Contract_end_date" field="endDate"  object="${contract}" />
+        <field:display id="s_com_tajinsurance_domain_Contract_print_date" field="printDate"  object="${contract}" />
+        <field:display id="s_com_tajinsurance_domain_Contract_app_date" field="appDate"  object="${contract}" />
+        <field:display id="s_com_tajinsurance_domain_Contract_pay_date" field="payDate"  object="${contract}" />
+
+        <c:if test="${not empty person}">
+            <hr />
+            <h3><spring:message code="label_com_tajinsurance_domain_contract_person" />:</h3>
+            <label><spring:message code="label_person_fio" /></label>
+            <div class="field">
+                ${person.surname} ${person.name} ${person.middle}
+            </div>
+            <label><spring:message code="label_com_tajinsurance_domain_person_born" /></label>
+            <div class="field">
+                ${person.born}
+            </div>
+            <label><spring:message code="label_com_tajinsurance_domain_person_document" /></label>
+            <div class="field">
+                ${person.docSeries} №${person.docNumber}, ${person.docDepartment} ${person.docDate}
+            </div>
+            <label><spring:message code="label_addr" /></label>
+            <div class="field">
+                <spring:message code="label_addr_reg" />: ${person.indexRegistr}, ${person.addrRegistr}<br />
+                <spring:message code="label_addr_resident" />: ${person.indexResident}, ${person.addrResident}
+            </div>
+            <label><spring:message code="label_com_tajinsurance_domain_person_phone_home" />:</label>
+            <div class="field">
+                ${person.phoneHome}
+            </div>
+            <label><spring:message code="label_com_tajinsurance_domain_person_phone_mob" />:</label>
+            <div class="field">
+                ${person.phoneMob}
+            </div>
+            <label><spring:message code="label_com_tajinsurance_domain_person_phone_work" />:</label>
+            <div class="field">
+                ${person.phoneWork}
+            </div>
+            <label><spring:message code="label_com_tajinsurance_domain_person_email" />:</label>
+            <div class="field">
+                ${person.email}
+            </div>
+        </c:if>
+
+
+
+
+        <hr />
+
+        <c:if test="${not empty validatedPremiums}">
+            <h3><spring:message code="label_calc_risks" /></h3>
+            <table>
+                <tr><th>Риск</th><th>Сумма</th><th>Премия</th></tr>
+                <!-- Рассчитанные подтвержденные риски -->
+                <c:forEach items="${validatedPremiums}" var="p">
+                    <tr id="pr${p.id}">
+                        <td>${p.risk}</td>
+                        <td>${p.insuredSum}</td>
+                        <td>${p.premium}</td>
+                    </tr>
+                </c:forEach>
+            </table>
+        </c:if>
+
+
+    </page:show>
+</div>

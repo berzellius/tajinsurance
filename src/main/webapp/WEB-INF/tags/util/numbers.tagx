@@ -1,0 +1,172 @@
+<jsp:root
+        xmlns:c="http://java.sun.com/jsp/jstl/core"
+        xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+        xmlns:spring="http://www.springframework.org/tags"
+        xmlns:util="urn:jsptagdir:/WEB-INF/tags/util"
+        xmlns:jsp="http://java.sun.com/JSP/Page"
+        version="2.0">
+    <jsp:output omit-xml-declaration="yes"/>
+
+    <jsp:directive.attribute name="numInt" type="java.lang.Integer" required="true"
+                             description="Number to get it in words"/>
+    <jsp:directive.attribute name="special" type="java.lang.String" required="false"
+                             description="Special name of number (10,20,30,100,200,etc) "/>
+    <jsp:directive.attribute name="special_count" type="java.lang.Integer" required="false"
+                             description="Count of special - 1x100, 2x100, etc"/>
+    <jsp:directive.attribute name="special_after" type="java.lang.Integer" required="false"
+                             description="Atfer special: 100 or 115"/>
+    <jsp:directive.attribute name="space" required="false" type="java.lang.Boolean" />
+
+    <c:if test="${empty space}"><c:set var="space" value="true" /></c:if>
+    <c:choose>
+        <c:when test="${not empty special}">
+            <c:if test="${empty special_count}"><c:set var="special_count" value="1"/></c:if>
+            <c:if test="${empty special_after}"><c:set var="special_after" value="0"/></c:if>
+
+            <c:choose>
+                <c:when test="${special eq 'millions'}">
+                    <util:numbers numInt="${special_count}" />
+                    <c:choose>
+                        <c:when test="${special_after eq 0}">миллион</c:when>
+                        <c:otherwise>миллиону</c:otherwise>
+                    </c:choose>
+                </c:when>
+                <c:when test="${special eq 'thousands'}">
+                    <util:numbers numInt="${special_count}" />
+                    <c:choose>
+                        <c:when test="${special_after eq 0}">ҳазор</c:when>
+                        <c:otherwise>ҳазору</c:otherwise>
+                    </c:choose>
+                </c:when>
+                <c:when test="${special eq 'hundreds'}">
+                    <c:set var="pre">
+                        <c:choose>
+                            <c:when test="${special_count == 1 and special_after != 0}">як</c:when>
+                            <c:otherwise><util:numbers numInt="${special_count}" space="false" /></c:otherwise>
+                        </c:choose>
+                    </c:set>
+                    <c:choose>
+                        <c:when test="${special_after eq 0}">${pre}сад</c:when>
+                        <c:otherwise>${pre}саду</c:otherwise>
+                    </c:choose>
+                </c:when>
+                <c:when test="${special eq 'tens'}">
+                    <c:set var="post">
+                        <c:choose>
+                            <c:when test="${special_after eq 0}"></c:when>
+                            <c:otherwise>у</c:otherwise>
+                        </c:choose>
+                    </c:set>
+                    <c:choose>
+                        <c:when test="${special_count eq 1}">даҳ${post}</c:when>
+                        <c:when test="${special_count eq 2}">бист${post}</c:when>
+                        <c:when test="${special_count eq 3}">
+                            <c:choose>
+                                <c:when test="${special_after eq 0}">си</c:when>
+                                <c:otherwise>сиву</c:otherwise>
+                            </c:choose>
+                        </c:when>
+                        <c:when test="${special_count eq 4}">чил${post}</c:when>
+                        <c:when test="${special_count eq 5}">
+                            <c:choose>
+                                <c:when test="${special_after eq 0}">панҷоҳ</c:when>
+                                <c:otherwise>панҷову</c:otherwise>
+                            </c:choose>
+                        </c:when>
+                        <c:when test="${special_count eq 6}">шаст${post}</c:when>
+                        <c:when test="${special_count eq 7}">ҳафтод${post}</c:when>
+                        <c:when test="${special_count eq 8}">ҳаштод${post}</c:when>
+                        <c:when test="${special_count eq 9}">навад${post}</c:when>
+                    </c:choose>
+                </c:when>
+            </c:choose>
+
+        </c:when>
+
+        <c:otherwise>
+            <c:choose>
+                <c:when test="${numInt > 999999999}">
+                    <p><b>Number is out of range</b></p>
+                </c:when>
+                <c:when test="${(numInt >= 1000000) and (numInt le 999999999)}">
+                    <c:set var="after_millions" value="${numInt % 1000000}"/>
+                    <c:set var="millions" value="${(numInt - after_millions)/1000000}"/>
+                    <c:choose>
+                        <c:when test="${millions == 1}">
+                            <c:set var="prefM"><util:numbers numInt="${millions}" special="millions" special_count="${millions}" special_after="${after_millions}" /></c:set>
+                        </c:when>
+                        <c:otherwise>
+                            <c:set var="prefM"><util:numbers numInt="${millions}" special="millions" special_count="${millions}" special_after="${after_millions}" /></c:set>
+                        </c:otherwise>
+                    </c:choose>
+                    <c:set var="aftM"><util:numbers numInt="${after_millions}"/></c:set>
+                    <c:out value="${prefM} ${aftM}" />
+                </c:when>
+                <c:when test="${numInt >= 1000 and numInt le 999999}">
+                    <c:set var="after_thousands" value="${numInt % 1000}"/>
+                    <c:set var="thousands" value="${(numInt - after_thousands)/1000}"/>
+                    <c:choose>
+                        <c:when test="${thousands == 1}">
+                            <c:set var="prefT"><util:numbers numInt="${thousands}" special="thousands" special_count="1" special_after="${after_thousands}"/></c:set>
+                        </c:when>
+                        <c:otherwise>
+                            <c:set var="prefT"><util:numbers numInt="${thousands}" special="thousands" special_count="${thousands}" special_after="${after_thousands}"/></c:set>
+                        </c:otherwise>
+                    </c:choose>
+                    <c:set var="aftT"><util:numbers numInt="${after_thousands}"/></c:set>
+                    <c:out value="${prefT} ${aftT}" />
+                </c:when>
+                <c:when test="${numInt >= 100 and numInt le 999}">
+                    <c:set var="after_hundreds" value="${numInt % 100}"/>
+                    <c:set var="hundreds" value="${(numInt - after_hundreds)/100}"/>
+                    <c:choose>
+                        <c:when test="${hundreds == 1}">
+                            <c:set var="prefH"><util:numbers numInt="${numInt}" special="hundreds" special_count="1" special_after="${after_hundreds}" /></c:set>
+                        </c:when>
+                        <c:otherwise>
+                           <c:set var="prefH"><util:numbers numInt="${numInt}" special="hundreds" special_after="${after_hundreds}" special_count="${hundreds}" /></c:set>
+                        </c:otherwise>
+                    </c:choose>
+                    <c:set var="aftH"><util:numbers numInt="${after_hundreds}"/></c:set>
+                    <c:out value="${prefH} ${aftH}" />
+                </c:when>
+                <c:when test="${(numInt >= 20 and numInt le 99)}">
+                    <c:set var="after_tens" value="${numInt % 10}"/>
+                    <c:set var="tens" value="${(numInt - after_tens)/10}"/>
+
+                    <c:set var="prefTns"><util:numbers numInt="${numInt}" special="tens" special_count="${tens}" special_after="${after_tens}" /></c:set>
+                    <c:set var="aftTns"><util:numbers numInt="${after_tens}" /></c:set>
+                    <c:out value="${prefTns} ${aftTns}" />
+                </c:when>
+                <c:when test="${numInt > 10 and numInt le 19}">
+                    <c:choose>
+                        <c:when test="${numInt eq 11}">ёздаҳ</c:when>
+                        <c:when test="${numInt eq 12}">дувоздаҳ</c:when>
+                        <c:when test="${numInt eq 13}">сенздаҳ</c:when>
+                        <c:when test="${numInt eq 14}">чордаҳ</c:when>
+                        <c:when test="${numInt eq 15}">понздаҳ</c:when>
+                        <c:when test="${numInt eq 16}">шонздаҳ</c:when>
+                        <c:when test="${numInt eq 17}">ҳабдаҳ</c:when>
+                        <c:when test="${numInt eq 18}">ҳаждаҳ</c:when>
+                        <c:when test="${numInt eq 19}">нуздаҳ</c:when>
+                    </c:choose>
+                </c:when>
+                <c:when test="${numInt eq 10}">
+                    <c:set var="tns"><util:numbers numInt="10" special="tens" special_count="1" special_after="0" /></c:set>
+                    <c:out value="${tns}" />
+                </c:when>
+                <c:when test="${numInt eq 9}">нуҳ</c:when>
+                <c:when test="${numInt eq 8}">ҳашт</c:when>
+                <c:when test="${numInt eq 7}">ҳафт</c:when>
+                <c:when test="${numInt eq 6}">шаш</c:when>
+                <c:when test="${numInt eq 5}">панҷ</c:when>
+                <c:when test="${numInt eq 4}">чор</c:when>
+                <c:when test="${numInt eq 3}">се</c:when>
+                <c:when test="${numInt eq 2}">ду</c:when>
+                <c:when test="${numInt eq 1}">як</c:when>
+                <c:otherwise></c:otherwise>
+            </c:choose>
+        </c:otherwise>
+    </c:choose>
+    <c:if test="${numInt > 0 and space}"><c:out value=" " /></c:if>
+</jsp:root>

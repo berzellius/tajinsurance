@@ -1,0 +1,248 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<div xmlns:c="http://java.sun.com/jsp/jstl/core" xmlns:field="urn:jsptagdir:/WEB-INF/tags/form/fields"
+     xmlns:jsp="http://java.sun.com/JSP/Page"
+     xmlns:page="urn:jsptagdir:/WEB-INF/tags/form" xmlns:spring="http://www.springframework.org/tags"
+     xmlns:form="http://www.springframework.org/tags/form"
+     xmlns:fmt="http://java.sun.com/jsp/jstl/fmt"
+     version="2.0">
+    <jsp:directive.page contentType="text/html;charset=UTF-8"/>
+    <jsp:output omit-xml-declaration="yes"/>
+
+    <c:if test="${not empty print_version}">
+        <script>
+            window.print();
+        </script>
+    </c:if>
+
+    <spring:message code="label_show_contract" var="title" />
+
+    <page:show title="${title}" create="false" delete="false" id="ps_com_tajinsurance_domain_Contract" object="${contract}"
+               path="/contracts" z="nXAUTfdDn9ddr8lFjJtTa6A1GxE=">
+
+
+        <label for="c_number"><spring:message code="label_com_tajinsurance_domain_contract_c_number"/>:</label>
+
+        <div class="field">
+            <b>${contract.c_number}</b>
+            <c:if test="${empty contract.c_number}"><i><spring:message code="contract_number_after_save"/></i></c:if>
+            <br/>
+        </div>
+
+
+        <label for="catContract"><spring:message code="label_com_tajinsurance_domain_contract_catcontract"/>:</label>
+
+        <div class="field">
+            <b>${contract.catContract.name} - ${contract.catContract.value}</b>
+            <br/>
+        </div>
+
+        <label for="partner"><spring:message code="label_com_tajinsurance_domain_contract_partner"/>:</label>
+
+        <div class="field">
+            <b>${contract.partner}</b>
+            <br/>
+        </div>
+
+        <label for="creator"><spring:message code="label_com_tajinsurance_domain_contract_creator"/>:</label>
+
+        <div class="field">
+            <b>${contract.creator.fio}</b>
+            <br/>
+        </div>
+
+        <label for="catContractStatus"><spring:message code="label_com_tajinsurance_domain_contract_catcontractstatus"/>:</label>
+
+        <div class="field">
+            <b>${contract.catContractStatus}</b>
+            <c:choose>
+                <c:when test="${contract.claimSigned eq 'true'}">
+                    <b>, <spring:message code="label_com_tajinsurance_domain_contract_claimsigned"/></b>
+                </c:when>
+                <c:otherwise>
+                    <b>, <spring:message code="label_com_tajinsurance_domain_contract_claimnotsigned"/></b>
+                </c:otherwise>
+            </c:choose>
+            <br/>
+        </div>
+
+        <label for="relatedContractNumber"><spring:message
+                code="label_com_tajinsurance_domain_contract_related_contract"/>:</label>
+
+        <div class="field">
+            <b>${contract.relatedContractNumber}</b>
+        </div>
+
+        <hr/>
+
+        <label for="paymentWay"><spring:message code="label_com_tajinsurance_domain_contract_payment_way"/>:</label>
+
+        <div class="field">
+            <b>${contract.paymentWay.way}</b>
+        </div>
+
+        <label for="startDate"><spring:message code="label_com_tajinsurance_domain_contract_start_date"/>:</label>
+
+        <div class="field">
+            <fmt:formatDate value="${contract.startDate}" pattern="dd.MM.yyyy" var="startDate"/>
+            <b>${startDate}</b>
+        </div>
+
+
+        <label for="field"><spring:message code="label_com_tajinsurance_domain_contract_end_date"/>:</label>
+        <fmt:formatDate value="${contract.endDate}" pattern="dd.MM.yyyy" var="endDate"/>
+
+        <div class="field"><b>${endDate}</b></div>
+
+
+        <label for="field"><spring:message code="label_com_tajinsurance_domain_contract_print_date"/>:</label>
+        <fmt:formatDate value="${contract.printDate}" pattern="dd.MM.yyyy" var="printDate"/>
+
+        <div class="field"><b>${printDate}</b></div>
+
+
+        <label for="field"><spring:message code="label_com_tajinsurance_domain_contract_app_date"/>:</label>
+        <fmt:formatDate value="${contract.appDate}" pattern="dd.MM.yyyy" var="appDate"/>
+
+        <div class="field"><b>${appDate}</b></div>
+
+
+        <label for="field"><spring:message code="label_com_tajinsurance_domain_contract_pay_date"/>:</label>
+        <fmt:formatDate value="${contract.payDate}" pattern="dd.MM.yyyy" var="payDate"/>
+
+        <div class="field"><b>${payDate}</b></div>
+
+
+        <label for="length"><spring:message code="label_com_tajinsurance_domain_contract_length"/>:</label>
+
+        <div class="field">
+            <b>${contract.length}</b>
+            <input type="hidden" name="length" value="${contract.length}"/>
+        </div>
+
+
+        <!--field:input id="c_com_tajinsurance_domain_Contract_sum" validationRegex="[0-9]+" field="sum" /-->
+        <label for="sum">
+            <c:choose>
+                <c:when test="${contract.catContract.name eq 'CU0'}">
+                    <spring:message code="label_com_tajinsurance_domain_contract_sum_month_periodic"/>:
+                </c:when>
+                <c:when test="${contract.catContract.name eq 'BA0'}">
+                    <spring:message code="label_com_tajinsurance_domain_contract_sum_credit"/>:
+                </c:when>
+                <c:otherwise>
+                    <spring:message code="label_com_tajinsurance_domain_contract_sum"/>:
+                </c:otherwise>
+            </c:choose>
+        </label>
+
+        <div class="field">
+            <b>${contract.sum}</b>
+            <input type="hidden" name="sum" value="${contract.sum}"/>
+        </div>
+
+
+        <c:if test="${not empty person}">
+            <hr />
+            <h3><spring:message code="label_com_tajinsurance_domain_contract_person" />:</h3>
+            <label><spring:message code="label_person_fio" />:</label>
+            <div class="field">
+                <b>${person.surname} ${person.name} ${person.middle}</b>
+            </div>
+            <label><spring:message code="label_com_tajinsurance_domain_person_born" />:</label>
+            <div class="field">
+                <fmt:formatDate value="${person.born}" pattern="dd.MM.yyyy" var="born"/>
+                <b>${born}</b>
+            </div>
+            <label><spring:message code="label_com_tajinsurance_domain_person_document" />:</label>
+            <div class="field">
+                <fmt:formatDate value="${person.docDate}" pattern="dd.MM.yyyy" var="docDate"/>
+                <b>${person.docSeries} №${person.docNumber}, ${person.docDepartment} ${docDate}</b>
+            </div>
+            <label><spring:message code="label_addr" />:</label>
+            <div class="field">
+                <b>
+                <spring:message code="label_addr_reg" />: ${person.indexRegistr}, ${person.addrRegistr}.
+                <spring:message code="label_addr_resident" />: ${person.indexResident}, ${person.addrResident}
+                </b>
+            </div>
+            <label><spring:message code="label_com_tajinsurance_domain_person_phone_home" />:</label>
+            <div class="field">
+                <b>${person.phoneHome}</b>
+            </div>
+            <label><spring:message code="label_com_tajinsurance_domain_person_phone_mob" />:</label>
+            <div class="field">
+                <b>${person.phoneMob}</b>
+            </div>
+            <label><spring:message code="label_com_tajinsurance_domain_person_phone_work" />:</label>
+            <div class="field">
+                <b>${person.phoneWork}</b>
+            </div>
+            <label><spring:message code="label_com_tajinsurance_domain_person_email" />:</label>
+            <div class="field">
+                <b>${person.email}</b>
+            </div>
+        </c:if>
+
+
+        <hr/>
+
+        <c:if test="${not empty validatedPremiums}">
+
+            <c:choose>
+                <c:when test="${not empty insuredSumContract}">
+                    <p><b><spring:message code="label_com_tajinsurance_domain_contract_sum_as_in_contract" />:
+                        ${insuredSumContract} ${cur}</b></p>
+                </c:when>
+            </c:choose>
+
+            <c:choose>
+                <c:when test="${not empty premiumSumContract}">
+                    <p><b><spring:message code="all_premium" />:
+                        ${premiumSumContract} ${cur}</b></p>
+                </c:when>
+            </c:choose>
+
+            <h3><spring:message code="label_calc_risks"/></h3>
+            <table>
+                <tr>
+                    <th><spring:message code="label_contract_show_insurance_cases" /></th>
+                    <th><spring:message code="label_contract_show_insurance_sum" /></th>
+                    <th><spring:message code="label_contract_show_insurance_premium" /></th>
+                </tr>
+                <!-- Рассчитанные подтвержденные риски -->
+                <c:forEach items="${validatedPremiums}" var="p">
+                    <tr id="pr${p.id}">
+                        <td>
+                            <c:set var="rprefix">
+                                <c:choose>
+                                    <c:when test="${not empty p.risk.code}">
+                                        <c:out value="${p.risk.code}: "/>
+                                    </c:when>
+                                    <c:otherwise>
+                                        <c:choose>
+                                            <c:when test="${not empty p.risk.det}">
+                                                <c:out value="${p.risk.det}: "/>
+                                            </c:when>
+                                            <c:otherwise><c:out value=""/></c:otherwise>
+                                        </c:choose>
+                                    </c:otherwise>
+                                </c:choose>
+                            </c:set>
+                            ${rprefix}
+                            <c:choose>
+                                <c:when test="${p.risk.parentRisk eq null}">${p.risk}</c:when>
+                                <c:otherwise>${p.risk.parentRisk}</c:otherwise>
+                            </c:choose>
+                        </td>
+                        <td><fmt:formatNumber value="${p.insuredSum}"
+                                              maxFractionDigits="0"/></td>
+                        <td><fmt:formatNumber value="${p.premium}"
+                                              maxFractionDigits="0"/></td>
+                    </tr>
+                </c:forEach>
+            </table>
+        </c:if>
+
+
+    </page:show>
+</div>

@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<div xmlns:jsp="http://java.sun.com/JSP/Page" xmlns:page="urn:jsptagdir:/WEB-INF/tags/form"
+     xmlns:table="urn:jsptagdir:/WEB-INF/tags/form/fields" xmlns:spring="http://www.springframework.org/tags"
+     xmlns:util="urn:jsptagdir:/WEB-INF/tags/util"
+     xmlns:sec="http://www.springframework.org/security/tags" version="2.0">
+    <jsp:directive.page contentType="text/html;charset=UTF-8"/>
+    <jsp:output omit-xml-declaration="yes"/>
+
+    <spring:url value="/" var="prefix" />
+
+    <script src="${prefix}/javascript/search_user.js" type="text/javascript"><jsp:text></jsp:text></script>
+
+    <spring:message code="label_user_list_title" var="title" />
+
+    <util:panel id="users_list" title="${title}">
+
+        <div id="searchResult">
+            <sec:authorize access="hasAnyRole('ROLE_ADMIN','ROLE_USER')">
+                <table:table search="true" listVal="${listVal}" show="true" showInPopup="true" id="l_com_tajinsurance_domain_User" data="${users}" path="/users" operationsSet="users" >
+
+                    <table:column id="c_com_tajinsurance_domain_User_id" property="id" orderField="id" />
+                    <table:column id="c_com_tajinsurance_domain_User_fio" property="fio" orderField="fio" />
+                    <table:column id="c_com_tajinsurance_domain_User_username" property="username" orderField="username" />
+                    <table:column id="c_com_tajinsurance_domain_User_authorities" property="authorities" listValue="true" />
+                    <table:column id="c_com_tajinsurance_domain_User_partner" property="partner" />
+                    <table:column id="c_com_tajinsurance_domain_User_email" property="email" />
+                    <table:column bool="true" id="c_com_tajinsurance_domain_User_enabled" property="enabled" boolValue="true"  />
+
+                </table:table>
+            </sec:authorize>
+            <sec:authorize access="hasAnyRole('ROLE_ADMIN_PARTNER')">
+                <table:table create="false" delete="false" update="false" show="false" id="l_com_tajinsurance_domain_User" data="${users}" path="/users" operationsSet="none" >
+
+                    <table:column id="c_com_tajinsurance_domain_User_id" property="id" />
+                    <table:column id="c_com_tajinsurance_domain_User_fio" property="fio" />
+                    <table:column id="c_com_tajinsurance_domain_User_username" property="username" />
+                    <table:column id="c_com_tajinsurance_domain_User_authorities" property="authorities" />
+                    <table:column id="c_com_tajinsurance_domain_User_email" property="email" />
+                    <table:column bool="true" id="c_com_tajinsurance_domain_User_enabled" property="enabled" boolValue="true"  />
+
+                </table:table>
+            </sec:authorize>
+        </div>
+
+    </util:panel>
+
+
+
+</div>

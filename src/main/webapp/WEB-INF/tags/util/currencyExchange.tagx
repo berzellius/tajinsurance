@@ -1,0 +1,41 @@
+<jsp:root
+        xmlns:c="http://java.sun.com/jsp/jstl/core"
+        xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+        xmlns:spring="http://www.springframework.org/tags"
+        xmlns:util="urn:jsptagdir:/WEB-INF/tags/util"
+        xmlns:jsp="http://java.sun.com/JSP/Page"
+        xmlns:ss="urn:schemas-microsoft-com:office:spreadsheet"
+        xmlns:fmt="http://java.sun.com/jsp/jstl/fmt"
+        version="2.0">
+    <jsp:output omit-xml-declaration="yes"/>
+
+    <jsp:directive.attribute name="contract" type="com.tajinsurance.domain.Contract" required="true"
+                             description="Contract"/>
+    <jsp:directive.attribute name="money" type="java.math.BigDecimal" required="true"
+                             description="contract premium in row"/>
+
+
+    <c:choose>
+        <c:when test="${
+            contract.catContract.product eq 'TP0' or
+                contract.catContract.product eq 'TP2'
+            }">
+            <c:choose>
+                <c:when test="${contract.currencyExchange ne null}">
+                    <c:set var="money" value="${money * contract.currencyExchange}" />
+                    <fmt:formatNumber var="money"
+                                      value="${money}"
+                                      maxFractionDigits="0" groupingUsed="false" />
+                    <c:out value="${money}" />
+                </c:when>
+                <c:otherwise>
+                    <c:out value=""/>
+                </c:otherwise>
+            </c:choose>
+        </c:when>
+        <c:otherwise>
+            <c:out value="${money} "/>
+        </c:otherwise>
+    </c:choose>
+
+    </jsp:root>

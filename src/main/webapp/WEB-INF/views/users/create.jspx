@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<div xmlns:c="http://java.sun.com/jsp/jstl/core" xmlns:field="urn:jsptagdir:/WEB-INF/tags/form/fields" xmlns:form="urn:jsptagdir:/WEB-INF/tags/form" xmlns:jsp="http://java.sun.com/JSP/Page" xmlns:spring="http://www.springframework.org/tags" version="2.0">
+    <jsp:directive.page contentType="text/html;charset=UTF-8"/>
+    <jsp:output omit-xml-declaration="yes"/>
+
+    <c:if test="${not empty reason}">
+        <p style="color: red"><spring:message code="message_user_error_${reason}" /></p>
+    </c:if>
+
+    <form:create id="fc_com_tajinsurance_domain_new_User" modelAttribute="user" path="/users">
+
+        <label for="username"><spring:message code="label_com_tajinsurance_domain_user_username" />:</label>
+        <div class="field"><input autocomplete="off" type="text" name="username" /></div>
+
+        <label for="fio"><spring:message code="label_com_tajinsurance_domain_user_fio" />:</label>
+        <div class="field"><input autocomplete="off" type="text" name="fio" size="37" /></div>
+
+        <label for="memo"><spring:message code="label_memo" />:</label>
+        <div class="field"><textarea name="memo" cols="30">&#160;</textarea></div>
+
+        <label for="password"><spring:message code="label_password" />:</label>
+        <div class="field"><input autocomplete="off" type="text" name="password" />
+        <spring:message code="label_user_pwd_gen" var="pwdgen" />
+        <input type="button" value="${pwdgen}" id="pwdGen" /></div>
+
+        <label for="email"><spring:message code="label_email" /></label>
+        <div class="field"><input type="text" name="email" class="email" /></div>
+
+        <c:if test="${not empty user.partner}">
+            <div style="dispay:none"><input type="hidden" name="partner" value="${user.partner.id}" /></div>
+        </c:if>
+
+        <c:if test="${not empty partners and empty user.partner}">
+            <div>
+            <label for="partner"><spring:message code="label_com_tajinsurance_domain_partner" />:</label>
+            <select name="partner">
+            <c:forEach items="${partners}" var="partner">
+                <option value="${partner.id}">${partner.value}</option>
+            </c:forEach>
+            </select>
+            </div>
+        </c:if>
+
+        <c:if test="${not empty allowedAuthorities}">
+            <div>
+            <label for="authorities"><spring:message code="label_com_tajinsurance_domain_user_authorities" />:</label>
+
+            <select name="authorities">
+                <c:forEach items="${allowedAuthorities}" var="authority">
+                    <option value="${authority.id}">${authority.value}</option>
+                </c:forEach>
+            </select>
+            </div>
+        </c:if>
+
+
+    </form:create>
+
+</div>

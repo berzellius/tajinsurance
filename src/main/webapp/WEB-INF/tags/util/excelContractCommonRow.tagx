@@ -1,0 +1,186 @@
+<jsp:root
+        xmlns:c="http://java.sun.com/jsp/jstl/core"
+        xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+        xmlns:spring="http://www.springframework.org/tags"
+        xmlns:util="urn:jsptagdir:/WEB-INF/tags/util"
+        xmlns:jsp="http://java.sun.com/JSP/Page"
+        xmlns:ss="urn:schemas-microsoft-com:office:spreadsheet"
+        xmlns:fmt="http://java.sun.com/jsp/jstl/fmt"
+        version="2.0">
+    <jsp:output omit-xml-declaration="yes"/>
+
+    <jsp:directive.attribute name="contract" type="com.tajinsurance.domain.Contract" required="true"
+                             description="Contract"/>
+    <jsp:directive.attribute name="contract_premium" type="com.tajinsurance.domain.ContractPremium" required="false"
+                             description="contract premium in row"/>
+    <jsp:directive.attribute name="contract_premiums" type="java.util.List" required="false"
+                             description="many premiums in one row"/>
+
+
+
+    <ss:Row>
+        <c:set var="j" value="0"/>
+
+        <ss:Cell>
+            <ss:Data ss:Type="String">${contract.catContract}</ss:Data>
+        </ss:Cell>
+
+        <ss:Cell>
+            <ss:Data xsd="integer" ss:Type="Number">${contract.c_number}</ss:Data>
+        </ss:Cell>
+
+        <ss:Cell>
+            <ss:Data ss:Type="String">${contract.catContractStatus}</ss:Data>
+        </ss:Cell>
+
+        <ss:Cell>
+            <ss:Data ss:Type="String">${contract.printDate}</ss:Data>
+        </ss:Cell>
+
+        <ss:Cell>
+            <fmt:formatDate value="${contract.startDate}" pattern="dd.MM.yyyy" var="startDate"/>
+            <ss:Data ss:Type="String">${startDate}</ss:Data>
+        </ss:Cell>
+
+        <ss:Cell>
+            <fmt:formatDate value="${contract.endDate}" pattern="dd.MM.yyyy" var="endDate"/>
+            <ss:Data ss:Type="String">${endDate}</ss:Data>
+        </ss:Cell>
+
+        <ss:Cell>
+            <fmt:formatDate value="${contract.payDate}" pattern="dd.MM.yyyy" var="payDate"/>
+            <ss:Data ss:Type="String">${payDate}</ss:Data>
+        </ss:Cell>
+
+        <ss:Cell>
+            <fmt:formatDate value="${contract.appDate}" pattern="dd.MM.yyyy" var="appDate"/>
+            <ss:Data ss:Type="String">${appDate}</ss:Data>
+        </ss:Cell>
+
+        <ss:Cell>
+            <ss:Data xsd="integer" ss:Type="Number">
+                <c:choose>
+                    <c:when test="${contract.insuredSumAdm != null}">
+                        <c:out value="${contract.insuredSumAdm}" />
+                    </c:when>
+                    <c:otherwise>
+                        <c:if test="${not empty contract_premium and contract_premium.deleted != true}">
+                            <c:out value="${contract_premium.insuredSum}"/>
+                        </c:if>
+                        <c:if test="${not empty contract_premiums}">
+                            <c:forEach items="${contract_premiums}" var="pr" varStatus="loop">
+                                <c:if test="${loop.last}">${pr.insuredSum}</c:if>
+                            </c:forEach>
+                        </c:if>
+                    </c:otherwise>
+                </c:choose>
+
+
+            </ss:Data>
+        </ss:Cell>
+
+        <ss:Cell>
+            <ss:Data xsd="integer" ss:Type="Number">
+
+                <c:choose>
+                    <c:when test="${contract.premiumAdm != null}">
+                        <c:set var="pr" value="${contract.premiumAdm}" />
+                    </c:when>
+                    <c:otherwise>
+                        <c:if test="${not empty contract_premium and contract_premium.deleted != true}">
+                            <fmt:formatNumber var="premium"
+                                              value="${contract_premium.premium}"
+                                              maxFractionDigits="0" groupingUsed="false" />
+                            <c:set var="premium">
+                                <util:currencyExchange contract="${contract}" money="${premium}" />
+                            </c:set>
+                            <c:set var="pr" value="${premium}" />
+                        </c:if>
+                        <c:if test="${not empty contract_premiums}">
+                            <c:set var="premium" value="0"/>
+
+                            <c:forEach items="${contract_premiums}" var="pr" varStatus="loop">
+                                <c:if test="${pr.deleted != true}">
+                                    <c:set var="premium" value="${premium + pr.premium}"/>
+                                    <fmt:formatNumber var="premium"
+                                                      value="${premium}"
+                                                      maxFractionDigits="0" groupingUsed="false" />
+                                </c:if>
+                            </c:forEach>
+
+                            <fmt:formatNumber var="premium"
+                                              value="${premium}"
+                                              maxFractionDigits="0" groupingUsed="false" />
+                            <c:set var="premium">
+                                <util:currencyExchange contract="${contract}" money="${premium}" />
+                            </c:set>
+
+                            <c:set var="pr" value="${premium}" />
+                        </c:if>
+                    </c:otherwise>
+                </c:choose>
+                <c:choose>
+                    <c:when test="${pr != null}">
+                        <c:out value="${pr}" />
+                    </c:when>
+                </c:choose>
+
+            </ss:Data>
+        </ss:Cell>
+
+        <ss:Cell>
+            <ss:Data ss:Type="String">${contract.receiptNumber}</ss:Data>
+        </ss:Cell>
+
+        <ss:Cell>
+            <ss:Data ss:Type="String">${contract.partner}</ss:Data>
+        </ss:Cell>
+
+        <ss:Cell>
+            <ss:Data xsd="integer" ss:Type="Number">${contract.creator.id}</ss:Data>
+        </ss:Cell>
+
+
+        <ss:Cell>
+            <ss:Data ss:Type="String">?</ss:Data>
+        </ss:Cell>
+
+        <ss:Cell>
+            <ss:Data ss:Type="String">${contract.person}</ss:Data>
+        </ss:Cell>
+
+        <ss:Cell>
+            <c:if test="${contract.person.born ne null}">
+                <fmt:formatDate value="${contract.person.born}" pattern="dd.MM.yyyy" var="born"/>
+                <ss:Data ss:Type="String">${born}</ss:Data>
+            </c:if>
+        </ss:Cell>
+
+        <ss:Cell>
+            <ss:Data ss:Type="String">${contract.person.sex}</ss:Data>
+        </ss:Cell>
+
+        <ss:Cell>
+            <ss:Data ss:Type="String">
+                <c:choose>
+                    <c:when test="${contract.catContract.product eq 'TP0'}">
+                        <c:out value="${contract.person.addrResident == '' ? contract.person.addrRegistr : contract.person.addrResident}" />
+                    </c:when>
+                    <c:otherwise>
+                        <c:out value="${contract.person.addrRegistr}" />
+                    </c:otherwise>
+                </c:choose>
+            </ss:Data>
+        </ss:Cell>
+
+        <ss:Cell>
+            <ss:Data ss:Type="String">${contract.person.email}</ss:Data>
+        </ss:Cell>
+
+        <ss:Cell>
+            <ss:Data ss:Type="String">${contract.person.phoneMob}</ss:Data>
+        </ss:Cell>
+
+    </ss:Row>
+
+</jsp:root>

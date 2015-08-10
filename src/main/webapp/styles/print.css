@@ -1,0 +1,48 @@
+body{
+    font-family: "Palatino Linotype";
+    margin: 0;
+}
+div#menu, div#footer, div.quicklinks{
+    display:none
+}
+label{
+    float: left;
+}
+div.field{
+    clear:both
+}
+
+div.login_user_info{
+    display: none;
+}
+
+p{font-size: 5.5pt; margin: 1pt 0 0 0; font-family: "Palatino Linotype"}
+h1,h2,h3{font-family: "Palatino Linotype"}
+
+div.claim_content p{font-size: 7pt;}
+
+div.MP0_contract p{font-size:7pt;}
+
+div.claim_content.ba0 p{font-size: 6.0pt;}
+
+div.MP0_contract{
+    margin-top:0em;
+}
+
+div#receipt{
+    /*page-break-before: always;*/
+}
+
+table#objects{
+    /*border: 2px solid #000;*/
+    width: 100%;
+}
+
+table#objects thead{
+    background-color: #999;
+}
+
+table#objects td, table#objects th{
+    font-size: 7pt;
+}
+

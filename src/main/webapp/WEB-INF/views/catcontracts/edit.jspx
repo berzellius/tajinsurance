@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<div xmlns:c="http://java.sun.com/jsp/jstl/core" xmlns:field="urn:jsptagdir:/WEB-INF/tags/form/fields" xmlns:form="urn:jsptagdir:/WEB-INF/tags/form" xmlns:jsp="http://java.sun.com/JSP/Page" xmlns:spring="http://www.springframework.org/tags" version="2.0">
+    <jsp:directive.page contentType="text/html;charset=UTF-8"/>
+    <jsp:output omit-xml-declaration="yes"/>
+
+
+    <c:if test="${not empty reason}">
+        <p style="color: red"><spring:message code="message_partner_error_${reason}" /></p>
+    </c:if>
+
+    <form:update id="fc_com_tajinsurance_domain_CatContract" modelAttribute="catcontract" path="/catcontracts" versionField="version">
+
+        <c:if test="${not empty langs}">
+            <c:forEach items="${langs}" var="lang">
+                <c:set var="localeObj" value="${localeObjects[lang]}" />
+                <div style="border: 1px solid #ccc; margin: 10px 0 10px 0; padding-bottom: 10px">
+                    <spring:url var="img" value="/resources/images/${lang}.png" />
+                    <img src="${img}" style="margin: -10px 0 5px 10px;position:relative;" />
+                    <div>
+                        <label for="localeEntityNamesList"><spring:message code="label_com_tajinsurance_domain_catcontract_name" /></label>
+                        <c:set var="name"><c:out value="${localeObj.name}" /></c:set>
+                        <input name="localeEntityNamesList" value="${name}" />
+                        <input name="localeEntityIdList" type="hidden" value="${localeObj.id}" />
+                    </div>
+
+                    <br />
+
+
+
+                    <div>
+                        <label for="localeEntityValuesList"><spring:message code="label_com_tajinsurance_domain_catcontract_value" /></label>
+                        <c:set var="value"><c:out value="${localeObj.value}" /></c:set>
+                        <input name="localeEntityValuesList" value="${value}" />
+                        <input name="localeEntityLangList" type="hidden" value="${lang}" />
+                    </div>
+                </div>
+            </c:forEach>
+        </c:if>
+
+        <div>
+            <label for="minTerm"><spring:message code="label_com_tajinsurance_domain_catcontract_min_term" /></label>
+            <input type="text" name="minTerm" value="${catContract.minTerm}" />
+        </div>
+
+
+        <c:if test="${catContract.typeOfRisk.id eq 1}">
+        <br />
+
+        <div>
+            <label for="risks"><spring:message code="label_com_tajinsurance_domain_catcontract_risks" /></label>
+            <select name="risks" multiple="multiple">
+                <c:if test="${not empty allrisks}">
+                    <c:forEach items="${allrisks}" var="risk">
+                        <c:set var="riskset" value="false" />
+                        <c:forEach items="${catcontract.risks}" var="r">
+                            <c:if test="${r.id eq risk.id}">
+                                <c:set var="riskset" value="true" />
+                            </c:if>
+                        </c:forEach>
+                        <c:choose>
+                            <c:when test="${riskset}">
+                                <option value="${risk.id}" selected="selected">${risk}</option>
+                            </c:when>
+                            <c:otherwise>
+                                <option value="${risk.id}">${risk}</option>
+                            </c:otherwise>
+                        </c:choose>
+                    </c:forEach>
+                </c:if>
+            </select>
+        </div>
+        </c:if>
+
+        <br />
+
+        <div>
+            <label for="risks"><spring:message code="label_com_tajinsurance_domain_catcontract_currency" /></label>
+            <select name="currency">
+                <c:if test="${not empty currencies}">
+                    <c:forEach items="${currencies}" var="currency">
+                        <c:choose>
+                            <c:when test="${currency eq catcontract.currency}">
+                                <option value="${currency.id}" selected="selected">${currency}</option>
+                            </c:when>
+                            <c:otherwise>
+                                <option value="${currency.id}">${currency}</option>
+                            </c:otherwise>
+                        </c:choose>
+                    </c:forEach>
+                </c:if>
+            </select>
+        </div>
+        <br />
+
+        <div>
+            <label for="typeOfRisk"><spring:message code="label_com_tajinsurance_domain_catcontract_type_of_risk" /></label>
+            ${catContract.typeOfRisk}
+        </div>
+        <br />
+
+        <div>
+            <label for="useInsuranceAreas"><spring:message code="label_com_tajinsurance_domain_catcontract_use_insurance_areas" />:</label>
+            <c:choose>
+                <c:when test="${catContract.useInsuranceAreas}">
+                    <spring:message code="label_com_tajinsurance_domain_catcontract_use_insurance_areas_yes" />
+                </c:when>
+                <c:otherwise>
+                    <spring:message code="label_com_tajinsurance_domain_catcontract_use_insurance_areas_no" />
+                </c:otherwise>
+            </c:choose>
+
+        </div>
+
+    </form:update>
+
+</div>

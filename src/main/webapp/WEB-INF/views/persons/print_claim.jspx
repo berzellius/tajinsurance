@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<div
+     xmlns:jsp="http://java.sun.com/JSP/Page"
+     xmlns:page="urn:jsptagdir:/WEB-INF/tags/form" xmlns:spring="http://www.springframework.org/tags"
+     version="2.0">
+
+    <script>
+        <![CDATA[
+            window.print();
+            setTimeout(function(){
+                window.close();
+            },500);
+        ]]>
+    </script>
+
+
+    <h1>Заявление</h1>
+    <p>
+        <spring:message code="label_com_tajinsurance_domain_contract" />
+        &#160;<b>${contract.catContract}</b>  № <b>${contract.c_number}</b>
+    </p>
+
+    <p>${person}</p>
+
+    </div>

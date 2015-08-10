@@ -1,0 +1,434 @@
+<jsp:root xmlns:c="http://java.sun.com/jsp/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:util="urn:jsptagdir:/WEB-INF/tags/util" xmlns:spring="http://www.springframework.org/tags" xmlns:form="http://www.springframework.org/tags/form" xmlns:fmt="http://java.sun.com/jsp/jstl/fmt" xmlns:jsp="http://java.sun.com/JSP/Page"
+         xmlns:sec="http://www.springframework.org/security/tags" version="2.0">
+  <jsp:directive.tag import="java.util.ArrayList" />
+  <jsp:output omit-xml-declaration="yes" />
+
+  <jsp:directive.attribute name="id" type="java.lang.String" required="true" rtexprvalue="true" description="The identifier for this tag (do not change!)" />
+  <jsp:directive.attribute name="csv" required="false" description="link to csv download" />
+  <jsp:directive.attribute name="excel" required="false" description="link to excel download" />
+  <jsp:directive.attribute name="data" type="java.util.Collection" required="true" rtexprvalue="true" description="The collection to be displayed in the table" />
+  <jsp:directive.attribute name="listVal" type="java.util.LinkedHashMap" required="false" description="List Vals" />
+  <jsp:directive.attribute name="path" type="java.lang.String" required="true" rtexprvalue="true" description="Specify the URL path" />
+  <jsp:directive.attribute name="typeIdFieldName" type="java.lang.String" required="false" rtexprvalue="true" description="The identifier field name for the type (defaults to 'id')" />
+  <jsp:directive.attribute name="show" type="java.lang.Boolean" required="false" />
+  <jsp:directive.attribute name="showInPopup" type="java.lang.Boolean" required="false" />
+  <jsp:directive.attribute name="create" type="java.lang.Boolean" required="false" rtexprvalue="true" description="Include 'create' link into table (default true)" />
+  <jsp:directive.attribute name="update" type="java.lang.Boolean" required="false" rtexprvalue="true" description="Include 'update' link into table (default true)" />
+  <jsp:directive.attribute name="delete" type="java.lang.Boolean" required="false" rtexprvalue="true" description="Include 'delete' link into table (default true)" />
+  <jsp:directive.attribute name="render" type="java.lang.Boolean" required="false" rtexprvalue="true" description="Indicate if the contents of this tag and all enclosed tags should be rendered (default 'true')" />
+  <jsp:directive.attribute name="operationsSet" type="java.lang.String" required="false" description="User defined set of operations" />
+  <jsp:directive.attribute name="search" type="java.lang.Boolean" required="false" description="Add line width search fields" />
+  <jsp:directive.attribute name="excelBtn" type="java.lang.Boolean" required="false" description="Insert excel button" />
+  <jsp:directive.attribute name="z" type="java.lang.String" required="false" description="Used for checking if element has been modified (to recalculate simply provide empty string value)" />
+
+
+  <c:if test="${empty render or render}">
+
+    <c:set var="columnProperties" scope="request" />
+    <c:set var="columnLabels" scope="request" />
+    <c:set var="columnMaxLengths" scope="request" />
+    <c:set var="columnTypes" scope="request" />
+    <c:set var="columnDatePatterns" scope="request" />
+    <c:set var="columnSortProperties" scope="request" />
+    <c:set var="columnBoolValues" scope="request" />
+    <c:set var="columnListValues" scope="request" />
+    <c:set var="columnDatePeriods" scope="request" />
+    <c:set var="orderColumns" scope="request" />
+    <c:set var="sizes" scope="request" />
+    <jsp:doBody />
+
+
+
+    <c:if test="${empty typeIdFieldName}">
+      <c:set var="typeIdFieldName" value="id" />
+    </c:if>
+
+    <c:if test="${empty update}">
+      <c:set var="update" value="true" />
+    </c:if>
+
+    <c:if test="${empty delete}">
+      <c:set var="delete" value="true" />
+    </c:if>
+
+    <c:if test="${empty excelBtn}">
+        <c:set var="excelBtn" value="false" />
+    </c:if>
+
+    <spring:message var="typeName" code="menu_item_${fn:toLowerCase(fn:split(id,'_')[fn:length(fn:split(id,'_')) - 1])}_new_label" htmlEscape="false" />
+    <c:set var="lengths" value="${fn:split(columnMaxLengths, '&#9999;')}" scope="request" />
+    <c:set var="types" value="${fn:split(columnTypes, '&#9999;')}" scope="request" />
+    <c:set var="patterns" value="${fn:split(columnDatePatterns, '&#9999;')}" scope="request" />
+    <c:set var="properties" value="${fn:split(columnProperties, '&#9999;')}" scope="request" />
+    <c:set var="sortProperties" value="${fn:split(columnSortProperties, '&#9999;')}" scope="request" />
+    <c:set var="boolValues" value="${fn:split(columnBoolValues, '&#9999;')}" scope="request" />
+    <c:set var="listColValues" value="${fn:split(columnListValues, '&#9999;')}" scope="request" />
+    <c:set var="datePeriods" value="${fn:split(columnDatePeriods, '&#9999;')}" scope="request" />
+    <c:set var="orderColumnsArr" value="${fn:split(orderColumns, '&#9999;')}" scope="request" />
+    <c:set var="visibleFieldsArr" value="${fn:split(visibleFields, '&#9999;')}" scope="request" />
+    <c:set var="fSizes" value="${fn:split(sizes, '&#9999;')}" scope="request" />
+    
+    <spring:eval var="colCounter" expression="1" />
+
+    <form id="searchCond">
+        <input type="hidden" name="orderColumn" />
+        <input type="hidden" name="orderType" />
+    </form>
+
+    <table>
+      <thead>
+        <tr>
+          <c:forTokens items="${columnLabels}" delims="${'&#9999;'}" var="columnHeading" varStatus="num">
+            <c:set var="columnProperty" value="${properties[num.count-1]}" />
+            <c:set var="sort" value="false" />
+            <c:forEach var="sortProperty" items="${sortProperties}">
+                <c:if test="${columnProperty eq sortProperty}">
+                    <c:set var="sort" value="true" />
+                </c:if>
+            </c:forEach>
+            <c:choose>
+                <c:when test="${sort}">
+                    <c:set var="sortOrderSet" value="false" />
+                    <c:set var="sortOrderClass" value="sorting" />
+                    <spring:url value="" var="querySortUrl">
+                        <c:forEach items="${paramValues}" var="p">
+                            <c:if test="${p.key ne 'sortFieldName' and p.key ne 'sortOrder'}">
+                                <c:forEach var='value' items='${p.value}'>
+                                    <spring:param name="${p.key}" value="${value}" />
+                                </c:forEach>
+                            </c:if>
+                            <c:if test="${p.key eq 'sortOrder' and paramValues['sortFieldName'][0] eq columnProperty}">
+                                <c:set var="sortOrderSet" value="true" />
+                                <c:if test="${p.value[0] eq 'asc'}">
+                                    <spring:param name="sortOrder" value="desc" />
+                                    <c:set var="sortOrderClass" value="sorting_desc" />
+                                </c:if>
+                                <c:if test="${p.value[0] eq 'desc'}">
+                                    <spring:param name="sortOrder" value="asc" />
+                                    <c:set var="sortOrderClass" value="sorting_asc" />
+                                </c:if>
+                            </c:if>
+                        </c:forEach>
+                        <spring:param name="sortFieldName" value="${columnProperty}" />
+                        <c:if test="${not sortOrderSet}">
+                            <spring:param name="sortOrder" value="asc" />
+                        </c:if>
+                    </spring:url>
+                    <th><a href="${querySortUrl}" class="${sortOrderClass}"><c:out value="${columnHeading}" /> <spring:eval var="colCounter" expression="colCounter  + 1" /></a></th>
+                </c:when>
+                <c:otherwise>
+                    <th>
+                        <c:set var="sortColumn" value="${orderColumnsArr[num.count - 1]}" />
+                        <c:if test="${not empty sortColumn and sortColumn ne 'null'}">
+                            <spring:url value="images/up.png" var="up" />
+                            <a href="${sortColumn}|DESC" class="keySort"><img src="${up}" /></a>
+                        </c:if>
+                        <c:out value="${columnHeading}" /> <spring:eval var="colCounter" expression="colCounter  + 1" />
+                        <c:if test="${not empty sortColumn and sortColumn ne 'null'}">
+                            <spring:url value="images/down.png" var="down" />
+                            <a href="${sortColumn}|ASC" class="keySort"><img src="${down}" /></a>
+                        </c:if>
+                    </th>
+                </c:otherwise>
+            </c:choose>
+          </c:forTokens>
+          <c:if test="${empty operationsSet}">
+            <th></th>
+          </c:if>
+          <c:if test="${update}">
+            <th></th>
+            <spring:eval var="colCounter" expression="colCounter  + 1" />
+          </c:if>
+          <c:if test="${not empty operationsSet and operationsSet eq 'contracts'}">
+            <th></th>
+            <spring:eval var="colCounter" expression="colCounter  + 1" />
+          </c:if>
+          <c:if test="${delete}">
+            <th></th>
+            <spring:eval var="colCounter" expression="colCounter  + 1" />
+          </c:if>
+          <c:if test="${operationsSet eq 'contracts'}">
+              <th></th>
+          </c:if>
+        </tr>
+
+        <c:if test="${search}">
+            <tr id="searchTr">
+            <c:set var="srchCols" value="${colCounter}" />
+            <c:forTokens items="${columnLabels}" delims="${'&#9999;'}" var="columnHeading" varStatus="num">
+                <spring:eval var="srchCols" expression="srchCols  - 1" />
+                <c:set var="columnProperty" value="${properties[num.count-1]}" />
+                <c:set var="listValue" value="${listColValues[num.count-1]}" />
+                <c:set var="boolValue" value="${boolValues[num.count-1]}" />
+                <c:set var="datePeriod" value="${datePeriods[num.count-1]}" />
+                <c:set var="size" value="${fSizes[num.count-1]}" />
+                <td>
+                    <c:if test="${empty size or size eq ''}">
+                        <c:set var="size" value="auto" />
+                    </c:if>
+                    <c:choose>
+                        <c:when test="${listValue}">
+                            <c:forEach items="${listVal}" var="lst">
+                                <c:if test="${lst.key eq columnProperty}">
+                                    <select multiple="multiple" name="${columnProperty}" style="max-width:150px">
+                                        <c:forEach items="${lst.value}" var="opt">
+                                            <option value="${opt.id}">${opt}</option>
+                                        </c:forEach>
+                                    </select>
+                                </c:if>
+                            </c:forEach>
+                        </c:when>
+                        <c:when test="${boolValue}">
+                            <select name="${columnProperty}">
+                                <option value="yes"><spring:message code="label_yes" /></option>
+                                <option value="no"><spring:message code="label_no" /></option>
+                                <option selected="selected" value="n/a">--</option>
+                            </select>
+                        </c:when>
+                        <c:when test="${datePeriod}">
+                            <p style="margin:0"><spring:message code="label_from" />:</p>
+                            <input type="text" size="${size}" class="datepick from" value="" name="${columnProperty}From" />
+                            <p style="margin:0"><spring:message code="label_to" />:</p>
+                            <input type="text" size="${size}" class="datepick to" value="" name="${columnProperty}To" />
+                        </c:when>
+                        <c:otherwise>
+                            <input style="width:100%" size="${size}" type="text" value="" name="${columnProperty}" />
+                        </c:otherwise>
+                    </c:choose>
+                </td>
+            </c:forTokens>
+            <td colspan="${srchCols}">
+                <spring:message code="label_search" var="srch" />
+                <spring:message code="label_reset" var="reset" />
+                <input type="submit" value="${srch}" /><br /><br/>
+
+                <sec:authorize ifAnyGranted="ROLE_ADMIN, ROLE_USER">
+
+                    <select data-selector="excel_profile">
+                        <option value="null">Шаблон</option>
+                        <option value="CU0">CU0</option>
+                        <option value="BA0">BA0</option>
+                        <option value="MP0">MP0</option>
+                        <option value="TP0">TP0</option>
+                        <option value="TP2">TP2</option>
+                    </select>
+                </sec:authorize>
+
+                <c:if test="${excelBtn}">
+                    <input type="hidden" name="excel" value="false" />
+                    <input type="button" value="EXCEL" name="excel_btn" /><br /><br/>
+                </c:if>
+
+                <input type="button" id="reset" value="${reset}" />
+
+
+            </td>
+            </tr>
+        </c:if>
+      </thead>
+      <tbody>
+      <c:forEach items="${data}" var="item">
+        <tr>
+          <c:forTokens items="${columnProperties}" delims="${'&#9999;'}" var="column" varStatus="num">
+            <c:set var="columnMaxLength" value="${lengths[num.count-1]}" />
+            <c:set var="columnType" value="${types[num.count-1]}" />
+            <c:set var="columnDatePattern" value="${patterns[num.count-1]}" />
+            <c:set var="boolValue" value="${boolValues[num.count-1]}" />
+            <td>
+              <c:choose>
+                <c:when test="${columnType eq 'date'}">
+                  <spring:escapeBody>
+                    <fmt:formatDate value="${item[column]}" pattern="${fn:escapeXml(columnDatePattern)}" var="colTxt" />
+                  </spring:escapeBody>
+                </c:when>
+                <c:when test="${columnType eq 'calendar'}">
+                  <spring:escapeBody>
+                    <fmt:formatDate value="${item[column].time}" pattern="${fn:escapeXml(columnDatePattern)}" var="colTxt"/>
+                  </spring:escapeBody>
+                </c:when>
+                <c:otherwise>
+                  <c:set var="visibleField" value="${visibleFieldsArr[num.count-1]}" />
+                    <c:set var="obj" value="${item[column]}" />
+                  <c:set var="colTxt">
+                    <c:choose>
+                        <c:when test="${visibleField ne 'null'}">
+                            ${obj.id}
+                        </c:when>
+                        <c:otherwise>
+                            <spring:eval expression="item[column]" htmlEscape="false" />
+                        </c:otherwise>
+                    </c:choose>
+                  </c:set>
+                </c:otherwise>
+              </c:choose>
+              <c:if test="${columnMaxLength ge 0}">
+                <c:set value="${fn:substring(colTxt, 0, columnMaxLength)}" var="colTxt" />
+              </c:if>
+                <c:choose>
+                <c:when test="${boolValue}">
+                    <c:choose>
+                        <c:when test="${columnType eq 'bool'}">
+                            <c:choose>
+                                <c:when test="${item[column] eq false}">
+                                    <c:if test="${columnProperty eq 'enabled' and operationsSet eq 'users'}">
+                                        <c:set value="false" var="delete" />
+                                    </c:if>
+                                    <spring:url value="/resources/images/boolean_value_false.png" var="bImg" />
+                                </c:when>
+                                <c:otherwise>
+                                    <c:if test="${columnProperty eq 'enabled' and operationsSet eq 'users'}">
+                                        <c:set value="true" var="delete" />
+                                    </c:if>
+                                    <spring:url value="/resources/images/boolean_value_true.png" var="bImg" />
+                                </c:otherwise>
+                            </c:choose>
+                        </c:when>
+                        <c:otherwise>
+                            <c:choose>
+                                <c:when test="${empty item[column]}">
+                                    <spring:url value="/resources/images/boolean_value_false.png" var="bImg" />
+                                </c:when>
+                                <c:otherwise>
+                                    <spring:url value="/resources/images/boolean_value_true.png" var="bImg" />
+                                </c:otherwise>
+                            </c:choose>
+                        </c:otherwise>
+                    </c:choose>
+                    <img src="${bImg}" style="width: 15px; margin:0 auto;" />
+                </c:when>
+                <c:otherwise>
+                    <c:out value="${colTxt}" />
+                </c:otherwise>
+            </c:choose>
+            </td>
+          </c:forTokens>
+          <c:set var="itemId"><spring:eval expression="item[typeIdFieldName]"/></c:set>
+          <c:if test="${empty operationsSet or empty show or show eq true}">
+              <td class="utilbox">
+                <spring:url value="${path}/${itemId}" var="show_form_url" />
+                <spring:url value="/resources/images/show.png" var="show_image_url" />
+                <spring:message arguments="${typeName}" code="entity_show" var="show_label" htmlEscape="false" />
+                <c:choose>
+                    <c:when test="${showInPopup}">
+                        <a href="${show_form_url}" alt="${fn:escapeXml(show_label)}" class="popup" title="${fn:escapeXml(show_label)}">
+                            <img alt="${fn:escapeXml(show_label)}" class="image" src="${show_image_url}" title="${fn:escapeXml(show_label)}" />
+                        </a>
+                    </c:when>
+                    <c:otherwise>
+                        <a href="${show_form_url}" alt="${fn:escapeXml(show_label)}" title="${fn:escapeXml(show_label)}">
+                            <img alt="${fn:escapeXml(show_label)}" class="image" src="${show_image_url}" title="${fn:escapeXml(show_label)}" />
+                        </a>
+                    </c:otherwise>
+                </c:choose>
+              </td>
+          </c:if>
+          <c:if test="${update and ((empty operationsSet) or operationsSet eq 'contracts' or operationsSet eq 'users' or operationsSet eq 'partners' or operationsSet eq 'catcontracts' or operationsSet eq 'risks')}">
+            <td class="utilbox">
+              <spring:url value="${path}/${itemId}" var="update_form_url">
+                <spring:param name="form" />
+              </spring:url>
+              <spring:url value="/resources/images/update.png" var="update_image_url" />
+              <spring:message arguments="${typeName}" code="entity_update" var="update_label" htmlEscape="false" />
+              <a href="${update_form_url}" alt="${fn:escapeXml(update_label)}" title="${fn:escapeXml(update_label)}">
+                <img alt="${fn:escapeXml(update_label)}" class="image" src="${update_image_url}" title="${fn:escapeXml(update_label)}" />
+              </a>
+            </td>
+          </c:if>
+
+          <c:if test="${not empty operationsSet and operationsSet eq 'contracts'}">
+              <td class="utilbox">
+                  <spring:url value="/contracts/{id}?print" var="printLink">
+                      <spring:param name="id" value="${itemId}" />
+                  </spring:url>
+                  <c:if test="${item.claimSigned}">
+                  <a target="_new" href="${printLink}" class="print">
+                      <spring:url value="/resources/images/print.png" var="print_link" />
+                      <img src="${print_link}" style="width:15px" />
+                  </a>
+                  </c:if>
+              </td>
+          </c:if>
+
+          <c:if test="${delete eq false and operationsSet eq 'users'}">
+              <td class="utibox">
+                  <spring:url value="${path}/${itemId}?restore" var="restore_url" />
+                  <spring:url value="/resources/images/restore.png" var="restore_image" />
+                  <a href="${restore_url}"><img src="${restore_image}" style="width:16px" /></a>
+              </td>
+          </c:if>
+
+          <c:if test="${delete}">
+            <td class="utilbox">
+              <spring:url value="${path}/${itemId}" var="delete_form_url" />
+              <spring:url value="/resources/images/delete.png" var="delete_image_url" />
+              <form:form action="${delete_form_url}" method="DELETE">
+                  <c:choose>
+                      <c:when test="${(not empty operationsSet) and (operationsSet eq 'contracts')}">
+                          <spring:message arguments="${typeName}" code="label_contract_null_it" var="delete_label" htmlEscape="false" />
+                      </c:when>
+                      <c:when test="${(not empty operationsSet) and (operationsSet eq 'users')}">
+                          <spring:message arguments="${typeName}" code="label_user_disable_it" var="delete_label" htmlEscape="false" />
+                      </c:when>
+                      <c:otherwise>
+                          <spring:message code="entity_delete" arguments="${typeName}" var="delete_label"/>
+                      </c:otherwise>
+                  </c:choose>
+                <c:set var="delete_confirm_msg">
+                  <spring:escapeBody javaScriptEscape="true">
+                    <c:choose>
+                        <c:when test="${not empty operationsSet and operationsSet eq 'contracts'}">
+                            <spring:message code="contract_null_confirm" />
+                        </c:when>
+                        <c:when test="${not empty operationsSet and operationsSet eq 'users'}">
+                            <spring:message code="user_disable_confirm" />
+                        </c:when>
+                        <c:otherwise>
+                            <spring:message code="entity_delete_confirm" />
+                        </c:otherwise>
+                    </c:choose>
+                  </spring:escapeBody>
+                </c:set>
+                <input alt="${fn:escapeXml(delete_label)}" class="image" src="${delete_image_url}" title="${fn:escapeXml(delete_label)}" type="image" value="${fn:escapeXml(delete_label)}" onclick="return confirm('${delete_confirm_msg}');" />
+                <c:if test="${not empty param.page}">
+                  <input name="page" type="hidden" value="1" />
+                </c:if>
+                <c:if test="${not empty param.size}">
+                  <input name="size" type="hidden" value="${fn:escapeXml(param.size)}" />
+                </c:if>
+              </form:form>
+            </td>
+          </c:if>
+        </tr>
+      </c:forEach>
+      <tr class="footer">
+        <td colspan="${colCounter}">
+          <c:if test="${empty create or create}">
+            <span class="new">
+              <spring:url value="${path}" var="create_url">
+                <spring:param name="form" />
+              </spring:url>
+              <a href="${create_url}">
+                <spring:url value="/resources/images/add.png" var="create_img_url" />
+                <spring:message arguments="${typeName}" code="global_menu_new" var="add_message" htmlEscape="false" />
+                <img alt="${fn:escapeXml(add_message)}" src="${create_img_url}" title="${fn:escapeXml(add_message)}" />
+              </a>
+            </span>
+            <c:out value=" " />
+          </c:if>
+          <c:if test="${not empty csv}">
+              [<a href="${csv}">CSV</a>]
+          </c:if>
+            <c:if test="${not empty excel}">
+                &#160;[<a href="${excel}">Excel</a>]
+            </c:if>
+          <c:if test="${not empty maxPages}">
+            <util:pagination maxPages="${maxPages}" page="${param.page}" size="${param.size}" />
+          </c:if>
+        </td>
+      </tr>
+      </tbody>
+    </table>
+
+  </c:if>
+
+</jsp:root>

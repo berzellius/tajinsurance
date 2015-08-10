@@ -1,0 +1,549 @@
+<div xmlns:spring="http://www.springframework.org/tags"
+     xmlns:fmt="http://java.sun.com/jsp/jstl/fmt"
+     xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+     xmlns:c="http://java.sun.com/jsp/jstl/core"
+     xmlns:util="urn:jsptagdir:/WEB-INF/tags/util"
+>
+<table dir="ltr" border="0" cellpadding="0" cellspacing="0" class="tblGenFixed" id="tblMain">
+<tbody>
+<tr class="rShim">
+    <td class="rShim" style="width:0;"></td>
+    <td class="rShim" style="width:60px;"></td>
+    <td class="rShim" style="width:35px;"></td>
+    <td class="rShim" style="width:75px;"></td>
+    <td class="rShim" style="width:78px;"></td>
+    <td class="rShim" style="width:68px;"></td>
+    <td class="rShim" style="width:18px;"></td>
+    <td class="rShim" style="width:109px;"></td>
+    <td class="rShim" style="width:26px;"></td>
+    <td class="rShim" style="width:47px;"></td>
+    <td class="rShim" style="width:33px;"></td>
+    <td class="rShim" style="width:13px;"></td>
+    <td class="rShim" style="width:17px;"></td>
+    <td class="rShim" style="width:14px;"></td>
+    <td class="rShim" style="width:245px;"></td>
+</tr>
+<tr dir="ltr">
+    <td class="hd"><p style="height:16px;">.</p></td>
+    <td class="s0"></td>
+    <td class="s1"></td>
+    <td class="s1"></td>
+    <td class="s1"></td>
+    <td class="s1"></td>
+    <td colspan="5" dir="ltr" class="s2"><b>Шакли № КО-1</b></td>
+    <td style="display:none;"></td>
+    <td style="display:none;"></td>
+    <td style="display:none;"></td>
+    <td style="display:none;"></td>
+    <td class="s3"></td>
+    <td class="s4" rowspan="30">
+        <p><b>Х А Т И  Б У Р И Ш</b></p>
+    </td>
+    <td class="s5"></td>
+    <td id="C14" class="s1"></td>
+</tr>
+<tr dir="ltr">
+    <td class="hd"><p style="height:16px;">.</p></td>
+    <td class="s6"></td>
+    <td class="s7"></td>
+    <td colspan="8" dir="ltr" class="s9">Тасдиқ шуд бо қарори Вазорати молияи Ҷ.Т. №288 аз 20.05.2010 сол</td>
+    <td class="s10"></td>
+    <td class="s11"></td>
+    <td class="s12"></td>
+    <td class="s7"></td>
+</tr>
+<tr dir="ltr">
+    <td class="hd"><p style="height:26px;">.</p></td>
+    <td colspan="7" dir="ltr" class="s13">ҶДММ «Ташкилоти суғуртавии «БИМА»</td>
+    <td style="display:none;"></td>
+    <td style="display:none;"></td>
+    <td style="display:none;"></td>
+    <td style="display:none;"></td>
+    <td style="display:none;"></td>
+    <td style="display:none;"></td>
+    <td class="s14"></td>
+    <td class="s15"></td>
+    <td class="s15"></td>
+    <td class="s10"></td>
+    <td class="s11"></td>
+    <td class="s12"></td>
+    <td dir="ltr" class="s16">ҶДММ «Ташкилоти суғуртавии «БИМА»</td>
+</tr>
+<tr dir="ltr">
+    <td class="hd"><p style="height:16px;">.</p></td>
+    <td class="s17"></td>
+    <td class="s18"></td>
+    <td class="s18"></td>
+    <td dir="ltr" class="s19">Ширкат, ташкилот</td>
+    <td class="s18"></td>
+    <td class="s18"></td>
+    <td class="s18"></td>
+    <td class="s20"></td>
+    <td colspan="2" dir="ltr" class="s21">Код</td>
+    <td style="display:none;"></td>
+    <td class="s22"></td>
+    <td class="s11"></td>
+    <td class="s12"></td>
+    <td class="s60">Ширкат, ташкилот</td>
+</tr>
+<tr dir="ltr">
+    <td class="hd"><p style="height:16px;">.</p></td>
+    <td class="s6"></td>
+    <td class="s7"></td>
+    <td class="s7"></td>
+    <td class="s24"></td>
+    <td class="s7"></td>
+    <td class="s7"></td>
+    <td colspan="2" dir="ltr" class="s25">Шакл аз рӯи ТУНФИ</td>
+    <td colspan="2" dir="ltr" class="s26">J66012</td>
+    <td style="display:none;"></td>
+    <td class="s27"></td>
+    <td class="s11"></td>
+    <td class="s12"></td>
+    <td dir="ltr" class="s28">КВИТАНСИЯ</td>
+</tr>
+<tr dir="ltr">
+    <td class="hd"><p style="height:17px;">.</p></td>
+    <td class="s6"></td>
+    <td class="s7"></td>
+    <td class="s7"></td>
+    <td class="s7"></td>
+    <td class="s7"></td>
+    <td class="s7"></td>
+    <td colspan="2" dir="ltr" class="s25">Аз рӯи ТУКТ</td>
+    <td colspan="2" class="s29">13461429</td>
+    <td style="display:none;"></td>
+    <td class="s27"></td>
+    <td class="s11"></td>
+    <td class="s12"></td>
+    <td dir="ltr" class="s30">ба ордери даромади хазина</td>
+</tr>
+<tr dir="ltr">
+    <td class="hd"><p style="height:16px;">.</p></td>
+    <td class="s6"></td>
+    <td class="s7"></td>
+    <td class="s7"></td>
+    <td class="s7"></td>
+    <td class="s7"></td>
+    <td class="s7"></td>
+    <td class="s7"></td>
+    <td class="s7"></td>
+    <td class="s31"></td>
+    <td class="s31"></td>
+    <td class="s20"></td>
+    <td class="s11"></td>
+    <td class="s12"></td>
+    <td dir="ltr" class="s32">№ ${contract.receiptNumber}</td>
+</tr>
+<tr dir="ltr">
+    <td class="hd"><p style="height:16px;">.</p></td>
+    <td colspan="10" dir="ltr" class="s33">ОРДЕРИ ДАРОМАДИ ХАЗИНА</td>
+    <td style="display:none;"></td>
+    <td style="display:none;"></td>
+    <td style="display:none;"></td>
+    <td style="display:none;"></td>
+    <td style="display:none;"></td>
+    <td style="display:none;"></td>
+    <td style="display:none;"></td>
+    <td style="display:none;"></td>
+    <td style="display:none;"></td>
+    <td class="s10"></td>
+    <td class="s11"></td>
+    <td class="s12"></td>
+    <td dir="ltr" class="s34">
+        <fmt:formatDate value="${contract.startDate}" pattern="dd.MM.yyyy" var="startDate" />
+        аз ${startDate}
+    </td>
+</tr>
+<tr dir="ltr">
+    <td class="hd"><p style="height:16px;">.</p></td>
+    <td class="s35"></td>
+    <td class="s36"></td>
+    <td class="s36"></td>
+    <td class="s36"></td>
+    <td class="s36"></td>
+    <td class="s36"></td>
+    <td class="s36"></td>
+    <td class="s36"></td>
+    <td class="s36"></td>
+    <td class="s36"></td>
+    <td class="s20"></td>
+    <td class="s11"></td>
+    <td class="s12"></td>
+    <td dir="ltr" class="s37"></td>
+</tr>
+<tr dir="ltr">
+    <td class="hd"><p style="height:22px;">.</p></td>
+    <td colspan="2" rowspan="3" dir="ltr" class="s38">Рақами ҳуҷҷат</td>
+    <td style="display:none;"></td>
+    <td rowspan="3" dir="ltr" class="s39">Санаи таҳвил</td>
+    <td rowspan="3" dir="ltr" class="s39" style="min-width:75px">Суратҳисоби муросилотӣ ё суратҳисоби иловагӣ</td>
+    <td rowspan="3" dir="ltr" class="s39">Рамзи ҳисоби аналитикӣ</td>
+    <td colspan="2" rowspan="3" dir="ltr" class="s40">Маблағ</td>
+    <td style="display:none;"></td>
+    <td colspan="3" rowspan="3" dir="ltr" class="s39">Рамзи ҷойгиркунӣ</td>
+    <td style="display:none;"></td>
+    <td style="display:none;"></td>
+    <td class="s22"></td>
+    <td class="s11"></td>
+    <td class="s12"></td>
+    <td dir="ltr" class="s41">
+        <c:set var="surname" value="${fn:substring(contract.person.surname,0,20)}" />
+        Қабул шуд аз: ${surname}
+    </td>
+</tr>
+<tr dir="ltr">
+    <td class="hd"><p style="height:24px;">.</p></td>
+    <td style="display:none;"></td>
+    <td style="display:none;"></td>
+    <td style="display:none;"></td>
+    <td style="display:none;"></td>
+    <td style="display:none;"></td>
+    <td style="display:none;"></td>
+    <td style="display:none;"></td>
+    <td style="display:none;"></td>
+    <td style="display:none;"></td>
+    <td style="display:none;"></td>
+    <td class="s22"></td>
+    <td class="s11"></td>
+    <td class="s12"></td>
+    <td dir="ltr" class="s42">
+        <c:set var="names2">${contract.person.name} ${contract.person.middle}</c:set>
+        <c:set var="names2" value="${fn:substring(names2,0,40)}" />
+        ${names2}
+    </td>
+</tr>
+<tr dir="ltr">
+    <td class="hd"><p style="height:23px;">.</p></td>
+    <td style="display:none;"></td>
+    <td style="display:none;"></td>
+    <td style="display:none;"></td>
+    <td style="display:none;"></td>
+    <td style="display:none;"></td>
+    <td style="display:none;"></td>
+    <td style="display:none;"></td>
+    <td style="display:none;"></td>
+    <td style="display:none;"></td>
+    <td style="display:none;"></td>
+    <td class="s11"></td>
+    <td class="s11"></td>
+    <td class="s12"></td>
+    <td class="s23"></td>
+</tr>
+<tr dir="ltr">
+    <td class="hd"><p style="height:31px;">.</p></td>
+    <td colspan="2" dir="ltr" class="s43">${contract.receiptNumber}</td>
+    <td dir="ltr" class="s44">
+        ${startDate}
+    </td>
+    <td class="s45"></td>
+    <td class="s46"></td>
+    <td colspan="2" dir="ltr" class="s47">${sumToPay} сом. 00 дир</td>
+    <td style="display:none;"></td>
+    <td colspan="3" class="s48"></td>
+    <td class="s49"></td>
+    <td class="s11"></td>
+    <td class="s12"></td>
+    <td dir="ltr" class="s41">Асос: Барои суғуртакунӣ аз рӯи полис</td>
+</tr>
+<tr dir="ltr">
+    <td class="hd"><p style="height:16px;">.</p></td>
+    <td class="s50"></td>
+    <td class="s31"></td>
+    <td class="s31"></td>
+    <td class="s31"></td>
+    <td class="s31"></td>
+    <td class="s31"></td>
+    <td class="s31"></td>
+    <td class="s31"></td>
+    <td class="s31"></td>
+    <td class="s31"></td>
+    <td class="s10"></td>
+    <td class="s11"></td>
+    <td class="s12"></td>
+    <td class="s23"></td>
+</tr>
+<tr dir="ltr">
+    <td class="hd"><p style="height:16px;">.</p></td>
+    <td dir="ltr" class="s51">Қабул шуд аз:</td>
+    <td class="s7"></td>
+    <td colspan="8" dir="ltr" class="s52">
+        <c:set var="fio">${contract.person.surname} ${contract.person.name} ${contract.person.middle}</c:set>
+        <c:set var="fio" value="${fn:substring(fio,0,50)}" />
+        ${fio}
+    </td>
+    <td style="display:none;"></td>
+    <td style="display:none;"></td>
+    <td style="display:none;"></td>
+    <td style="display:none;"></td>
+    <td style="display:none;"></td>
+    <td style="display:none;"></td>
+    <td style="display:none;"></td>
+    <td class="s10"></td>
+    <td class="s11"></td>
+    <td class="s12"></td>
+    <td dir="ltr" class="s41">№ <b>${contract.c_number}</b></td>
+</tr>
+<tr dir="ltr">
+    <td class="hd"><p style="height:16px;">.</p></td>
+    <td class="s53"></td>
+    <td class="s7"></td>
+    <td class="s23"></td>
+    <td class="s23"></td>
+    <td class="s23"></td>
+    <td class="s23"></td>
+    <td class="s23"></td>
+    <td class="s23"></td>
+    <td class="s23"></td>
+    <td class="s23"></td>
+    <td class="s10"></td>
+    <td class="s11"></td>
+    <td class="s12"></td>
+    <td class="s23"></td>
+</tr>
+<tr dir="ltr">
+    <td class="hd"><p style="height:16px;">.</p></td>
+    <td dir="ltr" class="s51">Асос:</td>
+    <td class="s7"></td>
+    <td colspan="8" dir="ltr" class="s54">Барои суғуртакунӣ аз рӯи полис № ${contract.c_number}</td>
+    <td style="display:none;"></td>
+    <td style="display:none;"></td>
+    <td style="display:none;"></td>
+    <td style="display:none;"></td>
+    <td style="display:none;"></td>
+    <td style="display:none;"></td>
+    <td style="display:none;"></td>
+    <td class="s10"></td>
+    <td class="s11"></td>
+    <td class="s12"></td>
+    <td dir="ltr" class="s41">
+        <c:set var="s">
+            <util:numbers numInt="${sumToPay}" />
+        </c:set>
+        <c:set var="s" value="${s} сомони 00 дир."></c:set>
+        Маблағ: <util:splitWordsIntegrity str="${s}" length="30" />
+    </td>
+</tr>
+<tr dir="ltr">
+    <td class="hd"><p style="height:24px;">.</p></td>
+    <td class="s53"></td>
+    <td class="s7"></td>
+    <td colspan="8" class="s55"></td>
+    <td style="display:none;"></td>
+    <td style="display:none;"></td>
+    <td style="display:none;"></td>
+    <td style="display:none;"></td>
+    <td style="display:none;"></td>
+    <td style="display:none;"></td>
+    <td style="display:none;"></td>
+    <td class="s10"></td>
+    <td class="s11"></td>
+    <td class="s12"></td>
+    <td class="s56">
+        <c:if test="${fn:length(s) > 30}">
+            <util:splitWordsIntegrity str="${s}" start="30" />
+        </c:if>
+    </td>
+</tr>
+<tr dir="ltr" id="R19">
+    <td class="hd"><p style="height:16px;">.</p></td>
+    <td class="s53"></td>
+    <td class="s7"></td>
+    <td class="s23"></td>
+    <td class="s23"></td>
+    <td class="s23"></td>
+    <td class="s23"></td>
+    <td class="s23"></td>
+    <td class="s23"></td>
+    <td class="s23"></td>
+    <td class="s23"></td>
+    <td class="s10"></td>
+    <td class="s11"></td>
+    <td class="s12"></td>
+    <td class="s23"></td>
+</tr>
+<tr dir="ltr">
+    <td class="hd"><p style="height:16px;">.</p></td>
+    <td dir="ltr" class="s51">Маблағ:</td>
+    <td class="s57"></td>
+    <td colspan="8" class="s58">
+        <util:splitWordsIntegrity str="${s}" length="50" />
+    </td>
+    <!--td style="display:none;"></td>
+    <td style="display:none;"></td>
+    <td style="display:none;"></td>
+    <td style="display:none;"></td>
+    <td style="display:none;"></td>
+    <td style="display:none;"></td>
+    <td style="display:none;"></td-->
+    <td class="s20"></td>
+    <td class="s11"></td>
+    <td class="s12"></td>
+    <td dir="ltr" class="s59">${startDate}</td>
+</tr>
+<tr dir="ltr">
+    <td class="hd"><p style="height:16px;">.</p></td>
+    <td class="s53"></td>
+    <td class="s7"></td>
+    <td class="s23"></td>
+    <td class="s23"></td>
+    <td dir="ltr" class="s60">бо ҳуруф</td>
+    <td class="s23"></td>
+    <td class="s23"></td>
+    <td class="s23"></td>
+    <td class="s23"></td>
+    <td class="s23"></td>
+    <td class="s20"></td>
+    <td class="s11"></td>
+    <td class="s12"></td>
+    <td dir="ltr" class="s61">Ҷ. М.</td>
+</tr>
+<tr dir="ltr">
+    <td class="hd"><p style="height:16px;">.</p></td>
+    <td class="s53"></td>
+    <td class="s7"></td>
+    <td colspan="8" class="s58">
+        <c:if test="${fn:length(s) > 50}">
+            <util:splitWordsIntegrity str="${s}" start="50" />
+        </c:if>
+    </td>
+    <!--td style="display:none;"></td>
+    <td style="display:none;"></td>
+    <td style="display:none;"></td>
+    <td style="display:none;"></td>
+    <td style="display:none;"></td>
+    <td style="display:none;"></td>
+    <td style="display:none;"></td-->
+    <td class="s20"></td>
+    <td class="s11"></td>
+    <td class="s12"></td>
+    <td class="s62"></td>
+</tr>
+<tr dir="ltr">
+    <td class="hd"><p style="height:16px;">.</p></td>
+    <td class="s53"></td>
+    <td class="s7"></td>
+    <td class="s63"></td>
+    <td class="s63"></td>
+    <td class="s63"></td>
+    <td class="s63"></td>
+    <td class="s63"></td>
+    <td class="s63"></td>
+    <td class="s63"></td>
+    <td class="s63"></td>
+    <td class="s20"></td>
+    <td class="s11"></td>
+    <td class="s12"></td>
+    <td dir="ltr" class="s64">Сармуҳосиб</td>
+</tr>
+<tr dir="ltr">
+    <td class="hd"><p style="height:16px;">.</p></td>
+    <td dir="ltr" class="s51">Замима:</td>
+    <td class="s7"></td>
+    <td class="s65"></td>
+    <td class="s65"></td>
+    <td class="s65"></td>
+    <td class="s65"></td>
+    <td class="s65"></td>
+    <td class="s65"></td>
+    <td class="s65"></td>
+    <td class="s65"></td>
+    <td class="s20"></td>
+    <td class="s11"></td>
+    <td class="s12"></td>
+    <td class="s66"></td>
+</tr>
+<tr dir="ltr">
+    <td class="hd"><p style="height:16px;">.</p></td>
+    <td class="s67"></td>
+    <td class="s7"></td>
+    <td class="s23"></td>
+    <td class="s23"></td>
+    <td class="s23"></td>
+    <td class="s23"></td>
+    <td class="s23"></td>
+    <td class="s23"></td>
+    <td class="s23"></td>
+    <td class="s23"></td>
+    <td class="s10"></td>
+    <td class="s11"></td>
+    <td class="s12"></td>
+    <td dir="ltr" class="s60">кушодани рамзи имзо</td>
+</tr>
+<tr dir="ltr">
+    <td class="hd"><p style="height:16px;">.</p></td>
+    <td dir="ltr" class="s51">Сармуҳосиб</td>
+    <td class="s7"></td>
+    <td class="s7"></td>
+    <td class="s36"></td>
+    <td class="s36"></td>
+    <td class="s7"></td>
+    <td colspan="4" class="s68"></td>
+    <td style="display:none;"></td>
+    <td style="display:none;"></td>
+    <td style="display:none;"></td>
+    <td class="s10"></td>
+    <td class="s11"></td>
+    <td class="s12"></td>
+    <td class="s7"></td>
+</tr>
+<tr dir="ltr">
+    <td class="hd"><p style="height:16px;">.</p></td>
+    <td class="s67"></td>
+    <td class="s7"></td>
+    <td class="s7"></td>
+    <td dir="ltr" class="s60">имзо</td>
+    <td class="s69"></td>
+    <td class="s70"></td>
+    <td dir="ltr" class="s60">кушодани рамзи имзо</td>
+    <td class="s69"></td>
+    <td class="s69"></td>
+    <td class="s69"></td>
+    <td class="s10"></td>
+    <td class="s11"></td>
+    <td class="s12"></td>
+    <td dir="ltr" class="s64">Хазинадор</td>
+</tr>
+<tr dir="ltr">
+    <td class="hd"><p style="height:26px;">.</p></td>
+    <td dir="ltr" class="s71">Қабул кард хазинадор</td>
+    <td class="s7"></td>
+    <td class="s7"></td>
+    <td class="s36"></td>
+    <td class="s36"></td>
+    <td class="s7"></td>
+    <td colspan="4" dir="ltr" class="s72">
+    <c:set var="creatorFIO" value="${fn:substring(contract.creator.fio,0,20)}" />
+    ${creatorFIO}
+    </td>
+    <td style="display:none;"></td>
+    <td style="display:none;"></td>
+    <td style="display:none;"></td>
+    <td class="s10"></td>
+    <td class="s11"></td>
+    <td class="s12"></td>
+    <td dir="ltr" class="s42">${creatorFIO}</td>
+</tr>
+<tr dir="ltr">
+    <td class="hd"><p style="height:16px;">.</p></td>
+    <td class="s6"></td>
+    <td class="s7"></td>
+    <td class="s7"></td>
+    <td dir="ltr" class="s60">имзо</td>
+    <td class="s69"></td>
+    <td class="s70"></td>
+    <td dir="ltr" class="s60">кушодани рамзи имзо</td>
+    <td class="s69"></td>
+    <td class="s69"></td>
+    <td class="s69"></td>
+    <td class="s10"></td>
+    <td class="s11"></td>
+    <td class="s12"></td>
+    <td dir="ltr" class="s60">кушодани рамзи имзо</td>
+</tr>
+</tbody>
+</table>
+<spring:url var="pubimage" value="/images/receipt/pubimage" />
+<img id="I1" src="${pubimage}" width="108" height="108"
+     style="position: absolute; display: block; left: 626px; bottom: 82px;" />
+</div>

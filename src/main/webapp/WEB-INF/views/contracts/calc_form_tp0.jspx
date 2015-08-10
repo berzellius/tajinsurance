@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<div xmlns:spring="http://www.springframework.org/tags" xmlns:c="http://java.sun.com/jsp/jstl/core"
+     xmlns:fmt="http://java.sun.com/jsp/jstl/fmt"
+     version="2.0">
+
+
+    <script><![CDATA[
+        $(document).ready(function(){
+            $('input.digits').each(function(){
+                if(
+                        typeof($(this).attr('data-possiable-values')) !== 'undefined' &&
+                        $(this).attr('data-possiable-values') != ''
+                        ){
+
+                    $(this).autocomplete(
+                            {
+                                source: (function (t) {
+                                    var src = $(t).attr('data-possiable-values').split(',');
+                                    return src;
+                                })(this),
+                                minLength: 0,
+                                autoFocus: true
+                            }
+                    );
+
+                    $(this).click(function () {
+                        $(this).autocomplete("search", "");
+                    })
+                }
+            });
+        });
+    ]]></script>
+
+    <label for="length">Срок действия, дней:</label>
+
+    <div class="field">
+        <input type="text" name="length" class="digits"/>
+    </div>
+
+    <c:if test="${not empty risks}">
+        <label>
+            <spring:message code="label_com_tajinsurance_domain_contract_calc_ins_sum"/>:
+        </label>
+        <table>
+            <thead>
+            <th><spring:message code="label_com_tajinsurance_domain_risk"/></th>
+            <th><spring:message code="insured_sum"/></th>
+            </thead>
+            <tbody>
+            <c:forEach items="${risks}" var="risk">
+                <tr>
+                    <td>
+                        <c:set var="rprefix">
+                            <c:choose>
+                                <c:when test="${not empty risk.code}">
+                                    <c:out value="${risk.code}: " />
+                                </c:when>
+                                <c:otherwise>
+                                    <c:choose>
+                                        <c:when test="${not empty risk.det}">
+                                            <c:out value="${risk.det}: " />
+                                        </c:when>
+                                        <c:otherwise><c:out value="" /></c:otherwise>
+                                    </c:choose>
+                                </c:otherwise>
+                            </c:choose>
+                        </c:set>
+                        ${rprefix}
+                        <c:choose>
+                            <c:when test="${risk.parentRisk eq null}">${risk}</c:when>
+                            <c:otherwise>${risk.parentRisk}</c:otherwise>
+                        </c:choose>
+                    </td>
+                    <td>
+                        <c:choose>
+                            <c:when test="${not empty fixedSums[risk]}">
+                                <input type="hidden" name="riskid" value="${risk.id}"/>
+                                <input type="hidden" name="risksum" value="${fixedSums[risk]}" />
+                                <b><fmt:formatNumber value="${fixedSums[risk]}" maxFractionDigits="2" /></b>
+                            </c:when>
+                            <c:otherwise>
+                                <input type="hidden" name="riskid" value="${risk.id}"/>
+                                <input type="text" class="digits"
+                                       data-possiable-values="${(not empty possibleValues[risk])? possibleValues[risk] : ''}"
+                                       name="risksum"/>
+                            </c:otherwise>
+                        </c:choose>
+
+                    </td>
+                </tr>
+            </c:forEach>
+            </tbody>
+        </table>
+
+        <br/>
+    </c:if>
+
+
+
+
+    <div class="field">
+        <label for="franchise"><spring:message code="ccr_franchise_money"/>:</label>
+        <c:choose>
+            <c:when test="${not empty franchises and franchises ne null}">
+                <select name="franchise">
+                    <c:forEach items="${franchises}" var="fr">
+                        <fmt:formatNumber value="${fr.franchiseMoney}" maxFractionDigits="0" var="frMoney"/>
+                        <option value="${frMoney}">${frMoney}</option>
+                    </c:forEach>
+                </select>
+            </c:when>
+            <c:otherwise>
+                <input type="text" value="${contract.franchise}" name="franchise" class="digits"/>
+            </c:otherwise>
+        </c:choose>
+    </div>
+
+    <label for="insuranceTerritory"><spring:message code="label_com_tajinsurance_domain_contract_ins_terr"/></label>
+
+    <div class="field">
+        <select name="insuranceTerritory">
+            <c:forEach items="${territories}" var="terr">
+                <c:choose>
+                    <c:when test="${terr eq contract.insuranceTerritory}">
+                        <option selected="selected" value="${terr}">
+                            <spring:message code="label_com_tajinsurance_domain_contract_ins_terr_${terr}"/>
+                        </option>
+                    </c:when>
+                    <c:otherwise>
+                        <option value="${terr}">
+                            <spring:message code="label_com_tajinsurance_domain_contract_ins_terr_${terr}"/>
+                        </option>
+                    </c:otherwise>
+                </c:choose>
+            </c:forEach>
+        </select>
+    </div>
+
+    <label for="sport"><spring:message code="label_com_tajinsurance_domain_contract_sport"/></label>
+    <div class="field">
+        <select name="sport">
+            <option value="true">Да</option>
+            <option value="false" selected="selected">Нет</option>
+        </select>
+    </div>
+
+    <label for="age"><spring:message code="label_com_tajinsurance_domain_person_age"/></label>
+    <div class="field">
+        <input type="text" name="age" class="digits" />
+    </div>
+
+
+    <spring:message code="get_premium" var="calc"/>
+
+    <div class="field">
+        <input type="submit" value="${calc}"/>
+    </div>
+
+</div>

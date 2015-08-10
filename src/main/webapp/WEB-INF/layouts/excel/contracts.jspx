@@ -1,0 +1,57 @@
+<ss:Workbook xmlns:ss="urn:schemas-microsoft-com:office:spreadsheet"
+             xmlns:c="http://java.sun.com/jsp/jstl/core"
+             xmlns:fmt="http://java.sun.com/jsp/jstl/fmt"
+             xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+        >
+    <ss:Styles>
+        <ss:Style ss:ID="1">
+            <ss:Font ss:Bold="1"/>
+        </ss:Style>
+    </ss:Styles>
+    <ss:Worksheet ss:Name="Contracts from TIAS">
+        <ss:Table>
+            <c:forEach items="${data[0]}" var="c">
+                <!-- Columns -->
+                <ss:Column ss:AutoFitWidth="1" />
+            </c:forEach>
+            <c:set var="i" value="0" />
+            <c:forEach items="${data}" var="row">
+                <c:choose>
+                    <c:when test="${i eq 0}">
+                        <!-- HEADER -->
+                        <ss:Row>
+                            <c:forEach items="${row}" var="cell">
+                                <ss:Cell styleID="1">
+                                    <ss:Data ss:Type="String">${cell}</ss:Data>
+                                </ss:Cell>
+                            </c:forEach>
+                        </ss:Row>
+                    </c:when>
+                    <c:otherwise>
+                        <!-- BODY -->
+                        <ss:Row>
+                            <c:set var="j" value="0" />
+                            <c:forEach items="${row}" var="cell">
+                                <ss:Cell>
+                                    <c:choose>
+                                        <c:when test="${data[0][j] eq 'INSURED_SUM' or data[0][j] eq 'PREMIUM'}">
+                                            <ss:Data xsd="integer" ss:Type="Number">${cell}</ss:Data>
+                                        </c:when>
+                                        <c:when test="${data[0][j] eq 'USER'}">
+                                            <ss:Data xsd="integer" ss:Type="Number">${cell}</ss:Data>
+                                        </c:when>
+                                        <c:otherwise>
+                                            <ss:Data ss:Type="String">${cell}</ss:Data>
+                                        </c:otherwise>
+                                    </c:choose>
+                                </ss:Cell>
+                                <c:set var="j" value="${j+1}" />
+                            </c:forEach>
+                        </ss:Row>
+                    </c:otherwise>
+                </c:choose>
+                <c:set var="i" value="${i+1}" />
+            </c:forEach>
+        </ss:Table>
+    </ss:Worksheet>
+</ss:Workbook>

@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<div xmlns:c="http://java.sun.com/jsp/jstl/core"
+     xmlns:jsp="http://java.sun.com/JSP/Page"
+     xmlns:spring="http://www.springframework.org/tags"
+     xmlns:fmt="http://java.sun.com/jsp/jstl/fmt"
+     xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+     version="2.0">
+    <jsp:directive.page contentType="text/html;charset=UTF-8"/>
+    <jsp:output omit-xml-declaration="yes"/>
+
+    <c:if test="${not empty policy}">
+
+        <c:choose>
+            <c:when test="${policy.useFixedSums ne null and policy.useFixedSums}">
+                <label for="sum"><spring:message code="label_fixed_sum_for_this_risk"/>:</label>
+                <select name="sum">
+                    <c:forEach var="s" items="${fn:split(possibleValues, ',')}">
+                        <option value="${s}">${s}</option>
+                    </c:forEach>
+                </select>
+            </c:when>
+            <c:otherwise>
+                <label for="sum"><spring:message code="label_sum"/>:</label>
+                <input type="text" data-possiable-values="${possibleValues}" name="sum" class="digits"/>
+            </c:otherwise>
+        </c:choose>
+
+    </c:if>
+
+    <c:if test="${empty policy}">
+        <label for="sum"><spring:message code="label_sum"/>:</label>
+        <input type="text" name="sum" class="digits"  data-possiable-values="${possibleValues}" />
+    </c:if>
+
+</div>

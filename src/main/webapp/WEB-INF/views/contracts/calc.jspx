@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<div xmlns:c="http://java.sun.com/jsp/jstl/core" xmlns:jsp="http://java.sun.com/JSP/Page"
+     xmlns:spring="http://www.springframework.org/tags" version="2.0" xmlns:util="urn:jsptagdir:/WEB-INF/tags/util">
+
+    <spring:url value="/" var="prefix" />
+    <spring:message code="label_calculate_risks" var="title" />
+
+    <util:panel id="title" title="${title}">
+        <div>
+        <form id="calcContractRisks" action="?calculate">
+
+            <label for="risk"><spring:message code="calc_risk" />:</label>
+
+            <div class="field">
+
+                <select name="risk" id="catContractSelector">
+                    <c:if test="${not empty catContracts}">
+                        <c:forEach var="cc" items="${catContracts}">
+                                <option id="cco_${cc.product}" value="${cc.id}">${cc.name} - ${cc.value}</option>
+                        </c:forEach>
+                    </c:if>
+                </select>
+
+            </div>
+
+            <!-- ajax loading form -->
+            <div id="calcPremiumForm">
+
+            </div>
+
+        </form>
+        </div>
+
+        <div id="errors"><p style="color: red"></p></div>
+
+        <div id="result">
+            <table>
+                <tr>
+                    <th><spring:message code="calc_sum" /></th>
+                    <th><spring:message code="premium_all" /></th>
+                    <th><spring:message code="premium_by_month" /></th>
+                    <th><spring:message code="premium_by_day" /></th>
+                </tr>
+
+                <tr>
+                    <td id="insured"></td>
+                    <td id="all"></td>
+                    <td id="month"></td>
+                    <td id="day"></td>
+                </tr>
+
+            </table>
+        </div>
+
+    </util:panel>
+</div>

@@ -1,0 +1,273 @@
+<ss:Workbook xmlns:ss="urn:schemas-microsoft-com:office:spreadsheet"
+             xmlns:c="http://java.sun.com/jsp/jstl/core"
+             xmlns:fmt="http://java.sun.com/jsp/jstl/fmt"
+             xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+             xmlns:util="urn:jsptagdir:/WEB-INF/tags/util"
+        >
+<ss:Styles>
+    <ss:Style ss:ID="1">
+        <ss:Font ss:Bold="1"/>
+    </ss:Style>
+</ss:Styles>
+<ss:Worksheet ss:Name="Contracts from TIAS">
+<ss:Table>
+<!-- Columns -->
+<ss:Column ss:AutoFitWidth="1"/>
+<ss:Column ss:AutoFitWidth="1"/>
+<ss:Column ss:AutoFitWidth="1"/>
+<ss:Column ss:AutoFitWidth="1"/>
+<ss:Column ss:AutoFitWidth="1"/>
+<ss:Column ss:AutoFitWidth="1"/>
+<ss:Column ss:AutoFitWidth="1"/>
+<ss:Column ss:AutoFitWidth="1"/>
+<ss:Column ss:AutoFitWidth="1"/>
+<ss:Column ss:AutoFitWidth="1"/>
+<ss:Column ss:AutoFitWidth="1"/>
+<ss:Column ss:AutoFitWidth="1"/>
+<ss:Column ss:AutoFitWidth="1"/>
+<ss:Column ss:AutoFitWidth="1"/>
+<ss:Column ss:AutoFitWidth="1"/>
+<ss:Column ss:AutoFitWidth="1"/>
+<ss:Column ss:AutoFitWidth="1"/>
+<ss:Column ss:AutoFitWidth="1"/>
+<ss:Column ss:AutoFitWidth="1"/>
+<ss:Column ss:AutoFitWidth="1"/>
+
+<!-- HEADER -->
+<ss:Row>
+    <ss:Cell styleID="1">
+        <ss:Data ss:Type="String">PRODUCT</ss:Data>
+    </ss:Cell>
+    <ss:Cell styleID="1">
+        <ss:Data ss:Type="String">CONTRACT_NUMBER</ss:Data>
+    </ss:Cell>
+    <ss:Cell styleID="1">
+        <ss:Data ss:Type="String">STATUS</ss:Data>
+    </ss:Cell>
+    <ss:Cell styleID="1">
+        <ss:Data ss:Type="String">SIGN_DATE</ss:Data>
+    </ss:Cell>
+    <ss:Cell styleID="1">
+        <ss:Data ss:Type="String">BEGIN_DATE</ss:Data>
+    </ss:Cell>
+    <ss:Cell styleID="1">
+        <ss:Data ss:Type="String">END_DATE</ss:Data>
+    </ss:Cell>
+    <ss:Cell styleID="1">
+        <ss:Data ss:Type="String">PAY_DATE</ss:Data>
+    </ss:Cell>
+    <ss:Cell styleID="1">
+        <ss:Data ss:Type="String">GET_DATE</ss:Data>
+    </ss:Cell>
+    <ss:Cell styleID="1">
+        <ss:Data ss:Type="String">SUMM_INS</ss:Data>
+    </ss:Cell>
+    <ss:Cell styleID="1">
+        <ss:Data ss:Type="String">PREMIUM</ss:Data>
+    </ss:Cell>
+    <ss:Cell styleID="1">
+        <ss:Data ss:Type="String">RECEIPT_NUMBER</ss:Data>
+    </ss:Cell>
+    <ss:Cell styleID="1">
+        <ss:Data ss:Type="String">PARTNER</ss:Data>
+    </ss:Cell>
+    <ss:Cell styleID="1">
+        <ss:Data ss:Type="String">SELLER_PARTNER</ss:Data>
+    </ss:Cell>
+    <ss:Cell styleID="1">
+        <ss:Data ss:Type="String">SELLER_BIMA</ss:Data>
+    </ss:Cell>
+    <ss:Cell styleID="1">
+        <ss:Data ss:Type="String">INSURANT</ss:Data>
+    </ss:Cell>
+    <ss:Cell styleID="1">
+        <ss:Data ss:Type="String">DOB</ss:Data>
+    </ss:Cell>
+    <ss:Cell styleID="1">
+        <ss:Data ss:Type="String">GENDER</ss:Data>
+    </ss:Cell>
+    <ss:Cell styleID="1">
+        <ss:Data ss:Type="String">ADRESS</ss:Data>
+    </ss:Cell>
+    <ss:Cell styleID="1">
+        <ss:Data ss:Type="String">EMAIL</ss:Data>
+    </ss:Cell>
+    <ss:Cell styleID="1">
+        <ss:Data ss:Type="String">MOBILE</ss:Data>
+    </ss:Cell>
+</ss:Row>
+<ss:Row>
+    <ss:Cell styleID="1">
+        <ss:Data ss:Type="String">СЕРИЯ ДОГОВОРА</ss:Data>
+    </ss:Cell>
+    <ss:Cell styleID="1">
+        <ss:Data ss:Type="String">НОМЕР ДОГОВОРА</ss:Data>
+    </ss:Cell>
+    <ss:Cell styleID="1">
+        <ss:Data ss:Type="String">СТАТУС ДОГОВОРА</ss:Data>
+    </ss:Cell>
+    <ss:Cell styleID="1">
+        <ss:Data ss:Type="String">ДАТА ЗАКЛЮЧЕНИЯ ДОГОВОРА</ss:Data>
+    </ss:Cell>
+    <ss:Cell styleID="1">
+        <ss:Data ss:Type="String">ДАТА НАЧАЛА ДЕЙСТВИЯ ДОГОВОРА СТРАХОВАНИЯ</ss:Data>
+    </ss:Cell>
+    <ss:Cell styleID="1">
+        <ss:Data ss:Type="String">ДАТА ОКОНЧАНИЯ ДЕЙСТВИЯ ДОГОВОРА СТРАХОВАНИЯ</ss:Data>
+    </ss:Cell>
+    <ss:Cell styleID="1">
+        <ss:Data ss:Type="String">ДАТА ОПЛАТЫ</ss:Data>
+    </ss:Cell>
+    <ss:Cell styleID="1">
+        <ss:Data ss:Type="String">ДАТА ПЕРЕДАЧИ В ОФИС БИМА</ss:Data>
+    </ss:Cell>
+    <ss:Cell styleID="1">
+        <ss:Data ss:Type="String">СТРАХОВАЯ СУММА В СОМОНИ</ss:Data>
+    </ss:Cell>
+    <ss:Cell styleID="1">
+        <ss:Data ss:Type="String">СТРАХОВАЯ ПРЕМИЯ В СОМОНИ</ss:Data>
+    </ss:Cell>
+    <ss:Cell styleID="1">
+        <ss:Data ss:Type="String">НОМЕР КВТАНЦИИ</ss:Data>
+    </ss:Cell>
+    <ss:Cell styleID="1">
+        <ss:Data ss:Type="String">НАИМЕНОВАНИЕ ПАРТНЕРА</ss:Data>
+    </ss:Cell>
+    <ss:Cell styleID="1">
+        <ss:Data ss:Type="String">НОМЕР ПРОДАВЦА ПАРТНЕРА</ss:Data>
+    </ss:Cell>
+    <ss:Cell styleID="1">
+        <ss:Data ss:Type="String">НОМЕР ЗАКРЕПЛЕННОГО ЗА ПРОДАВЦОМ СОТРУДНИКА БИМА</ss:Data>
+    </ss:Cell>
+    <ss:Cell styleID="1">
+        <ss:Data ss:Type="String">ФИО СТРАХОВАТЕЛЯ</ss:Data>
+    </ss:Cell>
+    <ss:Cell styleID="1">
+        <ss:Data ss:Type="String">ДАТА РОЖДЕНИЯ</ss:Data>
+    </ss:Cell>
+    <ss:Cell styleID="1">
+        <ss:Data ss:Type="String">ПОЛ</ss:Data>
+    </ss:Cell>
+    <ss:Cell styleID="1">
+        <ss:Data ss:Type="String">ПОЧТОВЫЙ АДРЕС</ss:Data>
+    </ss:Cell>
+    <ss:Cell styleID="1">
+        <ss:Data ss:Type="String">АДРЕС ЭЛЕКТРОННОЙ ПОЧТЫ</ss:Data>
+    </ss:Cell>
+    <ss:Cell styleID="1">
+        <ss:Data ss:Type="String">НОМЕР МОБИЛЬНОГО ТЕЛЕФОНА</ss:Data>
+    </ss:Cell>
+</ss:Row>
+
+<c:set var="i" value="0"/>
+<c:forEach items="${data}" var="contract">
+
+    <c:choose>
+        <c:when test="${contract.contractPremiums ne null}">
+            <util:excelContractCommonRow contract="${contract}"
+                                        contract_premiums="${contract.contractPremiums}"/>
+        </c:when>
+        <c:otherwise>
+            <util:excelContractCommonRow contract="${contract}"/>
+        </c:otherwise>
+    </c:choose>
+
+    <c:set var="i" value="${i+1}"/>
+</c:forEach>
+<!-- Дальше закомментирована старая выгрузка -->
+
+<!-- HEADER -->
+<!--ss:Row>
+
+    <ss:Cell styleID="1">
+        <ss:Data ss:Type="String">NUMBER</ss:Data>
+    </ss:Cell>
+
+    <ss:Cell styleID="1">
+        <ss:Data ss:Type="String">START_DATE</ss:Data>
+    </ss:Cell>
+
+    <ss:Cell styleID="1">
+        <ss:Data ss:Type="String">END_DATE</ss:Data>
+    </ss:Cell>
+
+    <ss:Cell styleID="1">
+        <ss:Data ss:Type="String">APP_DATE</ss:Data>
+    </ss:Cell>
+
+    <ss:Cell styleID="1">
+        <ss:Data ss:Type="String">PAY_DATE</ss:Data>
+    </ss:Cell>
+
+    <ss:Cell styleID="1">
+        <ss:Data ss:Type="String">PRINT_DATE</ss:Data>
+    </ss:Cell>
+
+    <ss:Cell styleID="1">
+        <ss:Data ss:Type="String">RISK</ss:Data>
+    </ss:Cell>
+
+    <ss:Cell styleID="1">
+        <ss:Data ss:Type="String">INSURED_SUM</ss:Data>
+    </ss:Cell>
+
+    <ss:Cell styleID="1">
+        <ss:Data ss:Type="String">PREMIUM</ss:Data>
+    </ss:Cell>
+
+    <ss:Cell styleID="1">
+        <ss:Data ss:Type="String">ADDRESS</ss:Data>
+    </ss:Cell>
+
+    <ss:Cell styleID="1">
+        <ss:Data ss:Type="String">CATEGORY</ss:Data>
+    </ss:Cell>
+
+    <ss:Cell styleID="1">
+        <ss:Data ss:Type="String">STATUS</ss:Data>
+    </ss:Cell>
+
+    <ss:Cell styleID="1">
+        <ss:Data ss:Type="String">PERSON</ss:Data>
+    </ss:Cell>
+
+    <ss:Cell styleID="1">
+        <ss:Data ss:Type="String">USER</ss:Data>
+    </ss:Cell>
+
+    <ss:Cell styleID="1">
+        <ss:Data ss:Type="String">PAYMENT</ss:Data>
+    </ss:Cell>
+
+    <ss:Cell styleID="1">
+        <ss:Data ss:Type="String">RECEIPT_NUMBER</ss:Data>
+    </ss:Cell>
+
+    <ss:Cell styleID="1">
+        <ss:Data ss:Type="String">CURRENCY</ss:Data>
+    </ss:Cell>
+
+    <ss:Cell styleID="1">
+        <ss:Data ss:Type="String">CURRENCY_EXCHANGE</ss:Data>
+    </ss:Cell>
+
+</ss:Row>
+
+<c:set var="i" value="0"/>
+<c:forEach items="${data}" var="contract">
+
+    <c:choose>
+        <c:when test="${contract.contractPremiums ne null}">
+            <util:excelContractPartnerRow contract="${contract}"
+                                          contract_premiums="${contract.contractPremiums}"/>
+        </c:when>
+        <c:otherwise>
+            <util:excelContractPartnerRow contract="${contract}"/>
+        </c:otherwise>
+    </c:choose>
+
+    <c:set var="i" value="${i+1}"/>
+</c:forEach-->
+</ss:Table>
+</ss:Worksheet>
+</ss:Workbook>

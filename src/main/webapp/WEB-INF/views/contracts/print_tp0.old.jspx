@@ -1,0 +1,695 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<div xmlns:c="http://java.sun.com/jsp/jstl/core" xmlns:field="urn:jsptagdir:/WEB-INF/tags/form/fields"
+     xmlns:jsp="http://java.sun.com/JSP/Page"
+     xmlns:page="urn:jsptagdir:/WEB-INF/tags/form" xmlns:spring="http://www.springframework.org/tags"
+     xmlns:form="http://www.springframework.org/tags/form"
+     xmlns:fmt="http://java.sun.com/jsp/jstl/fmt"
+     xmlns:util="urn:jsptagdir:/WEB-INF/tags/util"
+     xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+     version="2.0" class="MP0_contract">
+<jsp:directive.page contentType="text/html;charset=UTF-8"/>
+<jsp:output omit-xml-declaration="yes"/>
+
+<c:if test="${not empty print_version}">
+    <script>
+        window.print();
+    </script>
+</c:if>
+
+<spring:url value="/" var="prefix"/>
+
+<div>
+
+<spring:url value="/styles/style_print_tp0.css" var="cssTP0Url"/>
+
+<link rel="stylesheet" type="text/css" href="${cssTP0Url}"/>
+
+<div style="margin-top: 0.3em;height: 0">&#160;</div>
+
+<c:forEach items="${fn:split('1,2,3',',')}" var="i">
+
+
+
+<p style="margin-top: 0.9em">&#160;</p>
+
+<c:if test="${i eq 2}">
+    <p style="margin-top: -0.3em">&#160;</p>
+    <p>&#160;</p>
+</c:if>
+
+<c:if test="${i eq 3}">
+    <p style="margin-top: -0.5em">&#160;</p>
+    <p>&#160;</p>
+</c:if>
+
+
+<div>
+<!--p class="c24" style="padding: 0">
+<span class="c9">ҶДММ «Ташкилоти Суғуртавии «БИМА», иҷозатнома № НС-07-44, Ҷумхурии Тоҷикистон, ш. Душанбе, к. Дӯстии Халқҳо, 47; телефон: +(992) 37-227-2262
+</span>
+</p-->
+
+<p class="c43" style="padding-left: 100px;margin-top: 0.4em">
+<span class="c18">
+
+</span>
+<span class="c38" style="font-size: 2em">
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;
+    TP0&#160;${contract.c_number}
+</span>
+<span class="c9" style="
+    margin-left: 50px;
+">Ҷои додан / Issue place
+</span>
+<span class="c9 c28">Тоҷикистон, ш. Душанбе&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;
+</span>
+</p>
+
+<p class="c32" style="padding-left: 100px; padding-bottom: 0">
+<span class="c18">
+
+</span>
+<span class="c38" style="font-size: 2em">
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;
+    &#160;&#160;&#160;&#160;&#160;
+    TP0&#160;${contract.c_number}
+</span>
+<span class="c9" style="
+    margin-left: 200px;
+">Санаи додан / Issue date
+</span>
+<span class="c9 c28" style="
+    width: 100px;
+">
+<fmt:formatDate value="${contract.startDate}" pattern="dd.MM.yyyy" var="startDate"/>
+<fmt:formatDate value="${contract.printDate}" pattern="dd.MM.yyyy" var="printDate"/>
+    ${printDate}
+</span>
+</p>
+<p class="c23" style="margin-top: 0.3em">
+<span class="c6">Ҳамин полиси байналмилалии суғуртавӣ (минбаъд Шартнома) ба Суғуртагиранда дар асоси Аризаи ӯ дода шуда, воқеъияти бастани Шартномаи суғуртакуниро бо ҶДММ «Ташкилоти суғуртавии «БИМА» (минбаъд Суғуртакунанда) дар санаи дар боло нишондодшуда бо шароитҳое, ки дар Шартнома ва шароитхои суғуртакунии Полис аз рӯи маҳсулоти суғуртавии «Суғуртаи маҷмӯии сафаркунандагон» дарҷ гардида, дар асоси Қоидаҳои маҷмӯии суғуртаи ихтиёрии шахсони аз ҷои зисти доимияшон сафаркунанда дар таҳрири бо Супоришномаи Директори Генералии ҶДММ «Ташиклоти суғуртавии «БИМА» №10/14 аз «13» августи соли 2014 тасдиқшуда (минбаъд Шароитҳои полис), ки қисми ҷудонашавандаи Шартнома (Замимаи№1) мебошанд, &#160;тасдиқ менамояд. Дар тамоми мавридҳое, ки дар Шартнома пешбинӣ нашудаанд, Тарафҳо тибқи шартҳои дар Шароитҳои полисӣ дарҷшуда амал менамоянд. Агар дар ҳоле, ки яке аз бандҳои ҳамин Шартнома ба шароити Полис мухолиф бошад, пас афзалият ба шартҳои Шартнома дода мешавад.
+</span>
+</p>
+<table cellpadding="0" cellspacing="0" class="c27">
+    <tbody>
+    <tr class="c33">
+        <td class="c25" colspan="1" rowspan="1">
+            <p class="c16">
+<span class="c3">СУҒУРТАШАВАНДА / POLICY-HOLDER
+</span>
+            </p>
+        </td>
+        <td class="c20 c42" colspan="1" rowspan="1">
+            <p class="c5">
+                <span class="c3">
+                    ${person}
+                </span>
+            </p>
+        </td>
+        <td class="c22" colspan="1" rowspan="1">
+            <p class="c16">
+<span class="c3">САНАИ ТАВАЛЛУД / DATE OF BIRTH
+</span>
+            </p>
+        </td>
+        <td class="c31 c20" colspan="1" rowspan="1">
+            <p class="c5">
+<span class="c3">
+    <fmt:formatDate var="born" pattern="dd.MM.yyyy" value="${person.born}"/>
+    ${born}
+</span>
+            </p>
+        </td>
+    </tr>
+    </tbody>
+</table>
+<p class="c14 c17" style="height: 3pt">
+<span class="c26">
+</span>
+</p>
+<table cellpadding="0" cellspacing="0" class="c27">
+    <tbody>
+    <tr class="c33">
+        <td class="c44 c37" colspan="1" rowspan="1">
+            <p class="c16">
+<span class="c3">СУРОҒАИ ЗИСТИ АСЛӢ, ТЕЛЕФОН / ADDRESS, TELEPHONE
+</span>
+            </p>
+        </td>
+        <td class="c47 c20" colspan="1" rowspan="1">
+            <p class="c5">
+<span class="c3">
+    ${person.addrRegistr}, ${person.phoneMob}
+</span>
+            </p>
+        </td>
+    </tr>
+    </tbody>
+</table>
+<p class="c14 c17" style="height: 3pt">
+<span class="c26">
+</span>
+</p>
+<table cellpadding="0" cellspacing="0" class="c27">
+    <tbody>
+    <tr class="c33">
+        <td class="c25" colspan="1" rowspan="1">
+            <p class="c16">
+                <span class="c3">СУҒУРТАШУДА / INSURED PERSON</span>
+            </p>
+        </td>
+        <td class="c42 c20" colspan="1" rowspan="1">
+            <p class="c5">
+<span class="c3">
+    ${person}
+</span>
+            </p>
+        </td>
+        <td class="c22" colspan="1" rowspan="1">
+            <p class="c16">
+<span class="c3">САНАИ ТАВАЛЛУД / DATE OF BIRTH
+</span>
+            </p>
+        </td>
+        <td class="c31 c20" colspan="1" rowspan="1">
+            <p class="c5">
+<span class="c3">
+    ${born}
+</span>
+            </p>
+        </td>
+    </tr>
+    </tbody>
+</table>
+<p class="c14 c17" style="height: 3pt">
+<span class="c26">
+</span>
+</p>
+
+
+<c:if test="${not empty premiums}">
+    <c:forEach items="${premiums}" var="premium">
+        <c:if test="${premium.risk.parentRisk.det eq 'A'}">
+            <c:set var="riskA" value="${premium}"/>
+        </c:if>
+        <c:if test="${premium.risk.parentRisk.det eq 'B'}">
+            <c:set var="riskB" value="${premium}"/>
+        </c:if>
+        <c:if test="${premium.risk.parentRisk.det eq 'C'}">
+            <c:set var="riskC" value="${premium}"/>
+        </c:if>
+        <c:if test="${premium.risk.parentRisk.det eq 'D'}">
+            <c:set var="riskD" value="${premium}"/>
+        </c:if>
+        <c:if test="${premium.risk.parentRisk.det eq 'E'}">
+            <c:set var="riskE" value="${premium}"/>
+        </c:if>
+    </c:forEach>
+</c:if>
+
+<!-- LEFT -->
+<table cellpadding="0" cellspacing="0" class="c27" style="width:55%; float:left">
+<tbody>
+<tr class="c12">
+    <td class="c49 c37" colspan="2" rowspan="1">
+        <p class="c16" style="width:150px">
+<span class="c3">БАРНОМАИ СУҒУРТАВӢ / PROGRAM
+</span>
+        </p>
+
+        <p class="c16">
+<span class="c4">Мутобиқи бахши 5-уми Шароитҳои полис
+</span>
+        </p>
+    </td>
+    <td class="c7 c37" colspan="1" rowspan="1">
+        <p class="c16">
+<span class="c3">РАМЗ /CODE
+</span>
+        </p>
+    </td>
+    <td class="c36 c37" colspan="1" rowspan="1">
+        <p class="c16" style="width: 100px">
+<span class="c3">МАБЛАҒИ СУҒУРТАВӢ / SUM INSURED
+</span>
+        </p>
+    </td>
+    <td class="c11" colspan="1" rowspan="1">
+        <p class="c16" style="width: 80px">
+<span class="c3">ХАҚҚИ СУҒУРТА /
+</span>
+        </p>
+
+        <p class="c16" style="width:90px">
+<span class="c3">INSURANCE PREMIUM
+</span>
+        </p>
+    </td>
+    <td class="c0" colspan="1" rowspan="1">
+        <p class="c16">
+<span class="c3">ФРАНШИЗА /
+</span>
+        </p>
+
+        <p class="c16">
+<span class="c3">DEDUCTIBLE
+</span>
+        </p>
+    </td>
+</tr>
+<tr class="c12">
+    <td class="c49 c20" colspan="2" rowspan="1">
+        <p class="c29 c30">
+<span class="c3">«Хароҷотҳои тиббӣ ва таъҷилӣ» / Medical and emergency services
+</span>
+        </p>
+    </td>
+    <td class="c7" colspan="1" rowspan="1" align="center">
+        <p class="c29 c30"><span class="c3">
+    <c:choose>
+        <c:when test="${not empty riskA}">
+            ${riskA.risk.code}
+        </c:when>
+        <c:otherwise>
+            -
+        </c:otherwise>
+    </c:choose>
+</span></p>
+    </td>
+    <td class="c36" colspan="1" rowspan="1" align="center">
+        <p class="c29 c30"><span class="c3">
+                <fmt:formatNumber value="${riskA.insuredSum}" maxFractionDigits="0"/>
+            </span></p>
+    </td>
+    <td class="c15" colspan="1" rowspan="1" align="center">
+        <p class="c29 c30"><span class="c3">
+                <fmt:formatNumber value="${riskA.premium}" maxFractionDigits="0"/>
+</span></p>
+    </td>
+    <td class="c45" colspan="1" rowspan="1" align="center">
+        <p class="c29 c30"><span class="c3">
+           <fmt:formatNumber value="${contract.franchise}" maxFractionDigits="0"/>
+       </span></p>
+    </td>
+</tr>
+<tr class="c12">
+    <td class="c1" colspan="2" rowspan="1">
+        <p class="c29 c30">
+<span class="c3">«Гум кардани бағоҷ» / Lost of luggage
+</span>
+        </p>
+    </td>
+    <td class="c7" colspan="1" rowspan="1" align="center">
+        <p class="c29 c30"><span class="c3">
+        <c:choose>
+            <c:when test="${not empty riskB}">
+                ${riskB.risk.code}
+            </c:when>
+            <c:otherwise>
+                -
+            </c:otherwise>
+        </c:choose>
+        </span></p>
+    </td>
+    <td class="c36" colspan="1" rowspan="1" align="center">
+        <p class="c29 c30"><span class="c3">
+    <c:choose>
+        <c:when test="${not empty riskB}">
+            <fmt:formatNumber value="${riskB.insuredSum}" maxFractionDigits="0"/>
+        </c:when>
+        <c:otherwise>
+            -
+        </c:otherwise>
+    </c:choose>
+</span></p>
+    </td>
+    <td class="c15" colspan="1" rowspan="1" align="center">
+        <p class="c29 c30"><span class="c3">
+    <fmt:formatNumber value="${riskB.premium}" maxFractionDigits="0"/>
+</span></p>
+    </td>
+    <td class="c13" colspan="1" rowspan="1" align="center">
+        <p class="c29 c30"><span class="c3">х</span></p>
+    </td>
+</tr>
+<tr class="c41">
+    <td class="c1" colspan="2" rowspan="1">
+        <p class="c29 c30">
+<span class="c3">«Мавқуф гузоштани сафар» / Trip cancellation
+</span>
+        </p>
+    </td>
+    <td class="c7" colspan="1" rowspan="1" align="center">
+        <p class="c29 c30"><span class="c3">
+        <c:choose>
+            <c:when test="${not empty riskC}">
+                ${riskC.risk.code}
+            </c:when>
+            <c:otherwise>
+                -
+            </c:otherwise>
+        </c:choose>
+        </span></p>
+    </td>
+    <td class="c36" colspan="1" rowspan="1" align="center">
+        <p class="c29 c30"><span class="c3">
+    <c:choose>
+        <c:when test="${not empty riskC}">
+            <fmt:formatNumber value="${riskC.insuredSum}" maxFractionDigits="0"/>
+        </c:when>
+        <c:otherwise>
+            -
+        </c:otherwise>
+    </c:choose>
+</span></p>
+    </td>
+    <td class="c15" colspan="1" rowspan="1" align="center">
+        <p class="c29 c30"><span class="c3">
+    <fmt:formatNumber value="${riskC.premium}" maxFractionDigits="0"/>
+</span></p>
+    </td>
+    <td class="c13" colspan="1" rowspan="1">
+        <p class="c29 c30"><span class="c3">x</span></p>
+    </td>
+</tr>
+<tr class="c12">
+    <td class="c1" colspan="2" rowspan="1">
+        <p class="c29 c30">
+<span class="c3">«Масъулияти шаҳрвандӣ» /
+</span>
+<span class="c3">Civil liability
+</span>
+        </p>
+    </td>
+    <td class="c7" colspan="1" rowspan="1" align="center">
+        <p class="c29 c30"><span class="c3">
+        <c:choose>
+            <c:when test="${not empty riskD}">
+                ${riskD.risk.code}
+            </c:when>
+            <c:otherwise>
+                -
+            </c:otherwise>
+        </c:choose>
+        </span></p>
+    </td>
+    <td class="c36" colspan="1" rowspan="1" align="center">
+        <p class="c29 c30"><span class="c3">
+    <c:choose>
+        <c:when test="${not empty riskD}">
+            <fmt:formatNumber value="${riskD.insuredSum}" maxFractionDigits="0"/>
+        </c:when>
+        <c:otherwise>
+            -
+        </c:otherwise>
+    </c:choose>
+</span></p>
+    </td>
+    <td class="c15" colspan="1" rowspan="1" align="center">
+        <p class="c29 c30"><span class="c3">
+    <fmt:formatNumber value="${riskD.premium}" maxFractionDigits="0"/>
+</span></p>
+    </td>
+    <td class="c13" colspan="1" rowspan="1">
+        <p class="c29 c30"><span class="c3">
+        <c:choose>
+            <c:when test="${not empty riskD}">
+                <c:choose>
+                    <c:when test="${not empty D_franchise}">
+                        <fmt:formatNumber value="${D_franchise}" maxFractionDigits="0"/>
+                    </c:when>
+                    <c:otherwise>x</c:otherwise>
+                </c:choose>
+            </c:when>
+            <c:otherwise>x</c:otherwise>
+        </c:choose>
+        </span></p>
+    </td>
+</tr>
+<tr class="c17">
+    <td class="c1" colspan="2" rowspan="1">
+        <p class="c29 c30">
+<span class="c3">«Ҳодисаи нохуш» / Accident
+</span>
+        </p>
+    </td>
+    <td class="c7" colspan="1" rowspan="1" align="center">
+        <p class="c29 c30"><span class="c3">
+        <c:choose>
+            <c:when test="${not empty riskE}">
+                ${riskE.risk.code}
+            </c:when>
+            <c:otherwise>
+                -
+            </c:otherwise>
+        </c:choose>
+        </span></p>
+    </td>
+    <td class="c36" colspan="1" rowspan="1" align="center">
+        <p class="c29 c30"><span class="c3">
+    <c:choose>
+        <c:when test="${not empty riskE}">
+            <fmt:formatNumber value="${riskE.insuredSum}" maxFractionDigits="0"/>
+        </c:when>
+        <c:otherwise>
+            -
+        </c:otherwise>
+    </c:choose>
+</span></p>
+    </td>
+    <td class="c15" colspan="1" rowspan="1" align="center">
+        <p class="c29 c30"><span class="c3">
+    <fmt:formatNumber value="${riskE.premium}" maxFractionDigits="0"/>
+</span></p>
+    </td>
+    <td class="c13" colspan="1" rowspan="1">
+        <p class="c29 c30">
+<span class="c3">х
+</span>
+        </p>
+    </td>
+</tr>
+<tr class="c12">
+    <td class="c1" colspan="1" rowspan="1">
+        <p class="c29 c30">
+<span class="c3">Асъор / Currency
+</span>
+        </p>
+    </td>
+    <td class="c8" colspan="1" rowspan="1" align="center">
+        <p class="c29 c30"><span class="c3">
+            ${contract.currency.val}
+        </span></p>
+    </td>
+    <td class="c50" colspan="1" rowspan="1">
+        <p class="c29 c30">
+<span class="c3">х
+</span>
+        </p>
+    </td>
+    <td class="c40" colspan="1" rowspan="1" align="center">
+        <p class="c29 c30"><span class="c3">Ҳамагӣ / Total:
+</span></p>
+    </td>
+    <td class="c15" colspan="1" rowspan="1" align="center">
+        <p class="c29 c30"><span class="c3">
+    <fmt:formatNumber maxFractionDigits="2" value="${premiumSumContract}"/>
+</span></p>
+    </td>
+    <td class="c13" colspan="1" rowspan="1">
+        <p class="c29 c30">
+<span class="c3">х
+</span>
+        </p>
+    </td>
+</tr>
+</tbody>
+</table>
+
+<!-- LEFT ENDS -->
+
+<!-- RIGHT -->
+
+<table class="c27" style="width:32%; float:right;">
+    <tbody>
+    <tr class="c12">
+        <td class="c49">
+            <p class="c29 c30" style="width:80%;text-align:left">
+                <span class="c3">Давомнокии сафар:&#160;&#160;</span>
+                <span class="c3"><b>${contract.length}</b></span>
+                <span class="c3">&#160;&#160;рӯз ҳар сафар&#160;&#160;&#160;&#160;&#160;</span></p>
+
+            <p class="c29 c30" style="width: 80%;text-align:left">
+                <span class="c3">Duration of trip:&#160;&#160;</span>
+                <span class="c3"><b>${contract.length}</b></span>
+                <span class="c3">&#160;&#160;&#160;&#160;days of each trip&#160;&#160;&#160;</span></p>
+        </td>
+    </tr>
+    </tbody>
+</table>
+
+<table class="c27" style="width:32%; float:right;">
+    <tbody>
+    <tr class="c12">
+        <td class="c49">
+            <p class="c29 c30" style="text-align:left">
+                <span class="c3">Мӯҳлати амали шартномаи суғурта / Effective period:</span>
+            </p>
+
+            <p class="c29 c30" style="text-align:left">
+                <span class="c3"> Аз / From: </span>
+                <span class="c3" style="">&#160;&#160;<b>${startDate}</b>&#160;&#160;</span>
+                <span class="c3">  То / Till: </span>
+                <fmt:formatDate value="${contract.endDate}" pattern="dd.MM.yyyy" var="endDate"/>
+                <span class="c3" style="">&#160;&#160;<b>${endDate}</b>&#160;&#160;</span>
+            </p>
+        </td>
+    </tr>
+    </tbody>
+</table>
+
+<table class="c27" style="width:32%; float:right;">
+    <tbody>
+    <tr class="c12">
+        <td class="c49">
+            <p class="c29 c30" style="width: 80%;text-align:left">
+                <span class="c3" style="">Ҳудуди суғуртавӣ /</span>
+                <span class="c3" style="float:right;margin-top:3pt"><b>
+                    <span class="c3"><b>${contract.insuranceTerritory}</b></span>
+                </b></span>
+            </p>
+
+            <p class="c29 c30" style="width: 80%;text-align:left">
+                <span class="c3" style="">Territory:</span>
+                <span class="c3" style="float:right;margin-top:3pt"><b>
+                    <c:choose>
+                        <c:when test="${contract.insuranceTerritory eq 'TERRITORY1'}">
+                            <c:if test="${contract.schengen}">
+                                Schengen
+                            </c:if>
+                        </c:when>
+                        <c:when test="${contract.insuranceTerritory eq 'TERRITORY2'}">
+                            <c:if test="${contract.worldwide}">
+                                Worldwide
+                            </c:if>
+                        </c:when>
+                        <c:when test="${contract.insuranceTerritory eq 'TERRITORY3'}">
+                            Tajikistan
+                        </c:when>
+                    </c:choose>
+                </b></span>
+            </p>
+        </td>
+    </tr>
+    </tbody>
+</table>
+
+<table class="c27" style="width:32%; float:right;">
+    <tbody>
+    <tr class="c12">
+        <td class="c49">
+            <p class="c29 c30" style="text-align:left">
+                <span class="c3">Шартҳои махсус / Special terms:</span>
+            </p>
+
+            <p class="c29 c30" style="text-align:left">
+                <span class="c3">
+                    Total insurance premium in somoni: <b><fmt:formatNumber value="${premiumSumContractSomoni}"
+                                                                            maxFractionDigits="0"/></b> som.
+                </span>
+            </p>
+
+            <p class="c29 c30" style="text-align:left">
+                <span class="c3">
+                    <c:if test="${contract.sport}">
+                        <b>Sport activities covered</b>
+                    </c:if>
+                </span>
+            </p>
+
+        </td>
+    </tr>
+    </tbody>
+</table>
+
+<!-- RIGH ENDS -->
+
+<div style="clear: both"></div>
+
+<p class="c23">
+<span class="c6m">Шартномаи суғуртакунӣ бо имзои дастии Суғуртагиранда ва ҳамтои имзои дастии шахси ваколатдори Суғуртакунанда ҳамчунин ҳамтои мӯҳри Суғуртакунанда дар полиси суғуртавӣ баста мешавад. Ҳамтои имзо ва мӯри дастӣ гуфта дарҷи факсимилии онҳо ҳангоми ба расмият даровардани полис тавассути воситаҳои нусхабардори электронӣ (барномаҳои компютерӣ) фаҳмида мешавад.
+</span>
+</p>
+
+<p class="c23">
+<span class="c2m">Маълумотҳои дар Шартномаи суғуртавӣ дарҷшуда аз ҷониби ман тафтиш карда шудаанд, дурустии онҳоро тасдиқ мекунам. Шароитҳои полисиро гирифтам, бо шартҳои он шинос шудам ва ризо ҳастам.
+</span>
+</p>
+
+<table border="0">
+    <tr>
+        <td style="width: 10cm;">
+            <p><span class="c18">Имзои Суғурташаванда /</span></p>
+            <p><span class="c18">Policy-holder’s signature ________________________________________</span></p>
+        </td>
+        <td style="width: 10cm;">
+            <p><span class="c18">Имзои намояндаи Суғуртакунанда /</span></p>
+            <p><span class="c18">Insurer’s signature Ҷабаров С.Б. _________________________________</span></p>
+            <img src="${prefix}/images/s.png" style="width: 2cm;float: right; margin-top: -0.7cm; margin-left: 3cm; position: absolute;"/>
+        </td>
+    </tr>
+</table>
+
+<!--
+<p class="c14" style="text-align: right">
+<span class="c9">
+</span>
+<span class="c18">Имзои намояндаи Суғуртакунанда /
+    &#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;
+    &#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;
+        &#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;
+        &#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;
+        &#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;
+        &#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;
+</span>
+</p>
+
+
+<p class="c39">
+<span class="c18">Имзои Суғурташаванда / Policy-holder’s signature ________________________________________
+</span>
+    <span class="c9">
+     &#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;
+        &#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;
+        &#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;
+        &#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;
+        &#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;
+        &#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;
+    </span>
+<span class="c9 c28" style="text-decoration: underline">Insurer’s signature Ҷабаров С.Б.
+    <img src="${prefix}/images/s.png" style="width: 2cm;float: right; margin-top: -0.7cm; display: inline"/>
+</span>
+</p>
+-->
+</div>
+
+
+<c:if test="${i ne 3}">
+<p class="c29 c30">&#160;</p>
+</c:if>
+
+</c:forEach>
+
+</div>
+
+</div>

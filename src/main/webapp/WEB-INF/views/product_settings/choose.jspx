@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<div xmlns:c="http://java.sun.com/jsp/jstl/core" xmlns:jsp="http://java.sun.com/JSP/Page"
+     xmlns:spring="http://www.springframework.org/tags" version="2.0" xmlns:util="urn:jsptagdir:/WEB-INF/tags/util">
+    <!--spring:message code="label_select_contract_category" /-->
+    <spring:url value="/" var="prefix" />
+    <spring:message code="label_select_category_for_setting_title" var="title" />
+    <util:panel id="title" title="${title}">
+        <c:if test="${not empty contractCategories}">
+            <c:forEach var="cat" items="${contractCategories}">
+                <spring:url value="/productsettings/edit/${cat.id}" var="link"></spring:url>
+                <!--p><a href="${link}">${cat.name} [${cat.value}] - ${cat.currency.val}</a></p-->
+                <c:choose>
+                    <c:when test="${!cat.deleted}">
+                        <p><a href="${link}">${cat.name} [${cat.value}] - ${cat.currency.val}</a></p>
+                    </c:when>
+                </c:choose>
+            </c:forEach>
+        </c:if>
+
+    </util:panel>
+</div>
+

@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<div xmlns:c="http://java.sun.com/jsp/jstl/core" xmlns:field="urn:jsptagdir:/WEB-INF/tags/form/fields" xmlns:form="urn:jsptagdir:/WEB-INF/tags/form" xmlns:jsp="http://java.sun.com/JSP/Page" xmlns:spring="http://www.springframework.org/tags" version="2.0">
+    <jsp:directive.page contentType="text/html;charset=UTF-8"/>
+    <jsp:output omit-xml-declaration="yes"/>
+
+
+    <c:if test="${not empty reason}">
+        <p style="color: red"><spring:message code="message_partner_error_${reason}" /></p>
+    </c:if>
+
+    <form:create id="fc_com_tajinsurance_domain_CatContract" modelAttribute="catcontract" path="/catcontracts">
+
+        <c:if test="${not empty langs}">
+        <c:forEach items="${langs}" var="lang">
+        <div style="border: 1px solid #ccc; margin: 10px 0 10px 0; padding-bottom: 10px">
+            <spring:url var="img" value="/resources/images/${lang}.png" />
+            <img src="${img}" style="margin: -10px 0 5px 10px;position:relative;" />
+            <div>
+                <label for="localeEntityNamesList"><spring:message code="label_com_tajinsurance_domain_catcontract_name" /></label>
+                <input name="localeEntityNamesList" />
+            </div>
+
+            <br />
+
+
+
+            <div>
+                <label for="localeEntityValuesList"><spring:message code="label_com_tajinsurance_domain_catcontract_value" /></label>
+                <input name="localeEntityValuesList" />
+                <input name="localeEntityLangList" type="hidden" value="${lang}" />
+            </div>
+        </div>
+        </c:forEach>
+        </c:if>
+
+        <div>
+            <label for="minTerm"><spring:message code="label_com_tajinsurance_domain_catcontract_min_term" /></label>
+            <input type="text" name="minTerm" />
+        </div>
+
+        <br />
+
+        <div>
+
+        </div>
+
+        <br />
+        <div>
+            <label for="typeOfRisk"><spring:message code="label_com_tajinsurance_domain_catcontract_type_of_risk" /></label>
+            <select name="typeOfRisk">
+                <c:if test="${not empty allrisktypes}">
+                    <c:forEach items="${allrisktypes}" var="type">
+                        <option value="${type.id}">${type}</option>
+                    </c:forEach>
+                </c:if>
+            </select>
+        </div>
+        <br />
+        <div>
+            <label for="useInsuranceAreas"><spring:message code="label_com_tajinsurance_domain_catcontract_use_insurance_areas" /></label>
+            <select name="useInsuranceAreas">
+                <option value="false"><spring:message code="label_com_tajinsurance_domain_catcontract_use_insurance_areas_no" /></option>
+                <option value="true"><spring:message code="label_com_tajinsurance_domain_catcontract_use_insurance_areas_yes" /></option>
+            </select>
+        </div>
+        <br />
+        <div>
+            <label for="risks"><spring:message code="label_com_tajinsurance_domain_catcontract_risks" /></label>
+            <select name="risks" multiple="multiple">
+                <c:if test="${not empty allrisks}">
+                    <c:forEach items="${allrisks}" var="risk">
+                        <option value="${risk.id}">${risk}</option>
+                    </c:forEach>
+                </c:if>
+            </select>
+        </div>
+
+        <br />
+
+        <div>
+            <label for="risks"><spring:message code="label_com_tajinsurance_domain_catcontract_currency" /></label>
+            <select name="currency">
+                <c:if test="${not empty currencies}">
+                    <c:forEach items="${currencies}" var="currency">
+                        <option value="${currency.id}">${currency}</option>
+                    </c:forEach>
+                </c:if>
+            </select>
+        </div>
+
+    </form:create>
+
+</div>

@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<div xmlns:jsp="http://java.sun.com/JSP/Page" xmlns:page="urn:jsptagdir:/WEB-INF/tags/form"
+     xmlns:table="urn:jsptagdir:/WEB-INF/tags/form/fields" xmlns:spring="http://www.springframework.org/tags"
+     xmlns:util="urn:jsptagdir:/WEB-INF/tags/util"
+     xmlns:c="http://java.sun.com/jsp/jstl/core"
+     xmlns:sec="http://www.springframework.org/security/tags" version="2.0">
+    <jsp:directive.page contentType="text/html;charset=UTF-8"/>
+    <jsp:output omit-xml-declaration="yes"/>
+
+    <spring:url value="/" var="prefix"/>
+
+    <spring:message code="label_forbidden_rec_nums_list_title" var="title"/>
+    <spring:message code="label_forbidden_rec_nums_error_pane_title" var="errorPaneTitle" />
+
+    <c:if test="${not empty reason}">
+        <util:panel id="error" title="${errorPaneTitle}">
+            <p style="color: red"><spring:message code="label_forbidden_rec_nums_error_${reason}" />&#160;${forNumber}</p>
+        </util:panel>
+    </c:if>
+
+    <util:panel id="partners_list" title="${title}">
+        <table:table show="false" update="false" create="false" delete="true" path="/recnum"
+                     id="l_com_tajinsurance_domain_ForbiddenReceiptNumber" data="${numbers}" operationsSet="recnums">
+            <table:column id="label_com_tajinsurance_domain_forbiddenreceiptnumber_number" property="number"/>
+        </table:table>
+
+        <br/>
+
+        <form method="POST">
+            <spring:message code="label_com_tajinsurance_domain_forbiddenreceiptnumber_add_btn" var="add"/>
+
+            <div class="field">
+                <label for="number"><spring:message
+                        code="label_com_tajinsurance_domain_forbiddenreceiptnumber_add"/>:</label>
+                <input type="text" name="number" class="digits"/>
+                <input type="submit" value="${add}"/>
+            </div>
+        </form>
+    </util:panel>
+
+    <a href="${prefix}/recnum?new_generation"><spring:message code="label_com_tajinsurance_domain_forbiddenreceiptnumber_new_generation" /></a>
+
+
+</div>

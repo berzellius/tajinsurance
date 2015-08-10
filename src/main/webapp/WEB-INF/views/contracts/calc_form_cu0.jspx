@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<div xmlns:spring="http://www.springframework.org/tags" version="2.0">
+
+
+    <label for="length"><spring:message code="label_com_tajinsurance_domain_contract_length" />:</label>
+
+    <div class="field">
+        <input type="text" name="length" class="digits" />
+    </div>
+
+    <label for="sum">
+        <span id="sumField"><spring:message code="label_com_tajinsurance_domain_contract_sum" /></span>:
+    </label>
+
+    <div class="field">
+        <input type="text" name="sum" class="digits" />
+    </div>
+
+
+    <spring:message code="get_premium" var="calc" />
+
+    <div class="field">
+        <input type="submit" value="${calc}" />
+    </div>
+
+</div>

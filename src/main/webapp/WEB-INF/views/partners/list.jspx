@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<div xmlns:jsp="http://java.sun.com/JSP/Page" xmlns:page="urn:jsptagdir:/WEB-INF/tags/form"
+     xmlns:table="urn:jsptagdir:/WEB-INF/tags/form/fields" xmlns:spring="http://www.springframework.org/tags"
+     xmlns:util="urn:jsptagdir:/WEB-INF/tags/util"
+     xmlns:sec="http://www.springframework.org/security/tags" version="2.0">
+    <jsp:directive.page contentType="text/html;charset=UTF-8"/>
+    <jsp:output omit-xml-declaration="yes"/>
+
+    <spring:url value="/" var="prefix" />
+
+    <script src="${prefix}/javascript/search_partner.js" type="text/javascript"><jsp:text></jsp:text></script>
+
+    <spring:message code="label_partners_list_title" var="title" />
+
+    <util:panel id="partners_list" title="${title}">
+        <table:table show="false" listVal="${listVal}" search="true" update="true" delete="true" path="/partners" id="l_com_tajinsurance_domain_Partner" data="${partners}" operationsSet="partners">
+            <table:column id="label_com_tajinsurance_domain_partner_value" property="value" orderField="value"  />
+            <table:column id="label_com_tajinsurance_domain_partner_cat_contracts" property="catContracts" listValue="true"  />
+        </table:table>
+    </util:panel>
+
+
+
+</div>

@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE tiles-definitions PUBLIC "-//Apache Software Foundation//DTD Tiles Configuration 2.1//EN" "http://tiles.apache.org/dtds/tiles-config_2_1.dtd">
+<tiles-definitions>
+    <definition extends="standalone" name="persons/create">
+        <put-attribute name="body" value="/WEB-INF/views/persons/create.jspx"/>
+    </definition>
+
+    <definition extends="standalone" name="ajax/persons/edit">
+        <put-attribute name="body" value="/WEB-INF/views/persons/edit.jspx" />
+    </definition>
+
+    <definition extends="default" name="persons/edit">
+        <put-attribute name="body" value="/WEB-INF/views/persons/edit.jspx" />
+    </definition>
+
+    <definition extends="default" name="persons/claim">
+        <put-attribute name="body" value="/WEB-INF/views/persons/print_claim.jspx" />
+    </definition>
+
+    <definition extends="default" name="persons/claim/cu0">
+        <put-attribute name="body" value="/WEB-INF/views/persons/print_claim_cu0.jspx" />
+    </definition>
+
+    <definition extends="default" name="persons/claim/ba0">
+        <put-attribute name="body" value="/WEB-INF/views/persons/print_claim_ba0.jspx" />
+    </definition>
+
+    <definition extends="default" name="persons/claim/mp0">
+        <put-attribute name="body" value="/WEB-INF/views/persons/print_claim_mp0.jspx" />
+    </definition>
+
+    <definition extends="standalone" name="ajax/persons/clean">
+        <put-attribute name="body" value="/WEB-INF/views/persons/clean.jspx" />
+    </definition>
+
+</tiles-definitions>

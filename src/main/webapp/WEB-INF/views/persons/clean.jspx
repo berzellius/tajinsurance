@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<div id="personAjaxForm" xmlns:c="http://java.sun.com/jsp/jstl/core" xmlns:field="urn:jsptagdir:/WEB-INF/tags/form/fields" xmlns:form="urn:jsptagdir:/WEB-INF/tags/form" xmlns:jsp="http://java.sun.com/JSP/Page" xmlns:spring="http://www.springframework.org/tags" version="2.0">
+    <div id="search_progress"></div>
+    <div id="errors_bar" style="color: red"></div>
+    <div id="createNewPerson">
+        <!--a href="" class="button" id="newPerson"--><spring:message code="person_create_new_button" /><!--/a-->
+    </div>
+    <div id="foundPeople">
+        <p><spring:message code="person_results" />:</p>
+        <form id='foundPeopleForm'><table></table></form>
+    </div>
+    <spring:message var="saveBtn" code="person_print_claim" />
+    <spring:message var="saveNewUser" code="button_new_user" />
+
+    <!-- Здесь форма с набором данных страхователя либо пустая форма для создания нового -->
+    <div id="mainPersonDataForm"></div>
+
+    <form id="controls">
+        <spring:message code="label_check_person_exists" var="p_ex_chk" />
+        <input type="button" id="check_btn" value="${p_ex_chk}" disabled="disabled" style="float:left; height: 24px" />
+
+        <spring:message code="button_save" var="save" />
+        <input type="button" id="save_choosen" value="${save}" disabled="disabled" style="float:left; height: 24px" />
+
+        <spring:message code="button_clear" var="clear" />
+        <input type="button" id="clear" value="${clear}" disabled="disabled" style="float:left; height: 24px" />
+
+    </form>
+
+</div>

@@ -1,0 +1,85 @@
+<jsp:root
+        xmlns:c="http://java.sun.com/jsp/jstl/core"
+        xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+        xmlns:spring="http://www.springframework.org/tags"
+        xmlns:util="urn:jsptagdir:/WEB-INF/tags/util"
+        xmlns:jsp="http://java.sun.com/JSP/Page"
+        version="2.0">
+    <jsp:output omit-xml-declaration="yes"/>
+
+    <jsp:directive.attribute name="str" type="java.lang.String" required="true" description="String" />
+    <jsp:directive.attribute name="start" type="java.lang.Integer" required="false" description="Start" />
+    <jsp:directive.attribute name="length" type="java.lang.Integer" required="false" description="Length of substr" />
+    <jsp:directive.attribute name="markend" type="java.lang.String" required="false" description="After brake of string" />
+
+    <c:set var="str" value="${fn:trim(fn:replace(str,'&#160;',' '))}" />
+
+    <c:if test="${empty start}">
+        <c:set var="start" value="0" />
+    </c:if>
+
+    <c:if test="${empty length}">
+        <c:set var="length" value="${fn:length(str) - start}" />
+    </c:if>
+
+    <c:if test="${start gt fn:length(str)}">
+        <c:set var="start" value="${start % fn:length(str)}" />
+    </c:if>
+
+    <c:if test="${length gt fn:length(str)}">
+        <c:set var="length" value="${fn:length(str)}" />
+    </c:if>
+
+    <c:set var="iCurrent" value="${fn:indexOf(str,' ')+1}" />
+    <c:set var="iLast" value="0" />
+
+    <c:set var="out" value="false" />
+
+    <c:forEach begin="0" end="${fn:length(str)}" varStatus="loop">
+        <c:if test="${!out}">
+            <c:if test="${iLast le start and start lt iCurrent}">
+                <c:set var="rStart" value="${iLast}" />
+            </c:if>
+
+            <c:if test="${iLast le (start+length) and (start+length) lt iCurrent}">
+                <c:set var="rEnd" value="${iLast}" />
+            </c:if>
+
+            <c:set var="iLast" value="${iCurrent}" />
+            <c:set var="ind">
+                <util:indexOf str="${str}" subStr=" " from="${iCurrent+1}" />
+            </c:set>
+            <c:choose>
+                <c:when test="${ind ne -1}">
+                    <c:set var="iCurrent" value="${ind + 1}" />
+                </c:when>
+                <c:otherwise>
+                    <c:set var="iCurrent" value="${fn:length(str)}" />
+                </c:otherwise>
+            </c:choose>
+
+
+            <c:if test="${!empty(rStart) and !empty(rEnd)}">
+                <c:set var="out" value="true" />
+            </c:if>
+        </c:if>
+    </c:forEach>
+
+    <c:if test="${empty rEnd}">
+        <c:set var="rEnd" value="${start+length}" />
+    </c:if>
+
+    <c:set var="end">
+        <c:choose>
+            <c:when test="${fn:length(str) > (rEnd - rStart)}">
+                <c:out value="${markend}" />
+            </c:when>
+            <c:otherwise>
+                <c:out value="" />
+            </c:otherwise>
+        </c:choose>
+    </c:set>
+
+    <c:out value="${fn:trim(fn:substring(str, rStart, rEnd))}${end}" />
+
+</jsp:root>

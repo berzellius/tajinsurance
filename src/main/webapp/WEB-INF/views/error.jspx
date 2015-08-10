@@ -1,0 +1,8 @@
+<jsp:root xmlns:jsp="http://java.sun.com/JSP/Page" xmlns="http://www.w3.org/1999/xhtml" version="2.0"
+          xmlns:c="http://www.springframework.org/schema/webflow">
+    <c:if test="${!empty error}">
+        <div id="error_box">
+            <p>${error}</p>
+        </div>
+    </c:if>
+</jsp:root>

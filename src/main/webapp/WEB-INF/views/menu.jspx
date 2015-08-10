@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<div xmlns:jsp="http://java.sun.com/JSP/Page" xmlns:menu="urn:jsptagdir:/WEB-INF/tags/menu" id="menu" version="2.0"
+     xmlns:security="http://www.springframework.org/schema/security"
+     xmlns:sec="http://www.springframework.org/security/tags"
+     xmlns:c="http://java.sun.com/jsp/jstl/core"
+     xmlns:spring="http://www.springframework.org/tags">
+    <jsp:directive.page contentType="text/html;charset=UTF-8"/>
+    <jsp:output omit-xml-declaration="yes"/>
+
+
+    <menu:menu id="_menu" z="nZaf43BjUg1iM0v70HJVEsXDopc=">
+        <sec:authorize access="hasAnyRole('ROLE_USER_PARTNER','ROLE_ADMIN_PARTNER')">
+            <menu:category id="c_contract" z="4+ZfkynELtH01Q9VUMSOoTGwqPA=">
+                <menu:item id="i_contract_new" messageCode="global_menu_new" url="/contracts?select_category"/>
+                <menu:item id="i_contract_list" messageCode="global_menu_list"
+                           url="/contracts?page=1&amp;size=${empty param.size ? 50 : param.size}"
+                           z="T8YOGqikEgnHJfLf0mVomxbN/GI="/>
+                <menu:item id="i_contract_calculator" messageCode="global_menu__contract_calculator"
+                           url="/contracts?calc"/>
+                <li></li>
+            </menu:category>
+        </sec:authorize>
+        <sec:authorize access="hasAnyRole('ROLE_USER','ROLE_ADMIN')">
+            <menu:category id="c_contract" z="4+ZfkynELtH01Q9VUMSOoTGwqPA=">
+                <menu:item id="i_contract_list" messageCode="global_menu_list"
+                           url="/contracts?page=1&amp;size=${empty param.size ? 50 : param.size}"
+                           z="T8YOGqikEgnHJfLf0mVomxbN/GI="/>
+                <li><p>&#160;</p></li>
+            </menu:category>
+            <menu:category id="c_forbiddenreceiptnumber">
+                <menu:item id="i_forbiddenreceiptnumber_list" url="/recnum"/>
+                <li><p>&#160;</p></li>
+            </menu:category>
+        </sec:authorize>
+        <sec:authorize access="hasAnyRole('ROLE_USER','ROLE_ADMIN_PARTNER', 'ROLE_ADMIN')">
+            <menu:category id="c_user">
+                <sec:authorize access="hasAnyRole('ROLE_USER', 'ROLE_ADMIN')">
+                    <menu:item id="i_user_new" url="/users?form" messageCode="global_menu_new"/>
+                </sec:authorize>
+                <sec:authorize access="hasAnyRole('ROLE_USER','ROLE_ADMIN_PARTNER', 'ROLE_ADMIN')">
+                    <menu:item id="i_user_list" url="/users?list" messageCode="global_menu_list"/>
+                </sec:authorize>
+            </menu:category>
+        </sec:authorize>
+        <sec:authorize access="hasAnyRole('ROLE_USER', 'ROLE_ADMIN')">
+            <menu:category id="c_partner">
+                <menu:item id="i_partner_new" url="/partners?form" messageCode="global_menu_new"/>
+                <menu:item id="i_partner_list" url="/partners?list" messageCode="global_menu_list"/>
+            </menu:category>
+            <!--menu:category id="c_cat_contract">
+                <menu:item id="i_cat_contract_new" url="/catcontracts?form" messageCode="global_menu_new" />
+                <menu:item id="i_cat_contract_list" url="/catcontracts?list" messageCode="global_menu_list" />
+            </menu:category>
+            <menu:category id="c_risk">
+                <menu:item id="i_risk_new" url="/risk?form" messageCode="global_menu_new" />
+                <menu:item id="i_risk_list" url="/risk?list" messageCode="global_menu_list" />
+            </menu:category-->
+            <menu:category id="c_product">
+                <menu:item id="i_product_settings" url="/productsettings" messageCode="global_menu_product_settings"/>
+                <li><p>&#160;</p></li>
+            </menu:category>
+            <sec:authorize access="hasAnyRole('ROLE_USER', 'ROLE_ADMIN')">
+                <menu:category id="c_currencies">
+                    <menu:item id="i_currencies_exchange" url="/exchange"/>
+                    <li><p>&#160;</p></li>
+                </menu:category>
+            </sec:authorize>
+        </sec:authorize>
+    </menu:menu>
+</div>

@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans:beans xmlns="http://www.springframework.org/schema/security"
+             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+             xmlns:beans="http://www.springframework.org/schema/beans"
+             xmlns:sec="http://www.springframework.org/schema/security"
+             xsi:schemaLocation="
+      http://www.springframework.org/schema/security
+      http://www.springframework.org/schema/security/spring-security-3.2.xsd
+      http://www.springframework.org/schema/beans
+      http://www.springframework.org/schema/beans/spring-beans-3.2.xsd">
+
+    <global-method-security secured-annotations="enabled" />
+
+
+    <http access-denied-page="/error.jspx">
+        <!--intercept-url pattern="/**" requires-channel="https" /-->
+
+        <intercept-url pattern="/" access="ROLE_USER, ROLE_ADMIN_PARTNER, ROLE_USER_PARTNER, ROLE_ADMIN"/>
+        <intercept-url pattern="/contracts*" access="ROLE_USER,ROLE_USER_PARTNER, ROLE_ADMIN_PARTNER"/>
+        <intercept-url pattern="/contracts/*" access="ROLE_USER,ROLE_USER_PARTNER, ROLE_ADMIN_PARTNER"/>
+        <intercept-url pattern="/persons*" access="ROLE_USER,ROLE_USER_PARTNER,ROLE_ADMIN_PARTNER"/>
+        <intercept-url pattern="/users*" access="ROLE_USER, ROLE_ADMIN_PARTNER, ROLE_ADMIN"/>
+        <intercept-url pattern="/users/*" access="ROLE_USER, ROLE_ADMIN_PARTNER, ROLE_ADMIN" />
+        <intercept-url pattern="/partners/*" access="ROLE_ADMIN, ROLE_USER" />
+        <intercept-url pattern="/partners*" access="ROLE_ADMIN, ROLE_USER" />
+        <intercept-url pattern="/catcontracts/*" access="ROLE_ADMIN, ROLE_USER" />
+        <intercept-url pattern="/catcontracts*" access="ROLE_ADMIN, ROLE_USER" />
+        <intercept-url pattern="/risk/*" access="ROLE_USER, ROLE_ADMIN" />
+        <intercept-url pattern="/risk*" access="ROLE_USER, ROLE_ADMIN" />
+        <intercept-url pattern="/recnum/*" access="ROLE_USER, ROLE_ADMIN" />
+        <intercept-url pattern="/recnum*" access="ROLE_USER, ROLE_ADMIN" />
+        <intercept-url pattern="/productsettings/*" access="ROLE_USER, ROLE_ADMIN" />
+        <intercept-url pattern="/productsettings*" access="ROLE_USER, ROLE_ADMIN" />
+        <intercept-url pattern="/productsettings/edit/*" access="ROLE_USER, ROLE_ADMIN" />
+        <intercept-url pattern="/productsettings/edit*" access="ROLE_USER, ROLE_ADMIN" />
+        <intercept-url pattern="/exchange*" access="ROLE_USER, ROLE_ADMIN" />
+        <intercept-url pattern="/exchange/*" access="ROLE_USER, ROLE_ADMIN" />
+
+
+        <form-login login-page="/login" default-target-url="/" authentication-failure-url="/login?error"/>
+        <logout logout-url="/logout" logout-success-url="/login"/>
+        <anonymous username="guest" granted-authority="ROLE_ANONYMOUS"/>
+        <!--remember-me/-->
+
+    </http>
+
+
+
+    <authentication-manager>
+        <authentication-provider user-service-ref="userDetailsService">
+            <password-encoder hash="md5"/>
+        </authentication-provider>
+    </authentication-manager>
+
+
+
+</beans:beans>

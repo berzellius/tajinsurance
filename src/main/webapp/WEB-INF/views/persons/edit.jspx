@@ -1,0 +1,318 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<div xmlns:fmt="http://java.sun.com/jsp/jstl/fmt" xmlns:c="http://java.sun.com/jsp/jstl/core"
+     xmlns:field="urn:jsptagdir:/WEB-INF/tags/form/fields" xmlns:form="urn:jsptagdir:/WEB-INF/tags/form"
+     xmlns:jsp="http://java.sun.com/JSP/Page" xmlns:spring="http://www.springframework.org/tags"
+     xmlns:sec="http://www.springframework.org/security/tags" version="2.0">
+
+<p style="color: orange"><spring:message code="label_person_warning_many_contracts"/></p>
+
+<c:set var="adminMode" value="false"/>
+
+<sec:authorize ifAnyGranted="ROLE_ADMIN">
+    <c:set var="adminMode" value="true"/>
+</sec:authorize>
+
+<form:update submit="false" id="fc_com_tajinsurance_domain_Person" modelAttribute="person" path="/persons">
+
+<div class="inputs_block">
+
+    <div class="person_fields"><label for="surname" style="width:110px"><spring:message
+            code="label_com_tajinsurance_domain_person_surname"/>:</label>
+
+
+        <c:choose>
+            <c:when test="${adminMode == 'true'}">
+                <input type="text" name="surname" value="${person.surname}"/>
+            </c:when>
+            <c:otherwise>
+                <input type="text" name="surname" value="${person.surname}" disabled="disabled"/>
+            </c:otherwise>
+        </c:choose>
+
+    </div>
+
+    <div class="person_fields"><label for="name"><spring:message
+            code="label_com_tajinsurance_domain_person_name"/>:</label>
+
+        <c:choose>
+            <c:when test="${adminMode == 'true'}">
+                <input type="text" name="name" value="${person.name}"/>
+            </c:when>
+            <c:otherwise>
+                <input type="text" name="name" value="${person.name}" disabled="disabled "/>
+            </c:otherwise>
+        </c:choose>
+
+    </div>
+
+    <div class="person_fields"><label for="middle"><spring:message
+            code="label_com_tajinsurance_domain_person_middle"/>:</label>
+
+        <c:choose>
+            <c:when test="${adminMode == 'true'}">
+                <input type="text" name="middle" value="${person.middle}"/>
+            </c:when>
+            <c:otherwise>
+                <input type="text" name="middle" value="${person.middle}" disabled="disabled"/>
+            </c:otherwise>
+        </c:choose>
+
+    </div>
+
+    <div class="clearboth"></div>
+
+    <div class="person_fields">
+        <div class="date">
+            <fmt:formatDate value="${person.born}" pattern="dd.MM.yyyy" var="born"/>
+            <label for="born" style="width: 110px"><spring:message
+                    code="label_com_tajinsurance_domain_person_born"/>:</label>
+
+            <c:choose>
+                <c:when test="${adminMode == 'true'}">
+                    <input type="text" name="born" value="${born}"/>
+                </c:when>
+                <c:otherwise>
+                    <input type="text" name="born" value="${born}" disabled="disabled"/>
+                </c:otherwise>
+            </c:choose>
+
+
+            <!--field:input id="c_com_tajinsurance_domain_Person_born" field="born" /-->
+        </div>
+    </div>
+
+    <div class="person_fields">
+        <label for="sex"><spring:message code="label_sex"/>:</label>
+        <c:choose>
+            <c:when test="${person.sex eq 'MALE'}">
+                <div style="float:left">
+                    <label><spring:message code="label_sex_male"/></label>
+                    <c:choose>
+                        <c:when test="${adminMode == 'true'}">
+                            <input type="radio" name="sex" checked="checked" value="MALE"/>
+                        </c:when>
+                        <c:otherwise>
+                            <input type="radio" name="sex" checked="checked" value="MALE" disabled="disabled"/>
+                        </c:otherwise>
+                    </c:choose>
+
+                </div>
+                <div style="float:left">
+                    <label><spring:message code="label_sex_female"/></label>
+                    <c:choose>
+                        <c:when test="${adminMode == 'true'}">
+                            <input type="radio" name="sex" value="FEMALE"/>
+                        </c:when>
+                        <c:otherwise>
+                            <input type="radio" name="sex" value="FEMALE" disabled="disabled"/>
+                        </c:otherwise>
+                    </c:choose>
+
+                </div>
+            </c:when>
+            <c:when test="${person.sex eq 'FEMALE'}">
+                <div style="float:left">
+                    <label><spring:message code="label_sex_male"/></label>
+                    <c:choose>
+                        <c:when test="${adminMode == 'true'}">
+                            <input type="radio" name="sex" value="MALE"/>
+                        </c:when>
+                        <c:otherwise>
+                            <input type="radio" name="sex" value="MALE" disabled="disabled"/>
+                        </c:otherwise>
+                    </c:choose>
+
+                </div>
+                <div style="float:left">
+                    <label><spring:message code="label_sex_female"/></label>
+                    <c:choose>
+                        <c:when test="${adminMode == 'true'}">
+                            <input type="radio" name="sex" checked="checked" value="FEMALE"/>
+                        </c:when>
+                        <c:otherwise>
+                            <input type="radio" name="sex" checked="checked" value="FEMALE" disabled="disabled"/>
+                        </c:otherwise>
+                    </c:choose>
+
+                </div>
+            </c:when>
+        </c:choose>
+
+    </div>
+
+    <div class="clearboth"></div>
+
+</div>
+
+<div class="inputs_block wide">
+
+    <!--field:input id="c_com_tajinsurance_domain_Person_doc_series" field="docSeries" /-->
+    <div class="person_fields">
+        <label for="docSeries">
+            <c:choose>
+                <c:when test="${product eq 'TP0'}"><spring:message
+                        code="label_com_tajinsurance_domain_person_doc_series_international"/></c:when>
+                <c:otherwise><spring:message
+                        code="label_com_tajinsurance_domain_person_doc_series"/></c:otherwise>
+            </c:choose>
+            :
+        </label>
+        <c:choose>
+            <c:when test="${adminMode == 'true'}">
+                <input type="text" name="docSeries" class="digits" value="${person.docSeries}"/>
+            </c:when>
+            <c:otherwise>
+                <input type="text" name="docSeries" class="digits" value="${person.docSeries}" disabled="disabled"/>
+            </c:otherwise>
+        </c:choose>
+
+    </div>
+
+    <div class="person_fields">
+        <!--field:input id="c_com_tajinsurance_domain_Person_doc_number" field="docNumber" /-->
+        <label
+                for="docNumber">
+            <c:choose>
+                <c:when test="${product eq 'TP0'}"><spring:message
+                        code="label_com_tajinsurance_domain_person_doc_number_international"/></c:when>
+                <c:otherwise><spring:message code="label_com_tajinsurance_domain_person_doc_number"/></c:otherwise>
+            </c:choose>
+            :
+        </label>
+        <c:choose>
+            <c:when test="${adminMode == 'true'}">
+                <input type="text" name="docNumber" value="${person.docNumber}" class="digits"/>
+            </c:when>
+            <c:otherwise>
+                <input type="text" name="docNumber" value="${person.docNumber}" class="digits" disabled="disabled"/>
+            </c:otherwise>
+        </c:choose>
+
+    </div>
+
+    <div class="clearboth"></div>
+
+    <div class="person_fields">
+        <div class="date">
+            <label for="docDate"><spring:message code="label_com_tajinsurance_domain_person_doc_date"/>:</label>
+            <fmt:formatDate value="${person.docDate}" var="doc_date" pattern="dd.MM.yyyy"/>
+            <c:choose>
+                <c:when test="${adminMode == 'true'}">
+                    <input type="text" name="docDate" value="${doc_date}" class="digits"/>
+                </c:when>
+                <c:otherwise>
+                    <input type="text" name="docDate" value="${doc_date}" class="digits" disabled="disabled"/>
+                </c:otherwise>
+            </c:choose>
+
+            <!--field:input id="c_com_tajinsurance_domain_Person_doc_date" field="docDate" /-->
+        </div>
+    </div>
+
+    <div class="person_fields">
+        <!--field:input id="c_com_tajinsurance_domain_Person_doc_department" field="docDepartment" /-->
+        <label for="docDepartment"><spring:message
+                code="label_com_tajinsurance_domain_person_doc_department"/>:</label>
+        <c:choose>
+            <c:when test="${adminMode == 'true'}">
+                <input type="text" name="docDepartment" value="${person.docDepartment}"/>
+            </c:when>
+            <c:otherwise>
+                <input type="text" name="docDepartment" value="${person.docDepartment}" disabled="disabled"/>
+            </c:otherwise>
+        </c:choose>
+    </div>
+
+    <div class="clearboth"></div>
+</div>
+
+<div class="inputs_block wide">
+
+    <!--field:input id="c_com_tajinsurance_domain_Person_index_registr" field="indexRegistr" />
+    <field:input id="c_com_tajinsurance_domain_Person_addr_registr" field="addrRegistr" />
+    <field:input id="c_com_tajinsurance_domain_Person_index_resident" field="indexResident" />
+    <field:input id="c_com_tajinsurance_domain_Person_addr_resident" field="addrResident" /-->
+
+    <div class="person_fields">
+        <label for="city"><spring:message code="label_com_tajinsurance_domain_person_city"/>:</label>
+        <input type="text" name="city" value="${person.city}"/>
+    </div>
+
+    <div class="person_fields">
+        <label for="indexRegistr"><spring:message
+                code="label_com_tajinsurance_domain_person_index_registr"/>:</label>
+        <input type="text" name="indexRegistr" class="digits" value="${person.indexRegistr}"/>
+    </div>
+
+    <div class="person_fields">
+        <label for="addrRegistr"><spring:message
+                code="label_com_tajinsurance_domain_person_addr_registr"/>:</label>
+        <input type="text" name="addrRegistr" value="${person.addrRegistr}"/>
+    </div>
+
+    <div class="clearboth"></div>
+
+    <div class="person_fields">
+        <label for="cityResident"><spring:message
+                code="label_com_tajinsurance_domain_person_city_resident"/>:</label>
+        <input type="text" name="cityResident" value="${person.cityResident}"/>
+    </div>
+
+    <div class="person_fields">
+        <label for="indexResident"><spring:message
+                code="label_com_tajinsurance_domain_person_index_resident"/>:</label>
+        <input type="text" name="indexResident" class="digits" value="${person.indexResident}"/>
+    </div>
+
+    <div class="person_fields">
+        <label for="addrResident"><spring:message
+                code="label_com_tajinsurance_domain_person_addr_resident"/>:</label>
+        <input type="text" name="addrResident" value="${person.addrResident}"/>
+    </div>
+
+    <div class="clearboth"></div>
+
+    <a href="" id="addr_equals"><spring:message code="label_addr_equals"/></a>
+</div>
+
+<div class="inputs_block wide">
+
+    <!--field:input id="c_com_tajinsurance_domain_Person_phone_home" field="phoneHome" />
+    <field:input id="c_com_tajinsurance_domain_Person_phone_mob" field="phoneMob" />
+    <field:input id="c_com_tajinsurance_domain_Person_phone_work" field="phoneWork" /-->
+
+    <div class="person_fields">
+        <label for="phoneHome"><spring:message code="label_com_tajinsurance_domain_person_phone_home"/>:</label>
+        <input type="text" name="phoneHome" class="digits" value="${person.phoneHome}"/>
+    </div>
+
+    <div class="person_fields">
+        <label for="phoneMob"><spring:message code="label_com_tajinsurance_domain_person_phone_mob"/>:</label>
+        <input type="text" class="digits" name="phoneMob" value="${person.phoneMob}"/>
+    </div>
+
+    <div class="clearboth"></div>
+
+    <div class="person_fields">
+        <label for="phoneWork"><spring:message code="label_com_tajinsurance_domain_person_phone_work"/>:</label>
+        <input type="text" name="phoneWork" class="digits" value="${person.phoneWork}"/>
+    </div>
+
+    <div class="person_fields">
+        <label for="email"><spring:message code="label_com_tajinsurance_domain_person_email"/>:</label>
+        <input type="text" name="email" class="email" value="${person.email}"/>
+    </div>
+
+    <div class="clearboth"></div>
+
+</div>
+
+
+<!--field:input id="c_com_tajinsurance_domain_Person_email" field="email"  /-->
+<!--field:input id="c_com_tajinsurance_domain_Person_surname" field="surname" />
+<field:input id="c_com_tajinsurance_domain_Person_name" field="name" />
+<field:input id="c_com_tajinsurance_domain_Person_middle" field="middle" /-->
+
+
+</form:update>
+</div>

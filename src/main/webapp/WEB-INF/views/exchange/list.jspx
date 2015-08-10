@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<div xmlns:jsp="http://java.sun.com/JSP/Page" xmlns:page="urn:jsptagdir:/WEB-INF/tags/form"
+     xmlns:table="urn:jsptagdir:/WEB-INF/tags/form/fields" xmlns:spring="http://www.springframework.org/tags"
+     xmlns:util="urn:jsptagdir:/WEB-INF/tags/util"
+     xmlns:c="http://java.sun.com/jsp/jstl/core"
+     xmlns:sec="http://www.springframework.org/security/tags" version="2.0">
+    <jsp:directive.page contentType="text/html;charset=UTF-8"/>
+    <jsp:output omit-xml-declaration="yes"/>
+
+    <spring:url value="/" var="prefix" />
+
+    <spring:message code="label_exchange_list_title" var="title" />
+
+
+
+
+    <util:panel id="exchange_list" title="${title}">
+
+        <div>
+            <form method="POST" action="">
+                <div class="field">
+                    <label for="course"><spring:message code="label_com_tajinsurance_domain_currencyexchange_course" /></label>
+                    <input type="text" name="course" class="floatdigits" />
+                </div>
+
+                <div class="field">
+                    <select name="currency">
+                        <c:forEach items="${currencies}" var="currency">
+                            <option value="${currency.id}">${currency}</option>
+                        </c:forEach>
+                    </select>
+                </div>
+
+                <div class="field">
+                    <spring:message code="ccr_add"  var="ccradd" />
+                    <input type="submit" value="${ccradd}"/>
+                </div>
+            </form>
+        </div>
+
+        <table:table update="false" show="false" delete="true" path="/exchange" id="l_com_tajinsurance_domain_CurrencyExchange" data="${currencyExchangeList}" operationsSet="partners">
+            <table:column id="label_com_tajinsurance_domain_catcontract_currency" property="currency" />
+            <table:column id="label_com_tajinsurance_domain_currencyexchange_course" property="course" />
+            <table:column id="label_com_tajinsurance_domain_currencyexchange_date" property="date" />
+        </table:table>
+    </util:panel>
+
+
+
+</div>
